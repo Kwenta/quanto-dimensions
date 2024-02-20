@@ -14,12 +14,92 @@ function add(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (USDPerBaseU
     result = wrap(x.unwrap() + y.unwrap());
 }
 
+/// @notice Implements the checked subtraction operation (-) in the USDPerBaseUint256 type.
+function sub(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (USDPerBaseUint256 result) {
+    result = wrap(x.unwrap() - y.unwrap());
+}
+
+/// @notice Implements the AND (&) bitwise operation in the USDPerBaseUint256 type.
+function and(USDPerBaseUint256 x, uint256 bits) pure returns (USDPerBaseUint256 result) {
+    result = wrap(x.unwrap() & bits);
+}
+
+/// @notice Implements the AND (&) bitwise operation in the USDPerBaseUint256 type.
+function and2(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (USDPerBaseUint256 result) {
+    result = wrap(x.unwrap() & y.unwrap());
+}
+
+/// @notice Implements the equality operation (==) in the USDPerBaseUint256 type.
+function eq(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (bool) {
+    return x.unwrap() == y.unwrap();
+}
+
+/// @notice Implements the greater than operation (>) in the USDPerBaseUint256 type.
+function gt(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (bool) {
+    return x.unwrap() > y.unwrap();
+}
+
+/// @notice Implements the greater than or equal to operation (>=) in the USDPerBaseUint256 type.
+function gte(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (bool) {
+    return x.unwrap() >= y.unwrap();
+}
+
+/// @notice Implements the less than operation (<) in the USDPerBaseUint256 type.
+function lt(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (bool) {
+    return x.unwrap() < y.unwrap();
+}
+
+/// @notice Implements the less than or equal to operation (<=) in the USDPerBaseUint256 type.
+function lte(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (bool) {
+    return x.unwrap() <= y.unwrap();
+}
+
+/// @notice Implements the modulus operation (%) in the USDPerBaseUint256 type.
+function mod(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (USDPerBaseUint256 result) {
+    result = wrap(x.unwrap() % y.unwrap());
+}
+
+/// @notice Implements the not equal operation (!=) in the USDPerBaseUint256 type.
+function neq(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (bool) {
+    return x.unwrap() != y.unwrap();
+}
+
+/// @notice Implements the NOT (~) bitwise operation in the USDPerBaseUint256 type.
+function not(USDPerBaseUint256 x) pure returns (USDPerBaseUint256 result) {
+    result = wrap(~x.unwrap());
+}
+
+/// @notice Implements the OR (|) bitwise operation in the USDPerBaseUint256 type.
+function or(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (USDPerBaseUint256 result) {
+    result = wrap(x.unwrap() | y.unwrap());
+}
+
+/// @notice Implements the XOR (^) bitwise operation in the USDPerBaseUint256 type.
+function xor(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (USDPerBaseUint256 result) {
+    result = wrap(x.unwrap() ^ y.unwrap());
+}
+
 /// @notice Implements the checked addition operation (+1) in the USDPerBaseUint256 type.
 function increment(USDPerBaseUint256 x) pure returns (USDPerBaseUint256 result) {
     result = x + wrap(1);
 }
 
+/// @notice Implements the checked multiplication operation (*) in the USDPerBaseUint256 type.
+function mul(USDPerBaseUint256 x, uint256 y) pure returns (USDPerBaseUint256 result) {
+    result = wrap(x.unwrap() * y);
+}
+
+/// @notice Multiplies usd/base and dimensionless to get use/base
+function mulDecimal(USDPerBaseUint256 x, uint256 y) pure returns (USDPerBaseUint256 result) {
+    result = wrap(x.unwrap().mulDecimal(y));
+}
+
 /// @notice Multiplies usd/base and base to get usd
-function mulDecimal(USDPerBaseUint256 x, BaseUint256 y) pure returns (USDUint256 result) {
+function mulDecimalToUSD(USDPerBaseUint256 x, BaseUint256 y) pure returns (USDUint256 result) {
     result = USDUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
+}
+
+/// @notice Implements the checked division operation (/) in the USDPerBaseUint256 type.
+function div(USDPerBaseUint256 x, uint256 y) pure returns (USDPerBaseUint256 result) {
+    result = wrap(x.unwrap() / y);
 }
