@@ -31,11 +31,11 @@ contract UnitTypesTest is Test {
         }
     }
 
-    // function testBaseQuantoPerUSDUint256Increment() public {
-    //     BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(100);
-    //     BaseQuantoPerUSDUint256 result = x.increment();
-    //     assertEq(result.unwrap(), 101);
-    // }
+    function testBaseQuantoPerUSDUint256Increment() public {
+        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(100);
+        BaseQuantoPerUSDUint256 result = x.increment();
+        assertEq(result.unwrap(), 101);
+    }
 
     // function testBaseQuantoPerUSDUint256IncrementFuzz(uint256 x) public {
     //     BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDUint256.wrap(x).increment();
