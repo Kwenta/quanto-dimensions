@@ -96,7 +96,7 @@ function mulDecimal(QuantoUint256 x, uint256 y) pure returns (QuantoUint256 resu
     result = wrap(x.unwrap().mulDecimal(y));
 }
 
-/// @notice Multiplies quanto/usd and usd/quanto to get usd
+/// @notice Multiplies quanto and usd/quanto to get usd
 function mulDecimalToUSD(QuantoUint256 x, USDPerQuantoUint256 y) pure returns (USDUint256 result) {
     result = USDUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
 }

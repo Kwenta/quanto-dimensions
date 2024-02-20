@@ -94,7 +94,7 @@ function mulDecimal(BaseUint256 x, uint256 y) pure returns (BaseUint256 result) 
     result = wrap(x.unwrap().mulDecimal(y));
 }
 
-/// @notice Multiplies base * (usd/base) and usd/base to get usd
+/// @notice Multiplies base and usd/base to get usd
 function mulDecimalToUSD(BaseUint256 x, USDPerBaseUint256 y) pure returns (USDUint256 result) {
     result = USDUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
 }
