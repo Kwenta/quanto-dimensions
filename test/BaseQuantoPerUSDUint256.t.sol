@@ -52,6 +52,29 @@ contract BaseQuantoPerUSDUint256Test is Test {
         }
     }
 
+    function testBaseQuantoPerUSDUint256Mul() public {
+        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(100);
+        uint256 y = 200;
+        BaseQuantoPerUSDUint256 result = x.mul(y);
+        assertEq(result.unwrap(), 20000);
+    }
+
+    function testBaseQuantoPerUSDUint256MulFuzz(uint256 x, uint256 y) public {
+        uint z;
+        assembly {
+            z := mul(x, y)
+        }
+        if ((x != 0 && y != 0) && (z / y != x || z / x != y)) {
+            vm.expectRevert();
+            BaseQuantoPerUSDUint256.wrap(x).mul(y);
+        } else {
+            BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDUint256
+                .wrap(x)
+                .mul(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
     function testBaseQuantoPerUSDUint256MulDecimalToQuanto() public {
         BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(100 ether);
         USDPerBaseUint256 y = USDPerBaseUint256.wrap(200 ether);
@@ -122,25 +145,25 @@ contract BaseQuantoPerUSDUint256Test is Test {
         }
     }
 
-    function testBaseQuantoPerUSDUint256Mul() public {
-        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(100);
-        uint256 y = 200;
-        BaseQuantoPerUSDUint256 result = x.mul(y);
-        assertEq(result.unwrap(), 20000);
+    function testBaseQuantoPerUSDUint256Div() public {
+        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(500);
+        uint256 y = 2;
+        BaseQuantoPerUSDUint256 result = x.div(y);
+        assertEq(result.unwrap(), 250);
     }
 
-    function testBaseQuantoPerUSDUint256MulFuzz(uint256 x, uint256 y) public {
+    function testBaseQuantoPerUSDUint256DivFuzz(uint256 x, uint256 y) public {
         uint z;
         assembly {
-            z := mul(x, y)
+            z := div(x, y)
         }
-        if ((x != 0 && y != 0) && (z / y != x || z / x != y)) {
+        if (y == 0) {
             vm.expectRevert();
-            BaseQuantoPerUSDUint256.wrap(x).mul(y);
+            BaseQuantoPerUSDUint256.wrap(x).div(y);
         } else {
             BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDUint256
                 .wrap(x)
-                .mul(y);
+                .div(y);
             assertEq(result.unwrap(), z);
         }
     }
