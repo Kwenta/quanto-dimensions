@@ -37,8 +37,19 @@ contract UnitTypesTest is Test {
         assertEq(result.unwrap(), 101);
     }
 
-    // function testBaseQuantoPerUSDUint256IncrementFuzz(uint256 x) public {
-    //     BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDUint256.wrap(x).increment();
-    //     assertEq(result.unwrap(), x + 1);
-    // }
+    function testBaseQuantoPerUSDUint256IncrementFuzz(uint256 x) public {
+        uint z;
+        assembly {
+            z := add(x, 1)
+        }
+        if (z < x) {
+            vm.expectRevert();
+            BaseQuantoPerUSDUint256.wrap(x).increment();
+        } else {
+            BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDUint256
+                .wrap(x)
+                .increment();
+            assertEq(result.unwrap(), x + 1);
+        }
+    }
 }
