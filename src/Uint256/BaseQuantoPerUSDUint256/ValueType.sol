@@ -33,5 +33,6 @@ using {
 
 // The global "using for" directive makes it possible to use these operators on the BaseQuantoPerUSDUint256 type.
 using {
-   Helpers.add as +
+   Helpers.add as +,
+   Helpers.sub as -
 } for BaseQuantoPerUSDUint256 global;

@@ -17,6 +17,11 @@ function add(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns 
     result = wrap(x.unwrap() + y.unwrap());
 }
 
+/// @notice Implements the checked subtraction operation (-) in the BaseQuantoPerUSDUint256 type.
+function sub(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns (BaseQuantoPerUSDUint256 result) {
+    result = wrap(x.unwrap() - y.unwrap());
+}
+
 /// @notice Implements the checked addition operation (+1) in the BaseQuantoPerUSDUint256 type.
 function increment(BaseQuantoPerUSDUint256 x) pure returns (BaseQuantoPerUSDUint256 result) {
     result = x + wrap(1);
