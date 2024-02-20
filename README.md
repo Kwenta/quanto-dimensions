@@ -1,4 +1,4 @@
-# foundry-scaffold
+# Quanto Dimensions
 
 [![Github Actions][gha-badge]][gha] 
 [![Foundry][foundry-badge]][foundry] 
