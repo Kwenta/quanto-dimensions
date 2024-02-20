@@ -20,6 +20,7 @@ using {
     Helpers.and,
     Helpers.increment,
     Helpers.mul,
+    Helpers.mulDecimal,
     Helpers.mulDecimalToQuanto,
     Helpers.mulDecimalToBase,
     Helpers.div
