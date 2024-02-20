@@ -3,7 +3,9 @@ pragma solidity >=0.8.19;
 
 import "./Casting.sol";
 import { USDPerBaseUint256 } from "./ValueType.sol";
+import { BaseQuantoPerUSDUint256 } from "../BaseQuantoPerUSDUint256/ValueType.sol";
 import { BaseUint256 } from "../BaseUint256/ValueType.sol";
+import { QuantoUint256 } from "../QuantoUint256/ValueType.sol";
 import { USDUint256 } from "../USDUint256/ValueType.sol";
 import { DecimalMath } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/DecimalMath.sol";
 
@@ -97,6 +99,11 @@ function mulDecimal(USDPerBaseUint256 x, uint256 y) pure returns (USDPerBaseUint
 /// @notice Multiplies usd/base and base to get usd
 function mulDecimalToUSD(USDPerBaseUint256 x, BaseUint256 y) pure returns (USDUint256 result) {
     result = USDUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
+}
+
+/// @notice Multiplies usd/base and (base*quanto)/usd to get quanto
+function mulDecimalToQuanto(USDPerBaseUint256 x, BaseQuantoPerUSDUint256 y) pure returns (QuantoUint256 result) {
+    result = QuantoUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
 }
 
 /// @notice Implements the checked division operation (/) in the USDPerBaseUint256 type.

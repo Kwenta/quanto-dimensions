@@ -25,6 +25,7 @@ using {
     Helpers.mul,
     Helpers.mulDecimal,
     Helpers.mulDecimalToUSD,
+    Helpers.mulDecimalToQuanto,
     Helpers.div
 } for USDPerBaseUint256 global;
 
