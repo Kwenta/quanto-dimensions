@@ -61,6 +61,20 @@ contract BaseQuantoPerUSDUint256Test is Test {
         assertEq(result.unwrap(), z);
     }
 
+    function testBaseQuantoPerUSDUint256And2() public {
+        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(10); // 1010 in binary
+        BaseQuantoPerUSDUint256 y = BaseQuantoPerUSDUint256.wrap(12); // 1100 in binary
+        BaseQuantoPerUSDUint256 result = x & y;
+        assertEq(result.unwrap(), 8); // 1000 in binary
+    }
+
+    function testBaseQuantoPerUSDUint256And2Fuzz(uint256 x, uint256 y) public {
+        uint z = x & y;
+        BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDUint256.wrap(x) &
+            BaseQuantoPerUSDUint256.wrap(y);
+        assertEq(result.unwrap(), z);
+    }
+
     function testBaseQuantoPerUSDUint256Increment() public {
         BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(100);
         BaseQuantoPerUSDUint256 result = x.increment();
