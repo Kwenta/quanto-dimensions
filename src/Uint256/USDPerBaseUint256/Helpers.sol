@@ -89,7 +89,7 @@ function mul(USDPerBaseUint256 x, uint256 y) pure returns (USDPerBaseUint256 res
     result = wrap(x.unwrap() * y);
 }
 
-/// @notice Multiplies usd/base and dimensionless to get use/base
+/// @notice Multiplies usd/base and dimensionless to get usd/base
 function mulDecimal(USDPerBaseUint256 x, uint256 y) pure returns (USDPerBaseUint256 result) {
     result = wrap(x.unwrap().mulDecimal(y));
 }
