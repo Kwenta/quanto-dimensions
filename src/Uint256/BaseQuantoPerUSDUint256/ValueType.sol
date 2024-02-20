@@ -38,5 +38,7 @@ using {
     Helpers.gt as >,
     Helpers.gte as >=,
     Helpers.lt as <,
-    Helpers.lte as <=
+    Helpers.lte as <=,
+    Helpers.mod as %,
+    Helpers.neq as !=
 } for BaseQuantoPerUSDUint256 global;

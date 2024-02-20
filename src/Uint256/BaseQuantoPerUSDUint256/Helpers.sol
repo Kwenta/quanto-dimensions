@@ -57,6 +57,17 @@ function lte(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns 
     return x.unwrap() <= y.unwrap();
 }
 
+/// @notice Implements the modulus operation (%) in the BaseQuantoPerUSDUint256 type.
+function mod(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns (BaseQuantoPerUSDUint256 result) {
+    result = wrap(x.unwrap() % y.unwrap());
+}
+
+/// @notice Implements the not equal operation (!=) in the BaseQuantoPerUSDUint256 type.
+function neq(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns (bool) {
+    return x.unwrap() != y.unwrap();
+}
+
+
 /// @notice Implements the checked addition operation (+1) in the BaseQuantoPerUSDUint256 type.
 function increment(BaseQuantoPerUSDUint256 x) pure returns (BaseQuantoPerUSDUint256 result) {
     result = x + wrap(1);
