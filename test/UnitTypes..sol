@@ -86,4 +86,39 @@ contract UnitTypesTest is Test {
             assertEq(result.unwrap(), z);
         }
     }
+
+    function testBaseQuantoPerUSDUint256MulDecimalToBase() public {
+        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(100 ether);
+        USDPerQuantoUint256 y = USDPerQuantoUint256.wrap(200 ether);
+        BaseUint256 result = x.mulDecimalToBase(y);
+        assertEq(result.unwrap(), 20000 ether);
+    }
+
+    function testBaseQuantoPerUSDUint256MulDecimalToBaseFuzz(
+        uint256 x,
+        uint256 y
+    ) public {
+        uint z;
+        assembly {
+            z := div(
+                mul(x, y),
+                // 1 ether
+                0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+            )
+        }
+        if (
+            (x != 0 && y != 0) &&
+            (z / y != (x / 1 ether) || z / x != (y / 1 ether))
+        ) {
+            vm.expectRevert();
+            BaseQuantoPerUSDUint256.wrap(x * 1 ether).mulDecimalToBase(
+                USDPerQuantoUint256.wrap(y * 1 ether)
+            );
+        } else {
+            BaseUint256 result = BaseQuantoPerUSDUint256
+                .wrap(x)
+                .mulDecimalToBase(USDPerQuantoUint256.wrap(y));
+            assertEq(result.unwrap(), z);
+        }
+    }
 }
