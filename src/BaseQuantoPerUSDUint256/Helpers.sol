@@ -23,7 +23,7 @@ function increment(BaseQuantoPerUSDUint256 x) pure returns (BaseQuantoPerUSDUint
 }
 
 /// @notice Multiplies (base * quanto)/usd and usd/base to get quanto
-function mulDecimal(BaseQuantoPerUSDUint256 x, USDPerBaseUint256 y) pure returns (QuantoUint256 result) {
+function mulDecimalToQuanto(BaseQuantoPerUSDUint256 x, USDPerBaseUint256 y) pure returns (QuantoUint256 result) {
     result = QuantoUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
 }
 
