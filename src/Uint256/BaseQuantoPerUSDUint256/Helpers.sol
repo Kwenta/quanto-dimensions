@@ -47,6 +47,16 @@ function gte(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns 
     return x.unwrap() >= y.unwrap();
 }
 
+/// @notice Implements the less than operation (<) in the BaseQuantoPerUSDUint256 type.
+function lt(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns (bool) {
+    return x.unwrap() < y.unwrap();
+}
+
+/// @notice Implements the less than or equal to operation (<=) in the BaseQuantoPerUSDUint256 type.
+function lte(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns (bool) {
+    return x.unwrap() <= y.unwrap();
+}
+
 /// @notice Implements the checked addition operation (+1) in the BaseQuantoPerUSDUint256 type.
 function increment(BaseQuantoPerUSDUint256 x) pure returns (BaseQuantoPerUSDUint256 result) {
     result = x + wrap(1);
