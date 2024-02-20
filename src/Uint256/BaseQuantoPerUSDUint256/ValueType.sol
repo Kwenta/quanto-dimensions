@@ -10,16 +10,14 @@ type BaseQuantoPerUSDUint256 is uint256;
                             CASTING
 //////////////////////////////////////////////////////////////*/
 
-using {
-    Casting.unwrap
-} for BaseQuantoPerUSDUint256 global;
-
+using {Casting.unwrap} for BaseQuantoPerUSDUint256 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS
 //////////////////////////////////////////////////////////////*/
 
 using {
+    Helpers.and,
     Helpers.increment,
     Helpers.mul,
     Helpers.mulDecimalToQuanto,
@@ -33,6 +31,7 @@ using {
 
 // The global "using for" directive makes it possible to use these operators on the BaseQuantoPerUSDUint256 type.
 using {
-   Helpers.add as +,
-   Helpers.sub as -
+    Helpers.add as +,
+    Helpers.and2 as &,
+    Helpers.sub as -
 } for BaseQuantoPerUSDUint256 global;
