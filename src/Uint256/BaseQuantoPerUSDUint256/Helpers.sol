@@ -32,6 +32,11 @@ function and2(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns
     result = wrap(x.unwrap() & y.unwrap());
 }
 
+/// @notice Implements the equality operation (==) in the BaseQuantoPerUSDUint256 type.
+function eq(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns (bool) {
+    return x.unwrap() == y.unwrap();
+}
+
 /// @notice Implements the checked addition operation (+1) in the BaseQuantoPerUSDUint256 type.
 function increment(BaseQuantoPerUSDUint256 x) pure returns (BaseQuantoPerUSDUint256 result) {
     result = x + wrap(1);
