@@ -155,6 +155,41 @@ contract BaseQuantoPerUSDUint256Test is Test {
         assertEq(result, z);
     }
 
+    function testBaseQuantoPerUSDUint256Mod() public {
+        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(100);
+        BaseQuantoPerUSDUint256 y = BaseQuantoPerUSDUint256.wrap(30);
+        BaseQuantoPerUSDUint256 result = x % y;
+        assertEq(result.unwrap(), 10);
+    }
+
+    function testBaseQuantoPerUSDUint256ModFuzz(uint256 x, uint256 y) public {
+        if (y == 0) {
+            vm.expectRevert();
+            BaseQuantoPerUSDUint256.wrap(x) % BaseQuantoPerUSDUint256.wrap(y);
+        } else {
+            uint z = x % y;
+            BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDUint256.wrap(x) %
+                BaseQuantoPerUSDUint256.wrap(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testBaseQuantoPerUSDUint256Neq() public {
+        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(100);
+        BaseQuantoPerUSDUint256 y = BaseQuantoPerUSDUint256.wrap(100);
+        bool result = x != y;
+        assertFalse(result);
+        result = x != BaseQuantoPerUSDUint256.wrap(101);
+        assertTrue(result);
+    }
+
+    function testBaseQuantoPerUSDUint256NeqFuzz(uint256 x, uint256 y) public {
+        bool z = x != y;
+        bool result = BaseQuantoPerUSDUint256.wrap(x) !=
+            BaseQuantoPerUSDUint256.wrap(y);
+        assertEq(result, z);
+    }
+
     function testBaseQuantoPerUSDUint256Increment() public {
         BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(100);
         BaseQuantoPerUSDUint256 result = x.increment();
