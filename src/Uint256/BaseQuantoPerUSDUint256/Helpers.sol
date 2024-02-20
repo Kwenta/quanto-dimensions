@@ -92,7 +92,7 @@ function mul(BaseQuantoPerUSDUint256 x, uint256 y) pure returns (BaseQuantoPerUS
     result = wrap(x.unwrap() * y);
 }
 
-/// @notice Multiplies base and usd/base to get usd
+/// @notice Multiplies (base * quanto)/usd and dimensionless to get (base * quanto)/usd
 function mulDecimal(BaseQuantoPerUSDUint256 x, uint256 y) pure returns (BaseQuantoPerUSDUint256 result) {
     result = wrap(x.unwrap().mulDecimal(y));
 }
@@ -102,7 +102,7 @@ function mulDecimalToQuanto(BaseQuantoPerUSDUint256 x, USDPerBaseUint256 y) pure
     result = QuantoUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
 }
 
-/// @notice Multiplies (base * quanto)/usd and usd/base to get quanto
+/// @notice Multiplies (base * quanto)/usd and usd/quanto to get base
 function mulDecimalToBase(BaseQuantoPerUSDUint256 x, USDPerQuantoUint256 y) pure returns (BaseUint256 result) {
     result = BaseUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
 }
