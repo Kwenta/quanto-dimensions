@@ -190,6 +190,45 @@ contract BaseQuantoPerUSDUint256Test is Test {
         assertEq(result, z);
     }
 
+    function testBaseQuantoPerUSDUint256Not() public {
+        uint hundred = 100;
+        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(hundred);
+        BaseQuantoPerUSDUint256 result = ~x;
+        uint256 expected = ~hundred;
+        assertEq(result.unwrap(), expected);
+    }
+
+    function testBaseQuantoPerUSDUint256NotFuzz(uint256 x) public {
+        BaseQuantoPerUSDUint256 result = ~BaseQuantoPerUSDUint256.wrap(x);
+        assertEq(result.unwrap(), ~x);
+    }
+
+    function testBaseQuantoPerUSDUint256Or() public {
+        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(100);
+        BaseQuantoPerUSDUint256 y = BaseQuantoPerUSDUint256.wrap(200);
+        BaseQuantoPerUSDUint256 result = x | y;
+        assertEq(result.unwrap(), 100 | 200);
+    }
+
+    function testBaseQuantoPerUSDUint256OrFuzz(uint256 x, uint256 y) public {
+        BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDUint256.wrap(x) |
+            BaseQuantoPerUSDUint256.wrap(y);
+        assertEq(result.unwrap(), x | y);
+    }
+
+    function testBaseQuantoPerUSDUint256Xor() public {
+        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(100);
+        BaseQuantoPerUSDUint256 y = BaseQuantoPerUSDUint256.wrap(200);
+        BaseQuantoPerUSDUint256 result = x ^ y;
+        assertEq(result.unwrap(), 100 ^ 200);
+    }
+
+    function testBaseQuantoPerUSDUint256XorFuzz(uint256 x, uint256 y) public {
+        BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDUint256.wrap(x) ^
+            BaseQuantoPerUSDUint256.wrap(y);
+        assertEq(result.unwrap(), x ^ y);
+    }
+
     function testBaseQuantoPerUSDUint256Increment() public {
         BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(100);
         BaseQuantoPerUSDUint256 result = x.increment();
