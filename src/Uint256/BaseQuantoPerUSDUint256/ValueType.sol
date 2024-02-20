@@ -35,5 +35,6 @@ using {
     Helpers.and2 as &,
     Helpers.sub as -,
     Helpers.eq as ==,
-    Helpers.gt as >
+    Helpers.gt as >,
+    Helpers.gte as >=
 } for BaseQuantoPerUSDUint256 global;
