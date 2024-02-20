@@ -21,9 +21,10 @@ using {
 
 using {
     Helpers.increment,
+    Helpers.mul,
     Helpers.mulDecimalToQuanto,
     Helpers.mulDecimalToBase,
-    Helpers.mul
+    Helpers.div
 } for BaseQuantoPerUSDUint256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

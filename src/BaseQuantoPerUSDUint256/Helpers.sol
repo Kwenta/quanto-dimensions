@@ -22,6 +22,7 @@ function increment(BaseQuantoPerUSDUint256 x) pure returns (BaseQuantoPerUSDUint
     result = x + wrap(1);
 }
 
+/// @notice Implements the checked multiplication operation (*) in the BaseQuantoPerUSDUint256 type.
 function mul(BaseQuantoPerUSDUint256 x, uint256 y) pure returns (BaseQuantoPerUSDUint256 result) {
     result = wrap(x.unwrap() * y);
 }
@@ -34,4 +35,9 @@ function mulDecimalToQuanto(BaseQuantoPerUSDUint256 x, USDPerBaseUint256 y) pure
 /// @notice Multiplies (base * quanto)/usd and usd/base to get quanto
 function mulDecimalToBase(BaseQuantoPerUSDUint256 x, USDPerQuantoUint256 y) pure returns (BaseUint256 result) {
     result = BaseUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
+}
+
+/// @notice Implements the checked division operation (/) in the BaseQuantoPerUSDUint256 type.
+function div(BaseQuantoPerUSDUint256 x, uint256 y) pure returns (BaseQuantoPerUSDUint256 result) {
+    result = wrap(x.unwrap() / y);
 }
