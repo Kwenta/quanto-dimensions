@@ -37,6 +37,11 @@ function eq(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns (
     return x.unwrap() == y.unwrap();
 }
 
+/// @notice Implements the greater than operation (>) in the BaseQuantoPerUSDUint256 type.
+function gt(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns (bool) {
+    return x.unwrap() > y.unwrap();
+}
+
 /// @notice Implements the checked addition operation (+1) in the BaseQuantoPerUSDUint256 type.
 function increment(BaseQuantoPerUSDUint256 x) pure returns (BaseQuantoPerUSDUint256 result) {
     result = x + wrap(1);
