@@ -2,7 +2,7 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {BaseQuantoPerUSDUint256, BaseUint256, QuantoUint256, USDPerBaseUint256, USDPerQuantoUint256, USDUint256} from "../src/UnitTypes.sol";
+import {BaseQuantoPerUSDUint256, BaseUint256, QuantoUint256, USDPerBaseUint256, USDPerQuantoUint256, USDUint256} from "src/UnitTypes.sol";
 
 contract BaseQuantoPerUSDUint256Test is Test {
     function setUp() public {}
