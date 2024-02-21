@@ -42,8 +42,7 @@ contract BaseUint256Test is Test {
             vm.expectRevert();
             BaseUint256.wrap(x) - BaseUint256.wrap(y);
         } else {
-            BaseUint256 result = BaseUint256.wrap(x) -
-                BaseUint256.wrap(y);
+            BaseUint256 result = BaseUint256.wrap(x) - BaseUint256.wrap(y);
             assertEq(result.unwrap(), x - y);
         }
     }
@@ -70,8 +69,7 @@ contract BaseUint256Test is Test {
 
     function testBaseUint256And2Fuzz(uint256 x, uint256 y) public {
         uint z = x & y;
-        BaseUint256 result = BaseUint256.wrap(x) &
-            BaseUint256.wrap(y);
+        BaseUint256 result = BaseUint256.wrap(x) & BaseUint256.wrap(y);
         assertEq(result.unwrap(), z);
     }
 
@@ -86,8 +84,7 @@ contract BaseUint256Test is Test {
 
     function testBaseUint256EqFuzz(uint256 x, uint256 y) public {
         bool z = x == y;
-        bool result = BaseUint256.wrap(x) ==
-            BaseUint256.wrap(y);
+        bool result = BaseUint256.wrap(x) == BaseUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -102,8 +99,7 @@ contract BaseUint256Test is Test {
 
     function testBaseUint256GtFuzz(uint256 x, uint256 y) public {
         bool z = x > y;
-        bool result = BaseUint256.wrap(x) >
-            BaseUint256.wrap(y);
+        bool result = BaseUint256.wrap(x) > BaseUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -118,8 +114,7 @@ contract BaseUint256Test is Test {
 
     function testBaseUint256GteFuzz(uint256 x, uint256 y) public {
         bool z = x >= y;
-        bool result = BaseUint256.wrap(x) >=
-            BaseUint256.wrap(y);
+        bool result = BaseUint256.wrap(x) >= BaseUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -134,8 +129,7 @@ contract BaseUint256Test is Test {
 
     function testBaseUint256LtFuzz(uint256 x, uint256 y) public {
         bool z = x < y;
-        bool result = BaseUint256.wrap(x) <
-            BaseUint256.wrap(y);
+        bool result = BaseUint256.wrap(x) < BaseUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -150,8 +144,7 @@ contract BaseUint256Test is Test {
 
     function testBaseUint256LteFuzz(uint256 x, uint256 y) public {
         bool z = x <= y;
-        bool result = BaseUint256.wrap(x) <=
-            BaseUint256.wrap(y);
+        bool result = BaseUint256.wrap(x) <= BaseUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -168,8 +161,7 @@ contract BaseUint256Test is Test {
             BaseUint256.wrap(x) % BaseUint256.wrap(y);
         } else {
             uint z = x % y;
-            BaseUint256 result = BaseUint256.wrap(x) %
-                BaseUint256.wrap(y);
+            BaseUint256 result = BaseUint256.wrap(x) % BaseUint256.wrap(y);
             assertEq(result.unwrap(), z);
         }
     }
@@ -185,8 +177,7 @@ contract BaseUint256Test is Test {
 
     function testBaseUint256NeqFuzz(uint256 x, uint256 y) public {
         bool z = x != y;
-        bool result = BaseUint256.wrap(x) !=
-            BaseUint256.wrap(y);
+        bool result = BaseUint256.wrap(x) != BaseUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -211,8 +202,7 @@ contract BaseUint256Test is Test {
     }
 
     function testBaseUint256OrFuzz(uint256 x, uint256 y) public {
-        BaseUint256 result = BaseUint256.wrap(x) |
-            BaseUint256.wrap(y);
+        BaseUint256 result = BaseUint256.wrap(x) | BaseUint256.wrap(y);
         assertEq(result.unwrap(), x | y);
     }
 
@@ -224,8 +214,7 @@ contract BaseUint256Test is Test {
     }
 
     function testBaseUint256XorFuzz(uint256 x, uint256 y) public {
-        BaseUint256 result = BaseUint256.wrap(x) ^
-            BaseUint256.wrap(y);
+        BaseUint256 result = BaseUint256.wrap(x) ^ BaseUint256.wrap(y);
         assertEq(result.unwrap(), x ^ y);
     }
 
@@ -244,9 +233,7 @@ contract BaseUint256Test is Test {
             vm.expectRevert();
             BaseUint256.wrap(x).increment();
         } else {
-            BaseUint256 result = BaseUint256
-                .wrap(x)
-                .increment();
+            BaseUint256 result = BaseUint256.wrap(x).increment();
             assertEq(result.unwrap(), x + 1);
         }
     }
@@ -267,9 +254,7 @@ contract BaseUint256Test is Test {
             vm.expectRevert();
             BaseUint256.wrap(x).mul(y);
         } else {
-            BaseUint256 result = BaseUint256
-                .wrap(x)
-                .mul(y);
+            BaseUint256 result = BaseUint256.wrap(x).mul(y);
             assertEq(result.unwrap(), z);
         }
     }
@@ -281,10 +266,7 @@ contract BaseUint256Test is Test {
         assertEq(result.unwrap(), 20000 ether);
     }
 
-    function testBaseUint256MulDecimalFuzz(
-        uint256 x,
-        uint256 y
-    ) public {
+    function testBaseUint256MulDecimalFuzz(uint256 x, uint256 y) public {
         uint z;
         assembly {
             z := div(
@@ -300,9 +282,7 @@ contract BaseUint256Test is Test {
             vm.expectRevert();
             BaseUint256.wrap(x).mulDecimal(y);
         } else {
-            BaseUint256 result = BaseUint256
-                .wrap(x)
-                .mulDecimal(y);
+            BaseUint256 result = BaseUint256.wrap(x).mulDecimal(y);
             assertEq(result.unwrap(), z);
         }
     }
@@ -331,13 +311,11 @@ contract BaseUint256Test is Test {
             (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
-            BaseUint256.wrap(x).mulDecimalToUSD(
+            BaseUint256.wrap(x).mulDecimalToUSD(USDPerBaseUint256.wrap(y));
+        } else {
+            USDUint256 result = BaseUint256.wrap(x).mulDecimalToUSD(
                 USDPerBaseUint256.wrap(y)
             );
-        } else {
-            USDUint256 result = BaseUint256
-                .wrap(x)
-                .mulDecimalToUSD(USDPerBaseUint256.wrap(y));
             assertEq(result.unwrap(), z);
         }
     }
@@ -358,9 +336,7 @@ contract BaseUint256Test is Test {
             vm.expectRevert();
             BaseUint256.wrap(x).div(y);
         } else {
-            BaseUint256 result = BaseUint256
-                .wrap(x)
-                .div(y);
+            BaseUint256 result = BaseUint256.wrap(x).div(y);
             assertEq(result.unwrap(), z);
         }
     }
