@@ -10,10 +10,7 @@ type USDPerQuantoUint256 is uint256;
                             CASTING
 //////////////////////////////////////////////////////////////*/
 
-using {
-    Casting.unwrap
-} for USDPerQuantoUint256 global;
-
+using {Casting.unwrap, Casting.to128} for USDPerQuantoUint256 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

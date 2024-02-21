@@ -10,10 +10,7 @@ type USDUint256 is uint256;
                             CASTING
 //////////////////////////////////////////////////////////////*/
 
-using {
-    Casting.unwrap
-} for USDUint256 global;
-
+using {Casting.unwrap, Casting.to128} for USDUint256 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

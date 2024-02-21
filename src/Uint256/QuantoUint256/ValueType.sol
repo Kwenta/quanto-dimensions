@@ -10,10 +10,7 @@ type QuantoUint256 is uint256;
                             CASTING
 //////////////////////////////////////////////////////////////*/
 
-using {
-    Casting.unwrap
-} for QuantoUint256 global;
-
+using {Casting.unwrap, Casting.to128} for QuantoUint256 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS
