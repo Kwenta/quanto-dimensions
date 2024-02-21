@@ -42,8 +42,7 @@ contract USDUint256Test is Test {
             vm.expectRevert();
             USDUint256.wrap(x) - USDUint256.wrap(y);
         } else {
-            USDUint256 result = USDUint256.wrap(x) -
-                USDUint256.wrap(y);
+            USDUint256 result = USDUint256.wrap(x) - USDUint256.wrap(y);
             assertEq(result.unwrap(), x - y);
         }
     }
@@ -70,8 +69,7 @@ contract USDUint256Test is Test {
 
     function testUSDUint256And2Fuzz(uint256 x, uint256 y) public {
         uint z = x & y;
-        USDUint256 result = USDUint256.wrap(x) &
-            USDUint256.wrap(y);
+        USDUint256 result = USDUint256.wrap(x) & USDUint256.wrap(y);
         assertEq(result.unwrap(), z);
     }
 
@@ -86,8 +84,7 @@ contract USDUint256Test is Test {
 
     function testUSDUint256EqFuzz(uint256 x, uint256 y) public {
         bool z = x == y;
-        bool result = USDUint256.wrap(x) ==
-            USDUint256.wrap(y);
+        bool result = USDUint256.wrap(x) == USDUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -102,8 +99,7 @@ contract USDUint256Test is Test {
 
     function testUSDUint256GtFuzz(uint256 x, uint256 y) public {
         bool z = x > y;
-        bool result = USDUint256.wrap(x) >
-            USDUint256.wrap(y);
+        bool result = USDUint256.wrap(x) > USDUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -118,8 +114,7 @@ contract USDUint256Test is Test {
 
     function testUSDUint256GteFuzz(uint256 x, uint256 y) public {
         bool z = x >= y;
-        bool result = USDUint256.wrap(x) >=
-            USDUint256.wrap(y);
+        bool result = USDUint256.wrap(x) >= USDUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -134,8 +129,7 @@ contract USDUint256Test is Test {
 
     function testUSDUint256LtFuzz(uint256 x, uint256 y) public {
         bool z = x < y;
-        bool result = USDUint256.wrap(x) <
-            USDUint256.wrap(y);
+        bool result = USDUint256.wrap(x) < USDUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -150,8 +144,7 @@ contract USDUint256Test is Test {
 
     function testUSDUint256LteFuzz(uint256 x, uint256 y) public {
         bool z = x <= y;
-        bool result = USDUint256.wrap(x) <=
-            USDUint256.wrap(y);
+        bool result = USDUint256.wrap(x) <= USDUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -168,8 +161,7 @@ contract USDUint256Test is Test {
             USDUint256.wrap(x) % USDUint256.wrap(y);
         } else {
             uint z = x % y;
-            USDUint256 result = USDUint256.wrap(x) %
-                USDUint256.wrap(y);
+            USDUint256 result = USDUint256.wrap(x) % USDUint256.wrap(y);
             assertEq(result.unwrap(), z);
         }
     }
@@ -185,8 +177,7 @@ contract USDUint256Test is Test {
 
     function testUSDUint256NeqFuzz(uint256 x, uint256 y) public {
         bool z = x != y;
-        bool result = USDUint256.wrap(x) !=
-            USDUint256.wrap(y);
+        bool result = USDUint256.wrap(x) != USDUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -211,8 +202,7 @@ contract USDUint256Test is Test {
     }
 
     function testUSDUint256OrFuzz(uint256 x, uint256 y) public {
-        USDUint256 result = USDUint256.wrap(x) |
-            USDUint256.wrap(y);
+        USDUint256 result = USDUint256.wrap(x) | USDUint256.wrap(y);
         assertEq(result.unwrap(), x | y);
     }
 
@@ -224,8 +214,7 @@ contract USDUint256Test is Test {
     }
 
     function testUSDUint256XorFuzz(uint256 x, uint256 y) public {
-        USDUint256 result = USDUint256.wrap(x) ^
-            USDUint256.wrap(y);
+        USDUint256 result = USDUint256.wrap(x) ^ USDUint256.wrap(y);
         assertEq(result.unwrap(), x ^ y);
     }
 
@@ -244,9 +233,7 @@ contract USDUint256Test is Test {
             vm.expectRevert();
             USDUint256.wrap(x).increment();
         } else {
-            USDUint256 result = USDUint256
-                .wrap(x)
-                .increment();
+            USDUint256 result = USDUint256.wrap(x).increment();
             assertEq(result.unwrap(), x + 1);
         }
     }
@@ -267,9 +254,7 @@ contract USDUint256Test is Test {
             vm.expectRevert();
             USDUint256.wrap(x).mul(y);
         } else {
-            USDUint256 result = USDUint256
-                .wrap(x)
-                .mul(y);
+            USDUint256 result = USDUint256.wrap(x).mul(y);
             assertEq(result.unwrap(), z);
         }
     }
@@ -281,10 +266,7 @@ contract USDUint256Test is Test {
         assertEq(result.unwrap(), 20000 ether);
     }
 
-    function testUSDUint256MulDecimalFuzz(
-        uint256 x,
-        uint256 y
-    ) public {
+    function testUSDUint256MulDecimalFuzz(uint256 x, uint256 y) public {
         uint z;
         assembly {
             z := div(
@@ -300,9 +282,7 @@ contract USDUint256Test is Test {
             vm.expectRevert();
             USDUint256.wrap(x).mulDecimal(y);
         } else {
-            USDUint256 result = USDUint256
-                .wrap(x)
-                .mulDecimal(y);
+            USDUint256 result = USDUint256.wrap(x).mulDecimal(y);
             assertEq(result.unwrap(), z);
         }
     }
@@ -323,9 +303,7 @@ contract USDUint256Test is Test {
             vm.expectRevert();
             USDUint256.wrap(x).div(y);
         } else {
-            USDUint256 result = USDUint256
-                .wrap(x)
-                .div(y);
+            USDUint256 result = USDUint256.wrap(x).div(y);
             assertEq(result.unwrap(), z);
         }
     }
