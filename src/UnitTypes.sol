@@ -2,6 +2,17 @@
 pragma solidity >=0.8.19;
 
 /*//////////////////////////////////////////////////////////////
+                                INT256
+//////////////////////////////////////////////////////////////*/
+
+import {BaseInt256} from "./Int256/BaseInt256/ValueType.sol";
+import {BaseQuantoPerUSDInt256} from "./Int256/BaseQuantoPerUSDInt256/ValueType.sol";
+import {QuantoInt256} from "./Int256/QuantoInt256/ValueType.sol";
+import {USDPerBaseInt256} from "./Int256/USDPerBaseInt256/ValueType.sol";
+import {USDPerQuantoInt256} from "./Int256/USDPerQuantoInt256/ValueType.sol";
+import {USDInt256} from "./Int256/USDInt256/ValueType.sol";
+
+/*//////////////////////////////////////////////////////////////
                             UINT128
 //////////////////////////////////////////////////////////////*/
 
