@@ -15,7 +15,7 @@ contract USDPerBaseUint256Test is Test {
     }
 
     function testUSDPerBaseUint256AddFuzz(uint256 x, uint256 y) public {
-        uint z;
+        uint256 z;
         assembly {
             z := add(x, y)
         }
@@ -56,7 +56,7 @@ contract USDPerBaseUint256Test is Test {
     }
 
     function testUSDPerBaseUint256AndFuzz(uint256 x, uint256 y) public {
-        uint z = x & y;
+        uint256 z = x & y;
         USDPerBaseUint256 result = USDPerBaseUint256.wrap(x).and(y);
         assertEq(result.unwrap(), z);
     }
@@ -69,7 +69,7 @@ contract USDPerBaseUint256Test is Test {
     }
 
     function testUSDPerBaseUint256And2Fuzz(uint256 x, uint256 y) public {
-        uint z = x & y;
+        uint256 z = x & y;
         USDPerBaseUint256 result = USDPerBaseUint256.wrap(x) &
             USDPerBaseUint256.wrap(y);
         assertEq(result.unwrap(), z);
@@ -162,7 +162,7 @@ contract USDPerBaseUint256Test is Test {
             vm.expectRevert();
             USDPerBaseUint256.wrap(x) % USDPerBaseUint256.wrap(y);
         } else {
-            uint z = x % y;
+            uint256 z = x % y;
             USDPerBaseUint256 result = USDPerBaseUint256.wrap(x) %
                 USDPerBaseUint256.wrap(y);
             assertEq(result.unwrap(), z);
@@ -185,7 +185,7 @@ contract USDPerBaseUint256Test is Test {
     }
 
     function testUSDPerBaseUint256Not() public {
-        uint hundred = 100;
+        uint256 hundred = 100;
         USDPerBaseUint256 x = USDPerBaseUint256.wrap(hundred);
         USDPerBaseUint256 result = ~x;
         uint256 expected = ~hundred;
@@ -230,7 +230,7 @@ contract USDPerBaseUint256Test is Test {
     }
 
     function testUSDPerBaseUint256IncrementFuzz(uint256 x) public {
-        uint z;
+        uint256 z;
         assembly {
             z := add(x, 1)
         }
@@ -251,7 +251,7 @@ contract USDPerBaseUint256Test is Test {
     }
 
     function testUSDPerBaseUint256MulFuzz(uint256 x, uint256 y) public {
-        uint z;
+        uint256 z;
         assembly {
             z := mul(x, y)
         }
@@ -272,7 +272,7 @@ contract USDPerBaseUint256Test is Test {
     }
 
     function testUSDPerBaseUint256MulDecimalFuzz(uint256 x, uint256 y) public {
-        uint z;
+        uint256 z;
         assembly {
             z := div(
                 mul(x, y),
@@ -303,7 +303,7 @@ contract USDPerBaseUint256Test is Test {
         uint256 x,
         uint256 y
     ) public {
-        uint z;
+        uint256 z;
         assembly {
             z := div(
                 mul(x, y),
@@ -336,7 +336,7 @@ contract USDPerBaseUint256Test is Test {
         uint256 x,
         uint256 y
     ) public {
-        uint z;
+        uint256 z;
         assembly {
             z := div(
                 mul(x, y),
@@ -368,7 +368,7 @@ contract USDPerBaseUint256Test is Test {
     }
 
     function testUSDPerBaseUint256DivFuzz(uint256 x, uint256 y) public {
-        uint z;
+        uint256 z;
         assembly {
             z := div(x, y)
         }

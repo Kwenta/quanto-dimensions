@@ -15,7 +15,7 @@ contract USDUint256Test is Test {
     }
 
     function testUSDUint256AddFuzz(uint256 x, uint256 y) public {
-        uint z;
+        uint256 z;
         assembly {
             z := add(x, y)
         }
@@ -55,7 +55,7 @@ contract USDUint256Test is Test {
     }
 
     function testUSDUint256AndFuzz(uint256 x, uint256 y) public {
-        uint z = x & y;
+        uint256 z = x & y;
         USDUint256 result = USDUint256.wrap(x).and(y);
         assertEq(result.unwrap(), z);
     }
@@ -68,7 +68,7 @@ contract USDUint256Test is Test {
     }
 
     function testUSDUint256And2Fuzz(uint256 x, uint256 y) public {
-        uint z = x & y;
+        uint256 z = x & y;
         USDUint256 result = USDUint256.wrap(x) & USDUint256.wrap(y);
         assertEq(result.unwrap(), z);
     }
@@ -160,7 +160,7 @@ contract USDUint256Test is Test {
             vm.expectRevert();
             USDUint256.wrap(x) % USDUint256.wrap(y);
         } else {
-            uint z = x % y;
+            uint256 z = x % y;
             USDUint256 result = USDUint256.wrap(x) % USDUint256.wrap(y);
             assertEq(result.unwrap(), z);
         }
@@ -182,7 +182,7 @@ contract USDUint256Test is Test {
     }
 
     function testUSDUint256Not() public {
-        uint hundred = 100;
+        uint256 hundred = 100;
         USDUint256 x = USDUint256.wrap(hundred);
         USDUint256 result = ~x;
         uint256 expected = ~hundred;
@@ -225,7 +225,7 @@ contract USDUint256Test is Test {
     }
 
     function testUSDUint256IncrementFuzz(uint256 x) public {
-        uint z;
+        uint256 z;
         assembly {
             z := add(x, 1)
         }
@@ -246,7 +246,7 @@ contract USDUint256Test is Test {
     }
 
     function testUSDUint256MulFuzz(uint256 x, uint256 y) public {
-        uint z;
+        uint256 z;
         assembly {
             z := mul(x, y)
         }
@@ -267,7 +267,7 @@ contract USDUint256Test is Test {
     }
 
     function testUSDUint256MulDecimalFuzz(uint256 x, uint256 y) public {
-        uint z;
+        uint256 z;
         assembly {
             z := div(
                 mul(x, y),
@@ -295,7 +295,7 @@ contract USDUint256Test is Test {
     }
 
     function testUSDUint256DivFuzz(uint256 x, uint256 y) public {
-        uint z;
+        uint256 z;
         assembly {
             z := div(x, y)
         }
