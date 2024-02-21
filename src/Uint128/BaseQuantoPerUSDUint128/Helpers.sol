@@ -9,8 +9,10 @@ import { BaseUint128 } from "../BaseUint128/ValueType.sol";
 import { QuantoUint128 } from "../QuantoUint128/ValueType.sol";
 import { USDUint128 } from "../USDUint128/ValueType.sol";
 import { DecimalMath } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/DecimalMath.sol";
+import { SafeCastU256 } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
 
 using DecimalMath for uint128;
+using SafeCastU256 for uint256;
 
 /// @notice Implements the checked addition operation (+) in the BaseQuantoPerUSDUint128 type.
 function add(BaseQuantoPerUSDUint128 x, BaseQuantoPerUSDUint128 y) pure returns (BaseQuantoPerUSDUint128 result) {
@@ -94,17 +96,17 @@ function mul(BaseQuantoPerUSDUint128 x, uint128 y) pure returns (BaseQuantoPerUS
 
 /// @notice Multiplies (base * quanto)/usd and dimensionless to get (base * quanto)/usd
 function mulDecimal(BaseQuantoPerUSDUint128 x, uint128 y) pure returns (BaseQuantoPerUSDUint128 result) {
-    result = wrap(x.unwrap().mulDecimalUint128(y));
+    result = wrap(x.unwrap().mulDecimal(y).to128());
 }
 
 /// @notice Multiplies (base * quanto)/usd and usd/base to get quanto
 function mulDecimalToQuanto(BaseQuantoPerUSDUint128 x, USDPerBaseUint128 y) pure returns (QuantoUint128 result) {
-    result = QuantoUint128.wrap(x.unwrap().mulDecimalUint128(y.unwrap()));
+    result = QuantoUint128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
 }
 
 /// @notice Multiplies (base * quanto)/usd and usd/quanto to get base
 function mulDecimalToBase(BaseQuantoPerUSDUint128 x, USDPerQuantoUint128 y) pure returns (BaseUint128 result) {
-    result = BaseUint128.wrap(x.unwrap().mulDecimalUint128(y.unwrap()));
+    result = BaseUint128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
 }
 
 /// @notice Implements the checked division operation (/) in the BaseQuantoPerUSDUint128 type.

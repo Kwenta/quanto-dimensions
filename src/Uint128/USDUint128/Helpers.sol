@@ -4,8 +4,10 @@ pragma solidity >=0.8.19;
 import "./Casting.sol";
 import { USDUint128 } from "./ValueType.sol";
 import { DecimalMath } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/DecimalMath.sol";
+import { SafeCastU256 } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
 
 using DecimalMath for uint128;
+using SafeCastU256 for uint256;
 
 /// @notice Implements the checked addition operation (+) in the USDUint128 type.
 function add(USDUint128 x, USDUint128 y) pure returns (USDUint128 result) {
@@ -89,7 +91,7 @@ function mul(USDUint128 x, uint128 y) pure returns (USDUint128 result) {
 
 /// @notice Multiplies USDUint128 and dimensionless to get USDUint128
 function mulDecimal(USDUint128 x, uint128 y) pure returns (USDUint128 result) {
-    result = wrap(x.unwrap().mulDecimalUint128(y));
+    result = wrap(x.unwrap().mulDecimal(y).to128());
 }
 
 /// @notice Implements the checked division operation (/) in the USDUint128 type.

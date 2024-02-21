@@ -6,8 +6,10 @@ import { BaseUint128 } from "./ValueType.sol";
 import { USDPerBaseUint128 } from "../USDPerBaseUint128/ValueType.sol";
 import { USDUint128 } from "../USDUint128/ValueType.sol";
 import { DecimalMath } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/DecimalMath.sol";
+import { SafeCastU256 } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
 
 using DecimalMath for uint128;
+using SafeCastU256 for uint256;
 
 /// @notice Implements the checked addition operation (+) in the BaseUint128 type.
 function add(BaseUint128 x, BaseUint128 y) pure returns (BaseUint128 result) {
@@ -91,12 +93,12 @@ function mul(BaseUint128 x, uint128 y) pure returns (BaseUint128 result) {
 
 /// @notice Multiplies base and dimensionless to get base
 function mulDecimal(BaseUint128 x, uint128 y) pure returns (BaseUint128 result) {
-    result = wrap(x.unwrap().mulDecimalUint128(y));
+    result = wrap(x.unwrap().mulDecimal(y).to128());
 }
 
 /// @notice Multiplies base and usd/base to get usd
 function mulDecimalToUSD(BaseUint128 x, USDPerBaseUint128 y) pure returns (USDUint128 result) {
-    result = USDUint128.wrap(x.unwrap().mulDecimalUint128(y.unwrap()));
+    result = USDUint128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
 }
 
 /// @notice Implements the checked division operation (/) in the BaseUint128 type.
