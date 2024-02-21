@@ -2,7 +2,7 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {BaseQuantoPerUSDUint256, BaseUint256, QuantoUint256, USDPerBaseUint256, USDPerQuantoUint256, USDUint256} from "src/UnitTypes.sol";
+import {BaseQuantoPerUSDUint256, BaseUint256, QuantoUint256, QuantoUint128, USDPerBaseUint256, USDPerQuantoUint256, USDUint256} from "src/UnitTypes.sol";
 
 contract QuantoUint256Test is Test {
     function setUp() public {}
@@ -70,8 +70,7 @@ contract QuantoUint256Test is Test {
 
     function testQuantoUint256And2Fuzz(uint256 x, uint256 y) public {
         uint256 z = x & y;
-        QuantoUint256 result = QuantoUint256.wrap(x) &
-            QuantoUint256.wrap(y);
+        QuantoUint256 result = QuantoUint256.wrap(x) & QuantoUint256.wrap(y);
         assertEq(result.unwrap(), z);
     }
 
@@ -86,8 +85,7 @@ contract QuantoUint256Test is Test {
 
     function testQuantoUint256EqFuzz(uint256 x, uint256 y) public {
         bool z = x == y;
-        bool result = QuantoUint256.wrap(x) ==
-            QuantoUint256.wrap(y);
+        bool result = QuantoUint256.wrap(x) == QuantoUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -102,8 +100,7 @@ contract QuantoUint256Test is Test {
 
     function testQuantoUint256GtFuzz(uint256 x, uint256 y) public {
         bool z = x > y;
-        bool result = QuantoUint256.wrap(x) >
-            QuantoUint256.wrap(y);
+        bool result = QuantoUint256.wrap(x) > QuantoUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -118,8 +115,7 @@ contract QuantoUint256Test is Test {
 
     function testQuantoUint256GteFuzz(uint256 x, uint256 y) public {
         bool z = x >= y;
-        bool result = QuantoUint256.wrap(x) >=
-            QuantoUint256.wrap(y);
+        bool result = QuantoUint256.wrap(x) >= QuantoUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -134,8 +130,7 @@ contract QuantoUint256Test is Test {
 
     function testQuantoUint256LtFuzz(uint256 x, uint256 y) public {
         bool z = x < y;
-        bool result = QuantoUint256.wrap(x) <
-            QuantoUint256.wrap(y);
+        bool result = QuantoUint256.wrap(x) < QuantoUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -150,8 +145,7 @@ contract QuantoUint256Test is Test {
 
     function testQuantoUint256LteFuzz(uint256 x, uint256 y) public {
         bool z = x <= y;
-        bool result = QuantoUint256.wrap(x) <=
-            QuantoUint256.wrap(y);
+        bool result = QuantoUint256.wrap(x) <= QuantoUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -185,8 +179,7 @@ contract QuantoUint256Test is Test {
 
     function testQuantoUint256NeqFuzz(uint256 x, uint256 y) public {
         bool z = x != y;
-        bool result = QuantoUint256.wrap(x) !=
-            QuantoUint256.wrap(y);
+        bool result = QuantoUint256.wrap(x) != QuantoUint256.wrap(y);
         assertEq(result, z);
     }
 
@@ -211,8 +204,7 @@ contract QuantoUint256Test is Test {
     }
 
     function testQuantoUint256OrFuzz(uint256 x, uint256 y) public {
-        QuantoUint256 result = QuantoUint256.wrap(x) |
-            QuantoUint256.wrap(y);
+        QuantoUint256 result = QuantoUint256.wrap(x) | QuantoUint256.wrap(y);
         assertEq(result.unwrap(), x | y);
     }
 
@@ -224,8 +216,7 @@ contract QuantoUint256Test is Test {
     }
 
     function testQuantoUint256XorFuzz(uint256 x, uint256 y) public {
-        QuantoUint256 result = QuantoUint256.wrap(x) ^
-            QuantoUint256.wrap(y);
+        QuantoUint256 result = QuantoUint256.wrap(x) ^ QuantoUint256.wrap(y);
         assertEq(result.unwrap(), x ^ y);
     }
 
@@ -244,9 +235,7 @@ contract QuantoUint256Test is Test {
             vm.expectRevert();
             QuantoUint256.wrap(x).increment();
         } else {
-            QuantoUint256 result = QuantoUint256
-                .wrap(x)
-                .increment();
+            QuantoUint256 result = QuantoUint256.wrap(x).increment();
             assertEq(result.unwrap(), x + 1);
         }
     }
@@ -267,9 +256,7 @@ contract QuantoUint256Test is Test {
             vm.expectRevert();
             QuantoUint256.wrap(x).mul(y);
         } else {
-            QuantoUint256 result = QuantoUint256
-                .wrap(x)
-                .mul(y);
+            QuantoUint256 result = QuantoUint256.wrap(x).mul(y);
             assertEq(result.unwrap(), z);
         }
     }
@@ -281,10 +268,7 @@ contract QuantoUint256Test is Test {
         assertEq(result.unwrap(), 20000 ether);
     }
 
-    function testQuantoUint256MulDecimalFuzz(
-        uint256 x,
-        uint256 y
-    ) public {
+    function testQuantoUint256MulDecimalFuzz(uint256 x, uint256 y) public {
         uint256 z;
         assembly {
             z := div(
@@ -300,9 +284,7 @@ contract QuantoUint256Test is Test {
             vm.expectRevert();
             QuantoUint256.wrap(x).mulDecimal(y);
         } else {
-            QuantoUint256 result = QuantoUint256
-                .wrap(x)
-                .mulDecimal(y);
+            QuantoUint256 result = QuantoUint256.wrap(x).mulDecimal(y);
             assertEq(result.unwrap(), z);
         }
     }
@@ -331,13 +313,11 @@ contract QuantoUint256Test is Test {
             (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
-            QuantoUint256.wrap(x).mulDecimalToUSD(
+            QuantoUint256.wrap(x).mulDecimalToUSD(USDPerQuantoUint256.wrap(y));
+        } else {
+            USDUint256 result = QuantoUint256.wrap(x).mulDecimalToUSD(
                 USDPerQuantoUint256.wrap(y)
             );
-        } else {
-            USDUint256 result = QuantoUint256
-                .wrap(x)
-                .mulDecimalToUSD(USDPerQuantoUint256.wrap(y));
             assertEq(result.unwrap(), z);
         }
     }
@@ -358,10 +338,27 @@ contract QuantoUint256Test is Test {
             vm.expectRevert();
             QuantoUint256.wrap(x).div(y);
         } else {
-            QuantoUint256 result = QuantoUint256
-                .wrap(x)
-                .div(y);
+            QuantoUint256 result = QuantoUint256.wrap(x).div(y);
             assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testQuantoUint256To128() public {
+        uint256 x = type(uint256).max;
+        vm.expectRevert();
+        QuantoUint256.wrap(x).to128();
+        x = 1;
+        QuantoUint128 result = QuantoUint256.wrap(x).to128();
+        assertEq(result.unwrap(), uint128(x));
+    }
+
+    function testQuantoUint256To128Fuzz(uint256 x) public {
+        if (x > uint256(type(uint128).max)) {
+            vm.expectRevert();
+            QuantoUint256.wrap(x).to128();
+        } else {
+            QuantoUint128 result = QuantoUint256.wrap(x).to128();
+            assertEq(result.unwrap(), uint128(x));
         }
     }
 }
