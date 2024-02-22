@@ -2,34 +2,48 @@
 pragma solidity >=0.8.19;
 
 import "./Casting.sol";
-import { QuantoUint128 } from "./ValueType.sol";
-import { BaseUint128 } from "../BaseUint128/ValueType.sol";
-import { USDPerBaseUint128 } from "../USDPerBaseUint128/ValueType.sol";
-import { USDPerQuantoUint128 } from "../USDPerQuantoUint128/ValueType.sol";
-import { USDUint128 } from "../USDUint128/ValueType.sol";
-import { DecimalMath } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/DecimalMath.sol";
-import { SafeCastU256 } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
+import {QuantoUint128} from "./ValueType.sol";
+import {BaseUint128} from "../BaseUint128/ValueType.sol";
+import {USDPerBaseUint128} from "../USDPerBaseUint128/ValueType.sol";
+import {USDPerQuantoUint128} from "../USDPerQuantoUint128/ValueType.sol";
+import {USDUint128} from "../USDUint128/ValueType.sol";
+import {DecimalMath} from
+    "lib/synthetix-v3/utils/core-contracts/contracts/utils/DecimalMath.sol";
+import {SafeCastU256} from
+    "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
 
 using DecimalMath for uint128;
 using SafeCastU256 for uint256;
 
 /// @notice Implements the checked addition operation (+) in the QuantoUint128 type.
-function add(QuantoUint128 x, QuantoUint128 y) pure returns (QuantoUint128 result) {
+function add(QuantoUint128 x, QuantoUint128 y)
+    pure
+    returns (QuantoUint128 result)
+{
     result = wrap(x.unwrap() + y.unwrap());
 }
 
 /// @notice Implements the checked subtraction operation (-) in the QuantoUint128 type.
-function sub(QuantoUint128 x, QuantoUint128 y) pure returns (QuantoUint128 result) {
+function sub(QuantoUint128 x, QuantoUint128 y)
+    pure
+    returns (QuantoUint128 result)
+{
     result = wrap(x.unwrap() - y.unwrap());
 }
 
 /// @notice Implements the AND (&) bitwise operation in the QuantoUint128 type.
-function and(QuantoUint128 x, uint128 bits) pure returns (QuantoUint128 result) {
+function and(QuantoUint128 x, uint128 bits)
+    pure
+    returns (QuantoUint128 result)
+{
     result = wrap(x.unwrap() & bits);
 }
 
 /// @notice Implements the AND (&) bitwise operation in the QuantoUint128 type.
-function and2(QuantoUint128 x, QuantoUint128 y) pure returns (QuantoUint128 result) {
+function and2(QuantoUint128 x, QuantoUint128 y)
+    pure
+    returns (QuantoUint128 result)
+{
     result = wrap(x.unwrap() & y.unwrap());
 }
 
@@ -59,7 +73,10 @@ function lte(QuantoUint128 x, QuantoUint128 y) pure returns (bool) {
 }
 
 /// @notice Implements the modulus operation (%) in the QuantoUint128 type.
-function mod(QuantoUint128 x, QuantoUint128 y) pure returns (QuantoUint128 result) {
+function mod(QuantoUint128 x, QuantoUint128 y)
+    pure
+    returns (QuantoUint128 result)
+{
     result = wrap(x.unwrap() % y.unwrap());
 }
 
@@ -74,12 +91,18 @@ function not(QuantoUint128 x) pure returns (QuantoUint128 result) {
 }
 
 /// @notice Implements the OR (|) bitwise operation in the QuantoUint128 type.
-function or(QuantoUint128 x, QuantoUint128 y) pure returns (QuantoUint128 result) {
+function or(QuantoUint128 x, QuantoUint128 y)
+    pure
+    returns (QuantoUint128 result)
+{
     result = wrap(x.unwrap() | y.unwrap());
 }
 
 /// @notice Implements the XOR (^) bitwise operation in the QuantoUint128 type.
-function xor(QuantoUint128 x, QuantoUint128 y) pure returns (QuantoUint128 result) {
+function xor(QuantoUint128 x, QuantoUint128 y)
+    pure
+    returns (QuantoUint128 result)
+{
     result = wrap(x.unwrap() ^ y.unwrap());
 }
 
@@ -94,12 +117,18 @@ function mul(QuantoUint128 x, uint128 y) pure returns (QuantoUint128 result) {
 }
 
 /// @notice Multiplies quanto and dimensionless to get quanto
-function mulDecimal(QuantoUint128 x, uint128 y) pure returns (QuantoUint128 result) {
+function mulDecimal(QuantoUint128 x, uint128 y)
+    pure
+    returns (QuantoUint128 result)
+{
     result = wrap(x.unwrap().mulDecimal(y).to128());
 }
 
 /// @notice Multiplies quanto and usd/quanto to get usd
-function mulDecimalToUSD(QuantoUint128 x, USDPerQuantoUint128 y) pure returns (USDUint128 result) {
+function mulDecimalToUSD(QuantoUint128 x, USDPerQuantoUint128 y)
+    pure
+    returns (USDUint128 result)
+{
     result = USDUint128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
 }
 

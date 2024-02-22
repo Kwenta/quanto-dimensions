@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.19;
 
-import { USDInt128 } from "./ValueType.sol";
-import { USDInt256 } from "src/Int256/USDInt256/ValueType.sol";
-import { USDUint128 } from "src/Uint128/USDUint128/ValueType.sol";
-import { SafeCastI128 } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
+import {USDInt128} from "./ValueType.sol";
+import {USDInt256} from "src/Int256/USDInt256/ValueType.sol";
+import {USDUint128} from "src/Uint128/USDUint128/ValueType.sol";
+import {SafeCastI128} from
+    "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
 
 using SafeCastI128 for int128;
 

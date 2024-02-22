@@ -2,7 +2,16 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {BaseQuantoPerUSDUint256, BaseUint256, QuantoUint256, USDPerBaseUint256, USDPerQuantoUint256, USDUint256, USDInt256, USDUint128} from "src/UnitTypes.sol";
+import {
+    BaseQuantoPerUSDUint256,
+    BaseUint256,
+    QuantoUint256,
+    USDPerBaseUint256,
+    USDPerQuantoUint256,
+    USDUint256,
+    USDInt256,
+    USDUint128
+} from "src/UnitTypes.sol";
 
 contract USDUint256Test is Test {
     function setUp() public {}
@@ -242,7 +251,7 @@ contract USDUint256Test is Test {
         USDUint256 x = USDUint256.wrap(100);
         uint256 y = 200;
         USDUint256 result = x.mul(y);
-        assertEq(result.unwrap(), 20000);
+        assertEq(result.unwrap(), 20_000);
     }
 
     function testUSDUint256MulFuzz(uint256 x, uint256 y) public {
@@ -263,21 +272,22 @@ contract USDUint256Test is Test {
         USDUint256 x = USDUint256.wrap(100 ether);
         uint256 y = 200 ether;
         USDUint256 result = x.mulDecimal(y);
-        assertEq(result.unwrap(), 20000 ether);
+        assertEq(result.unwrap(), 20_000 ether);
     }
 
     function testUSDUint256MulDecimalFuzz(uint256 x, uint256 y) public {
         uint256 z;
         assembly {
-            z := div(
-                mul(x, y),
-                // 1 ether
-                0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
-            )
+            z :=
+                div(
+                    mul(x, y),
+                    // 1 ether
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
         }
         if (
-            (x != 0 && y != 0) &&
-            (z / y != (x / 1 ether) || z / x != (y / 1 ether))
+            (x != 0 && y != 0)
+                && (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
             USDUint256.wrap(x).mulDecimal(y);

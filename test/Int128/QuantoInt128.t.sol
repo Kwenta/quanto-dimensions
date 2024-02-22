@@ -2,7 +2,16 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {BaseQuantoPerUSDInt128, BaseInt128, QuantoInt128, QuantoInt256, QuantoUint128, USDPerBaseInt128, USDPerQuantoInt128, USDInt128} from "src/UnitTypes.sol";
+import {
+    BaseQuantoPerUSDInt128,
+    BaseInt128,
+    QuantoInt128,
+    QuantoInt256,
+    QuantoUint128,
+    USDPerBaseInt128,
+    USDPerQuantoInt128,
+    USDInt128
+} from "src/UnitTypes.sol";
 
 contract QuantoInt128Test is Test {
     function setUp() public {}
@@ -246,7 +255,7 @@ contract QuantoInt128Test is Test {
         QuantoInt128 x = QuantoInt128.wrap(100);
         int128 y = 200;
         QuantoInt128 result = x.mul(y);
-        assertEq(result.unwrap(), 20000);
+        assertEq(result.unwrap(), 20_000);
     }
 
     function testQuantoInt128MulFuzz(int128 x, int128 y) public {
@@ -254,10 +263,8 @@ contract QuantoInt128Test is Test {
         assembly {
             z := mul(x, y)
         }
-        bool wrongSign = (y < 0 && x < 0 && z < 0) ||
-            (y > 0 && x > 0 && z < 0) ||
-            (y < 0 && x > 0 && z > 0) ||
-            (y > 0 && x < 0 && z > 0);
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
         if (wrongSign || (x != 0 && y != 0) && (z / y != x || z / x != y)) {
             vm.expectRevert();
             QuantoInt128.wrap(x).mul(y);
@@ -271,21 +278,22 @@ contract QuantoInt128Test is Test {
         QuantoInt128 x = QuantoInt128.wrap(100 ether);
         int128 y = 200 ether;
         QuantoInt128 result = x.mulDecimal(y);
-        assertEq(result.unwrap(), 20000 ether);
+        assertEq(result.unwrap(), 20_000 ether);
     }
 
     function testQuantoInt128MulDecimalFuzz(int128 x, int128 y) public {
         int128 z;
         assembly {
-            z := sdiv(
-                mul(x, y),
-                // 1 ether
-                0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
-            )
+            z :=
+                sdiv(
+                    mul(x, y),
+                    // 1 ether
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
         }
         if (
-            (x != 0 && y != 0) &&
-            (z / y != (x / 1 ether) || z / x != (y / 1 ether))
+            (x != 0 && y != 0)
+                && (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
             QuantoInt128.wrap(x).mulDecimal(y);
@@ -299,28 +307,30 @@ contract QuantoInt128Test is Test {
         QuantoInt128 x = QuantoInt128.wrap(100 ether);
         USDPerQuantoInt128 y = USDPerQuantoInt128.wrap(200 ether);
         USDInt128 result = x.mulDecimalToUSD(y);
-        assertEq(result.unwrap(), 20000 ether);
+        assertEq(result.unwrap(), 20_000 ether);
     }
 
-    function testQuantoInt128MulDecimalToQuantoFuzz(int128 x, int128 y) public {
+    function testQuantoInt128MulDecimalToQuantoFuzz(int128 x, int128 y)
+        public
+    {
         int128 z;
         assembly {
-            z := sdiv(
-                mul(x, y),
-                // 1 ether
-                0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
-            )
+            z :=
+                sdiv(
+                    mul(x, y),
+                    // 1 ether
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
         }
         if (
-            (x != 0 && y != 0) &&
-            (z / y != (x / 1 ether) || z / x != (y / 1 ether))
+            (x != 0 && y != 0)
+                && (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
             QuantoInt128.wrap(x).mulDecimalToUSD(USDPerQuantoInt128.wrap(y));
         } else {
-            USDInt128 result = QuantoInt128.wrap(x).mulDecimalToUSD(
-                USDPerQuantoInt128.wrap(y)
-            );
+            USDInt128 result =
+                QuantoInt128.wrap(x).mulDecimalToUSD(USDPerQuantoInt128.wrap(y));
             assertEq(result.unwrap(), z);
         }
     }
@@ -337,10 +347,8 @@ contract QuantoInt128Test is Test {
         assembly {
             z := sdiv(x, y)
         }
-        bool wrongSign = (y < 0 && x < 0 && z < 0) ||
-            (y > 0 && x > 0 && z < 0) ||
-            (y < 0 && x > 0 && z > 0) ||
-            (y > 0 && x < 0 && z > 0);
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
 
         if (wrongSign || y == 0) {
             vm.expectRevert();

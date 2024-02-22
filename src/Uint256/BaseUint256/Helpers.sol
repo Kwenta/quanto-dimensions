@@ -2,10 +2,11 @@
 pragma solidity >=0.8.19;
 
 import "./Casting.sol";
-import { BaseUint256 } from "./ValueType.sol";
-import { USDPerBaseUint256 } from "../USDPerBaseUint256/ValueType.sol";
-import { USDUint256 } from "../USDUint256/ValueType.sol";
-import { DecimalMath } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/DecimalMath.sol";
+import {BaseUint256} from "./ValueType.sol";
+import {USDPerBaseUint256} from "../USDPerBaseUint256/ValueType.sol";
+import {USDUint256} from "../USDUint256/ValueType.sol";
+import {DecimalMath} from
+    "lib/synthetix-v3/utils/core-contracts/contracts/utils/DecimalMath.sol";
 
 using DecimalMath for uint256;
 
@@ -90,12 +91,18 @@ function mul(BaseUint256 x, uint256 y) pure returns (BaseUint256 result) {
 }
 
 /// @notice Multiplies base and dimensionless to get base
-function mulDecimal(BaseUint256 x, uint256 y) pure returns (BaseUint256 result) {
+function mulDecimal(BaseUint256 x, uint256 y)
+    pure
+    returns (BaseUint256 result)
+{
     result = wrap(x.unwrap().mulDecimal(y));
 }
 
 /// @notice Multiplies base and usd/base to get usd
-function mulDecimalToUSD(BaseUint256 x, USDPerBaseUint256 y) pure returns (USDUint256 result) {
+function mulDecimalToUSD(BaseUint256 x, USDPerBaseUint256 y)
+    pure
+    returns (USDUint256 result)
+{
     result = USDUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
 }
 

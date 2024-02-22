@@ -11,9 +11,7 @@ type QuantoInt256 is int256;
 //////////////////////////////////////////////////////////////*/
 
 using {
-    Casting.unwrap,
-    Casting.to128,
-    Casting.toUint
+    Casting.unwrap, Casting.to128, Casting.toUint
 } for QuantoInt256 global;
 
 /*//////////////////////////////////////////////////////////////

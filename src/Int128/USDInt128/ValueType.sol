@@ -10,11 +10,7 @@ type USDInt128 is int128;
                             CASTING
 //////////////////////////////////////////////////////////////*/
 
-using {
-    Casting.unwrap,
-    Casting.to256,
-    Casting.toUint
-} for USDInt128 global;
+using {Casting.unwrap, Casting.to256, Casting.toUint} for USDInt128 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

@@ -2,33 +2,46 @@
 pragma solidity >=0.8.19;
 
 import "./Casting.sol";
-import { USDPerQuantoInt256 } from "./ValueType.sol";
-import { BaseQuantoPerUSDInt256 } from "../BaseQuantoPerUSDInt256/ValueType.sol";
-import { USDPerBaseInt256 } from "../USDPerBaseInt256/ValueType.sol";
-import { BaseInt256 } from "../BaseInt256/ValueType.sol";
-import { QuantoInt256 } from "../QuantoInt256/ValueType.sol";
-import { USDInt256 } from "../USDInt256/ValueType.sol";
-import { DecimalMath } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/DecimalMath.sol";
+import {USDPerQuantoInt256} from "./ValueType.sol";
+import {BaseQuantoPerUSDInt256} from "../BaseQuantoPerUSDInt256/ValueType.sol";
+import {USDPerBaseInt256} from "../USDPerBaseInt256/ValueType.sol";
+import {BaseInt256} from "../BaseInt256/ValueType.sol";
+import {QuantoInt256} from "../QuantoInt256/ValueType.sol";
+import {USDInt256} from "../USDInt256/ValueType.sol";
+import {DecimalMath} from
+    "lib/synthetix-v3/utils/core-contracts/contracts/utils/DecimalMath.sol";
 
 using DecimalMath for int256;
 
 /// @notice Implements the checked addition operation (+) in the USDPerQuantoInt256 type.
-function add(USDPerQuantoInt256 x, USDPerQuantoInt256 y) pure returns (USDPerQuantoInt256 result) {
+function add(USDPerQuantoInt256 x, USDPerQuantoInt256 y)
+    pure
+    returns (USDPerQuantoInt256 result)
+{
     result = wrap(x.unwrap() + y.unwrap());
 }
 
 /// @notice Implements the checked subtraction operation (-) in the USDPerQuantoInt256 type.
-function sub(USDPerQuantoInt256 x, USDPerQuantoInt256 y) pure returns (USDPerQuantoInt256 result) {
+function sub(USDPerQuantoInt256 x, USDPerQuantoInt256 y)
+    pure
+    returns (USDPerQuantoInt256 result)
+{
     result = wrap(x.unwrap() - y.unwrap());
 }
 
 /// @notice Implements the AND (&) bitwise operation in the USDPerQuantoInt256 type.
-function and(USDPerQuantoInt256 x, int256 bits) pure returns (USDPerQuantoInt256 result) {
+function and(USDPerQuantoInt256 x, int256 bits)
+    pure
+    returns (USDPerQuantoInt256 result)
+{
     result = wrap(x.unwrap() & bits);
 }
 
 /// @notice Implements the AND (&) bitwise operation in the USDPerQuantoInt256 type.
-function and2(USDPerQuantoInt256 x, USDPerQuantoInt256 y) pure returns (USDPerQuantoInt256 result) {
+function and2(USDPerQuantoInt256 x, USDPerQuantoInt256 y)
+    pure
+    returns (USDPerQuantoInt256 result)
+{
     result = wrap(x.unwrap() & y.unwrap());
 }
 
@@ -58,7 +71,10 @@ function lte(USDPerQuantoInt256 x, USDPerQuantoInt256 y) pure returns (bool) {
 }
 
 /// @notice Implements the modulus operation (%) in the USDPerQuantoInt256 type.
-function mod(USDPerQuantoInt256 x, USDPerQuantoInt256 y) pure returns (USDPerQuantoInt256 result) {
+function mod(USDPerQuantoInt256 x, USDPerQuantoInt256 y)
+    pure
+    returns (USDPerQuantoInt256 result)
+{
     result = wrap(x.unwrap() % y.unwrap());
 }
 
@@ -73,41 +89,65 @@ function not(USDPerQuantoInt256 x) pure returns (USDPerQuantoInt256 result) {
 }
 
 /// @notice Implements the OR (|) bitwise operation in the USDPerQuantoInt256 type.
-function or(USDPerQuantoInt256 x, USDPerQuantoInt256 y) pure returns (USDPerQuantoInt256 result) {
+function or(USDPerQuantoInt256 x, USDPerQuantoInt256 y)
+    pure
+    returns (USDPerQuantoInt256 result)
+{
     result = wrap(x.unwrap() | y.unwrap());
 }
 
 /// @notice Implements the XOR (^) bitwise operation in the USDPerQuantoInt256 type.
-function xor(USDPerQuantoInt256 x, USDPerQuantoInt256 y) pure returns (USDPerQuantoInt256 result) {
+function xor(USDPerQuantoInt256 x, USDPerQuantoInt256 y)
+    pure
+    returns (USDPerQuantoInt256 result)
+{
     result = wrap(x.unwrap() ^ y.unwrap());
 }
 
 /// @notice Implements the checked addition operation (+1) in the USDPerQuantoInt256 type.
-function increment(USDPerQuantoInt256 x) pure returns (USDPerQuantoInt256 result) {
+function increment(USDPerQuantoInt256 x)
+    pure
+    returns (USDPerQuantoInt256 result)
+{
     result = x + wrap(1);
 }
 
 /// @notice Implements the checked multiplication operation (*) in the USDPerQuantoInt256 type.
-function mul(USDPerQuantoInt256 x, int256 y) pure returns (USDPerQuantoInt256 result) {
+function mul(USDPerQuantoInt256 x, int256 y)
+    pure
+    returns (USDPerQuantoInt256 result)
+{
     result = wrap(x.unwrap() * y);
 }
 
 /// @notice Multiplies usd/quanto and dimensionless to get usd/quanto
-function mulDecimal(USDPerQuantoInt256 x, int256 y) pure returns (USDPerQuantoInt256 result) {
+function mulDecimal(USDPerQuantoInt256 x, int256 y)
+    pure
+    returns (USDPerQuantoInt256 result)
+{
     result = wrap(x.unwrap().mulDecimal(y));
 }
 
 /// @notice Multiplies usd/quanto and quanto to get usd
-function mulDecimalToUSD(USDPerQuantoInt256 x, BaseInt256 y) pure returns (USDInt256 result) {
+function mulDecimalToUSD(USDPerQuantoInt256 x, BaseInt256 y)
+    pure
+    returns (USDInt256 result)
+{
     result = USDInt256.wrap(x.unwrap().mulDecimal(y.unwrap()));
 }
 
 /// @notice Multiplies usd/quanto and (base*quanto)/usd to get base
-function mulDecimalToBase(USDPerQuantoInt256 x, BaseQuantoPerUSDInt256 y) pure returns (BaseInt256 result) {
+function mulDecimalToBase(USDPerQuantoInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (BaseInt256 result)
+{
     result = BaseInt256.wrap(x.unwrap().mulDecimal(y.unwrap()));
 }
 
 /// @notice Implements the checked division operation (/) in the USDPerQuantoInt256 type.
-function div(USDPerQuantoInt256 x, int256 y) pure returns (USDPerQuantoInt256 result) {
+function div(USDPerQuantoInt256 x, int256 y)
+    pure
+    returns (USDPerQuantoInt256 result)
+{
     result = wrap(x.unwrap() / y);
 }

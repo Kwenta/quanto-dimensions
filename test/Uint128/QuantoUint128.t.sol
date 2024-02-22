@@ -2,7 +2,16 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {BaseQuantoPerUSDUint128, BaseUint128, QuantoUint128, QuantoUint256, QuantoInt128, USDPerBaseUint128, USDPerQuantoUint128, USDUint128} from "src/UnitTypes.sol";
+import {
+    BaseQuantoPerUSDUint128,
+    BaseUint128,
+    QuantoUint128,
+    QuantoUint256,
+    QuantoInt128,
+    USDPerBaseUint128,
+    USDPerQuantoUint128,
+    USDUint128
+} from "src/UnitTypes.sol";
 
 contract QuantoUint128Test is Test {
     function setUp() public {}
@@ -42,8 +51,7 @@ contract QuantoUint128Test is Test {
             vm.expectRevert();
             QuantoUint128.wrap(x) - QuantoUint128.wrap(y);
         } else {
-            QuantoUint128 result = QuantoUint128.wrap(x) -
-                QuantoUint128.wrap(y);
+            QuantoUint128 result = QuantoUint128.wrap(x) - QuantoUint128.wrap(y);
             assertEq(result.unwrap(), x - y);
         }
     }
@@ -162,8 +170,7 @@ contract QuantoUint128Test is Test {
             QuantoUint128.wrap(x) % QuantoUint128.wrap(y);
         } else {
             uint128 z = x % y;
-            QuantoUint128 result = QuantoUint128.wrap(x) %
-                QuantoUint128.wrap(y);
+            QuantoUint128 result = QuantoUint128.wrap(x) % QuantoUint128.wrap(y);
             assertEq(result.unwrap(), z);
         }
     }
@@ -244,7 +251,7 @@ contract QuantoUint128Test is Test {
         QuantoUint128 x = QuantoUint128.wrap(100);
         uint128 y = 200;
         QuantoUint128 result = x.mul(y);
-        assertEq(result.unwrap(), 20000);
+        assertEq(result.unwrap(), 20_000);
     }
 
     function testQuantoUint128MulFuzz(uint128 x, uint128 y) public {
@@ -265,21 +272,22 @@ contract QuantoUint128Test is Test {
         QuantoUint128 x = QuantoUint128.wrap(100 ether);
         uint128 y = 200 ether;
         QuantoUint128 result = x.mulDecimal(y);
-        assertEq(result.unwrap(), 20000 ether);
+        assertEq(result.unwrap(), 20_000 ether);
     }
 
     function testQuantoUint128MulDecimalFuzz(uint128 x, uint128 y) public {
         uint128 z;
         assembly {
-            z := div(
-                mul(x, y),
-                // 1 ether
-                0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
-            )
+            z :=
+                div(
+                    mul(x, y),
+                    // 1 ether
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
         }
         if (
-            (x != 0 && y != 0) &&
-            (z / y != (x / 1 ether) || z / x != (y / 1 ether))
+            (x != 0 && y != 0)
+                && (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
             QuantoUint128.wrap(x).mulDecimal(y);
@@ -293,24 +301,24 @@ contract QuantoUint128Test is Test {
         QuantoUint128 x = QuantoUint128.wrap(100 ether);
         USDPerQuantoUint128 y = USDPerQuantoUint128.wrap(200 ether);
         USDUint128 result = x.mulDecimalToUSD(y);
-        assertEq(result.unwrap(), 20000 ether);
+        assertEq(result.unwrap(), 20_000 ether);
     }
 
-    function testQuantoUint128MulDecimalToQuantoFuzz(
-        uint128 x,
-        uint128 y
-    ) public {
+    function testQuantoUint128MulDecimalToQuantoFuzz(uint128 x, uint128 y)
+        public
+    {
         uint128 z;
         assembly {
-            z := div(
-                mul(x, y),
-                // 1 ether
-                0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
-            )
+            z :=
+                div(
+                    mul(x, y),
+                    // 1 ether
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
         }
         if (
-            (x != 0 && y != 0) &&
-            (z / y != (x / 1 ether) || z / x != (y / 1 ether))
+            (x != 0 && y != 0)
+                && (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
             QuantoUint128.wrap(x).mulDecimalToUSD(USDPerQuantoUint128.wrap(y));

@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.19;
 
-import { USDPerQuantoInt128 } from "./ValueType.sol";
-import { USDPerQuantoInt256 } from "src/Int256/USDPerQuantoInt256/ValueType.sol";
-import { USDPerQuantoUint128 } from "src/Uint128/USDPerQuantoUint128/ValueType.sol";
-import { SafeCastI128 } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
+import {USDPerQuantoInt128} from "./ValueType.sol";
+import {USDPerQuantoInt256} from "src/Int256/USDPerQuantoInt256/ValueType.sol";
+import {USDPerQuantoUint128} from
+    "src/Uint128/USDPerQuantoUint128/ValueType.sol";
+import {SafeCastI128} from
+    "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
 
 using SafeCastI128 for int128;
 
@@ -24,6 +26,9 @@ function to256(USDPerQuantoInt128 x) pure returns (USDPerQuantoInt256 result) {
 }
 
 /// @notice Converts a USDPerQuantoInt128 number into USDPerQuantoUint128.
-function toUint(USDPerQuantoInt128 x) pure returns (USDPerQuantoUint128 result) {
+function toUint(USDPerQuantoInt128 x)
+    pure
+    returns (USDPerQuantoUint128 result)
+{
     result = USDPerQuantoUint128.wrap(unwrap(x).toUint());
 }

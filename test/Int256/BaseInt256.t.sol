@@ -2,7 +2,16 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {BaseQuantoPerUSDInt256, BaseInt256, BaseInt128, BaseUint256, QuantoInt256, USDPerBaseInt256, USDPerQuantoInt256, USDInt256} from "src/UnitTypes.sol";
+import {
+    BaseQuantoPerUSDInt256,
+    BaseInt256,
+    BaseInt128,
+    BaseUint256,
+    QuantoInt256,
+    USDPerBaseInt256,
+    USDPerQuantoInt256,
+    USDInt256
+} from "src/UnitTypes.sol";
 
 contract BaseInt256Test is Test {
     function setUp() public {}
@@ -246,7 +255,7 @@ contract BaseInt256Test is Test {
         BaseInt256 x = BaseInt256.wrap(100);
         int256 y = 200;
         BaseInt256 result = x.mul(y);
-        assertEq(result.unwrap(), 20000);
+        assertEq(result.unwrap(), 20_000);
     }
 
     function testBaseInt256MulFuzz(int256 x, int256 y) public {
@@ -254,10 +263,8 @@ contract BaseInt256Test is Test {
         assembly {
             z := mul(x, y)
         }
-        bool wrongSign = (y < 0 && x < 0 && z < 0) ||
-            (y > 0 && x > 0 && z < 0) ||
-            (y < 0 && x > 0 && z > 0) ||
-            (y > 0 && x < 0 && z > 0);
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
         if (wrongSign || (x != 0 && y != 0) && (z / y != x || z / x != y)) {
             vm.expectRevert();
             BaseInt256.wrap(x).mul(y);
@@ -271,21 +278,22 @@ contract BaseInt256Test is Test {
         BaseInt256 x = BaseInt256.wrap(100 ether);
         int256 y = 200 ether;
         BaseInt256 result = x.mulDecimal(y);
-        assertEq(result.unwrap(), 20000 ether);
+        assertEq(result.unwrap(), 20_000 ether);
     }
 
     function testBaseInt256MulDecimalFuzz(int256 x, int256 y) public {
         int256 z;
         assembly {
-            z := sdiv(
-                mul(x, y),
-                // 1 ether
-                0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
-            )
+            z :=
+                sdiv(
+                    mul(x, y),
+                    // 1 ether
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
         }
         if (
-            (x != 0 && y != 0) &&
-            (z / y != (x / 1 ether) || z / x != (y / 1 ether))
+            (x != 0 && y != 0)
+                && (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
             BaseInt256.wrap(x).mulDecimal(y);
@@ -299,31 +307,28 @@ contract BaseInt256Test is Test {
         BaseInt256 x = BaseInt256.wrap(100 ether);
         USDPerBaseInt256 y = USDPerBaseInt256.wrap(200 ether);
         USDInt256 result = x.mulDecimalToUSD(y);
-        assertEq(result.unwrap(), 20000 ether);
+        assertEq(result.unwrap(), 20_000 ether);
     }
 
-    function testBaseInt256MulDecimalToQuantoFuzz(
-        int256 x,
-        int256 y
-    ) public {
+    function testBaseInt256MulDecimalToQuantoFuzz(int256 x, int256 y) public {
         int256 z;
         assembly {
-            z := sdiv(
-                mul(x, y),
-                // 1 ether
-                0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
-            )
+            z :=
+                sdiv(
+                    mul(x, y),
+                    // 1 ether
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
         }
         if (
-            (x != 0 && y != 0) &&
-            (z / y != (x / 1 ether) || z / x != (y / 1 ether))
+            (x != 0 && y != 0)
+                && (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
             BaseInt256.wrap(x).mulDecimalToUSD(USDPerBaseInt256.wrap(y));
         } else {
-            USDInt256 result = BaseInt256.wrap(x).mulDecimalToUSD(
-                USDPerBaseInt256.wrap(y)
-            );
+            USDInt256 result =
+                BaseInt256.wrap(x).mulDecimalToUSD(USDPerBaseInt256.wrap(y));
             assertEq(result.unwrap(), z);
         }
     }
@@ -340,10 +345,8 @@ contract BaseInt256Test is Test {
         assembly {
             z := sdiv(x, y)
         }
-        bool wrongSign = (y < 0 && x < 0 && z < 0) ||
-            (y > 0 && x > 0 && z < 0) ||
-            (y < 0 && x > 0 && z > 0) ||
-            (y > 0 && x < 0 && z > 0);
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
 
         if (wrongSign || y == 0) {
             vm.expectRevert();

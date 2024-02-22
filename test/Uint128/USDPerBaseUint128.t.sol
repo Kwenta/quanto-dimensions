@@ -2,7 +2,16 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {BaseQuantoPerUSDUint128, BaseUint128, QuantoUint128, USDPerBaseUint128, USDPerBaseUint256, USDPerBaseInt128, USDPerQuantoUint128, USDUint128} from "src/UnitTypes.sol";
+import {
+    BaseQuantoPerUSDUint128,
+    BaseUint128,
+    QuantoUint128,
+    USDPerBaseUint128,
+    USDPerBaseUint256,
+    USDPerBaseInt128,
+    USDPerQuantoUint128,
+    USDUint128
+} from "src/UnitTypes.sol";
 
 contract USDPerBaseUint128Test is Test {
     function setUp() public {}
@@ -42,8 +51,8 @@ contract USDPerBaseUint128Test is Test {
             vm.expectRevert();
             USDPerBaseUint128.wrap(x) - USDPerBaseUint128.wrap(y);
         } else {
-            USDPerBaseUint128 result = USDPerBaseUint128.wrap(x) -
-                USDPerBaseUint128.wrap(y);
+            USDPerBaseUint128 result =
+                USDPerBaseUint128.wrap(x) - USDPerBaseUint128.wrap(y);
             assertEq(result.unwrap(), x - y);
         }
     }
@@ -70,8 +79,8 @@ contract USDPerBaseUint128Test is Test {
 
     function testUSDPerBaseUint128And2Fuzz(uint128 x, uint128 y) public {
         uint128 z = x & y;
-        USDPerBaseUint128 result = USDPerBaseUint128.wrap(x) &
-            USDPerBaseUint128.wrap(y);
+        USDPerBaseUint128 result =
+            USDPerBaseUint128.wrap(x) & USDPerBaseUint128.wrap(y);
         assertEq(result.unwrap(), z);
     }
 
@@ -163,8 +172,8 @@ contract USDPerBaseUint128Test is Test {
             USDPerBaseUint128.wrap(x) % USDPerBaseUint128.wrap(y);
         } else {
             uint128 z = x % y;
-            USDPerBaseUint128 result = USDPerBaseUint128.wrap(x) %
-                USDPerBaseUint128.wrap(y);
+            USDPerBaseUint128 result =
+                USDPerBaseUint128.wrap(x) % USDPerBaseUint128.wrap(y);
             assertEq(result.unwrap(), z);
         }
     }
@@ -205,8 +214,8 @@ contract USDPerBaseUint128Test is Test {
     }
 
     function testUSDPerBaseUint128OrFuzz(uint128 x, uint128 y) public {
-        USDPerBaseUint128 result = USDPerBaseUint128.wrap(x) |
-            USDPerBaseUint128.wrap(y);
+        USDPerBaseUint128 result =
+            USDPerBaseUint128.wrap(x) | USDPerBaseUint128.wrap(y);
         assertEq(result.unwrap(), x | y);
     }
 
@@ -218,8 +227,8 @@ contract USDPerBaseUint128Test is Test {
     }
 
     function testUSDPerBaseUint128XorFuzz(uint128 x, uint128 y) public {
-        USDPerBaseUint128 result = USDPerBaseUint128.wrap(x) ^
-            USDPerBaseUint128.wrap(y);
+        USDPerBaseUint128 result =
+            USDPerBaseUint128.wrap(x) ^ USDPerBaseUint128.wrap(y);
         assertEq(result.unwrap(), x ^ y);
     }
 
@@ -247,7 +256,7 @@ contract USDPerBaseUint128Test is Test {
         USDPerBaseUint128 x = USDPerBaseUint128.wrap(100);
         uint128 y = 200;
         USDPerBaseUint128 result = x.mul(y);
-        assertEq(result.unwrap(), 20000);
+        assertEq(result.unwrap(), 20_000);
     }
 
     function testUSDPerBaseUint128MulFuzz(uint128 x, uint128 y) public {
@@ -268,21 +277,22 @@ contract USDPerBaseUint128Test is Test {
         USDPerBaseUint128 x = USDPerBaseUint128.wrap(100 ether);
         uint128 y = 200 ether;
         USDPerBaseUint128 result = x.mulDecimal(y);
-        assertEq(result.unwrap(), 20000 ether);
+        assertEq(result.unwrap(), 20_000 ether);
     }
 
     function testUSDPerBaseUint128MulDecimalFuzz(uint128 x, uint128 y) public {
         uint128 z;
         assembly {
-            z := div(
-                mul(x, y),
-                // 1 ether
-                0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
-            )
+            z :=
+                div(
+                    mul(x, y),
+                    // 1 ether
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
         }
         if (
-            (x != 0 && y != 0) &&
-            (z / y != (x / 1 ether) || z / x != (y / 1 ether))
+            (x != 0 && y != 0)
+                && (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
             USDPerBaseUint128.wrap(x).mulDecimal(y);
@@ -296,31 +306,30 @@ contract USDPerBaseUint128Test is Test {
         USDPerBaseUint128 x = USDPerBaseUint128.wrap(100 ether);
         BaseUint128 y = BaseUint128.wrap(200 ether);
         USDUint128 result = x.mulDecimalToUSD(y);
-        assertEq(result.unwrap(), 20000 ether);
+        assertEq(result.unwrap(), 20_000 ether);
     }
 
-    function testUSDPerBaseUint128MulDecimalToUSDFuzz(
-        uint128 x,
-        uint128 y
-    ) public {
+    function testUSDPerBaseUint128MulDecimalToUSDFuzz(uint128 x, uint128 y)
+        public
+    {
         uint128 z;
         assembly {
-            z := div(
-                mul(x, y),
-                // 1 ether
-                0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
-            )
+            z :=
+                div(
+                    mul(x, y),
+                    // 1 ether
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
         }
         if (
-            (x != 0 && y != 0) &&
-            (z / y != (x / 1 ether) || z / x != (y / 1 ether))
+            (x != 0 && y != 0)
+                && (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
             USDPerBaseUint128.wrap(x).mulDecimalToUSD(BaseUint128.wrap(y));
         } else {
-            USDUint128 result = USDPerBaseUint128.wrap(x).mulDecimalToUSD(
-                BaseUint128.wrap(y)
-            );
+            USDUint128 result =
+                USDPerBaseUint128.wrap(x).mulDecimalToUSD(BaseUint128.wrap(y));
             assertEq(result.unwrap(), z);
         }
     }
@@ -329,24 +338,24 @@ contract USDPerBaseUint128Test is Test {
         USDPerBaseUint128 x = USDPerBaseUint128.wrap(100 ether);
         BaseQuantoPerUSDUint128 y = BaseQuantoPerUSDUint128.wrap(200 ether);
         QuantoUint128 result = x.mulDecimalToQuanto(y);
-        assertEq(result.unwrap(), 20000 ether);
+        assertEq(result.unwrap(), 20_000 ether);
     }
 
-    function testUSDPerBaseUint128MulDecimalToQuantoFuzz(
-        uint128 x,
-        uint128 y
-    ) public {
+    function testUSDPerBaseUint128MulDecimalToQuantoFuzz(uint128 x, uint128 y)
+        public
+    {
         uint128 z;
         assembly {
-            z := div(
-                mul(x, y),
-                // 1 ether
-                0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
-            )
+            z :=
+                div(
+                    mul(x, y),
+                    // 1 ether
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
         }
         if (
-            (x != 0 && y != 0) &&
-            (z / y != (x / 1 ether) || z / x != (y / 1 ether))
+            (x != 0 && y != 0)
+                && (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
             USDPerBaseUint128.wrap(x).mulDecimalToQuanto(

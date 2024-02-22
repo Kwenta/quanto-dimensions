@@ -1,10 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.19;
 
-import { BaseQuantoPerUSDUint128 } from "./ValueType.sol";
-import { BaseQuantoPerUSDUint256 } from "src/Uint256/BaseQuantoPerUSDUint256/ValueType.sol";
-import { BaseQuantoPerUSDInt128 } from "src/Int128/BaseQuantoPerUSDInt128/ValueType.sol";
-import { SafeCastU128 } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
+import {BaseQuantoPerUSDUint128} from "./ValueType.sol";
+import {BaseQuantoPerUSDUint256} from
+    "src/Uint256/BaseQuantoPerUSDUint256/ValueType.sol";
+import {BaseQuantoPerUSDInt128} from
+    "src/Int128/BaseQuantoPerUSDInt128/ValueType.sol";
+import {SafeCastU128} from
+    "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
 
 using SafeCastU128 for uint128;
 
@@ -19,12 +22,18 @@ function unwrap(BaseQuantoPerUSDUint128 x) pure returns (uint128 result) {
 }
 
 /// @notice Converts a BaseQuantoPerUSDUint128 number into BaseQuantoPerUSDUint256.
-function to256(BaseQuantoPerUSDUint128 x) pure returns (BaseQuantoPerUSDUint256 result) {
+function to256(BaseQuantoPerUSDUint128 x)
+    pure
+    returns (BaseQuantoPerUSDUint256 result)
+{
     result = BaseQuantoPerUSDUint256.wrap(unwrap(x).to256());
 }
 
 /// @notice Converts a BaseQuantoPerUSDUint128 number into BaseQuantoPerUSDInt128.
-function toInt(BaseQuantoPerUSDUint128 x) pure returns (BaseQuantoPerUSDInt128 result) {
+function toInt(BaseQuantoPerUSDUint128 x)
+    pure
+    returns (BaseQuantoPerUSDInt128 result)
+{
     result = BaseQuantoPerUSDInt128.wrap(unwrap(x).toInt());
 }
 

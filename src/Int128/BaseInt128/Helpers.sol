@@ -2,11 +2,13 @@
 pragma solidity >=0.8.19;
 
 import "./Casting.sol";
-import { BaseInt128 } from "./ValueType.sol";
-import { USDPerBaseInt128 } from "../USDPerBaseInt128/ValueType.sol";
-import { USDInt128 } from "../USDInt128/ValueType.sol";
-import { DecimalMath } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/DecimalMath.sol";
-import { SafeCastI256 } from "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
+import {BaseInt128} from "./ValueType.sol";
+import {USDPerBaseInt128} from "../USDPerBaseInt128/ValueType.sol";
+import {USDInt128} from "../USDInt128/ValueType.sol";
+import {DecimalMath} from
+    "lib/synthetix-v3/utils/core-contracts/contracts/utils/DecimalMath.sol";
+import {SafeCastI256} from
+    "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
 
 using DecimalMath for int128;
 using SafeCastI256 for int256;
@@ -97,7 +99,10 @@ function mulDecimal(BaseInt128 x, int128 y) pure returns (BaseInt128 result) {
 }
 
 /// @notice Multiplies base and usd/base to get usd
-function mulDecimalToUSD(BaseInt128 x, USDPerBaseInt128 y) pure returns (USDInt128 result) {
+function mulDecimalToUSD(BaseInt128 x, USDPerBaseInt128 y)
+    pure
+    returns (USDInt128 result)
+{
     result = USDInt128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
 }
 
