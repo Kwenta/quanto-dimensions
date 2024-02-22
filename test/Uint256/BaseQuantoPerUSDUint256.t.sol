@@ -2,7 +2,7 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {BaseQuantoPerUSDUint256, BaseQuantoPerUSDUint128, BaseUint256, QuantoUint256, USDPerBaseUint256, USDPerQuantoUint256, USDUint256} from "src/UnitTypes.sol";
+import {BaseQuantoPerUSDUint256, BaseQuantoPerUSDInt256, BaseQuantoPerUSDUint128, BaseUint256, QuantoUint256, USDPerBaseUint256, USDPerQuantoUint256, USDUint256} from "src/UnitTypes.sol";
 
 contract BaseQuantoPerUSDUint256Test is Test {
     function setUp() public {}
@@ -417,5 +417,26 @@ contract BaseQuantoPerUSDUint256Test is Test {
             BaseQuantoPerUSDUint128 result = BaseQuantoPerUSDUint256.wrap(x).to128();
             assertEq(result.unwrap(), uint128(x));
         }
+    }
+
+    function testBaseQuantoPerUSDUint256ToIntFuzz(uint256 x) public {
+        if (x > uint256(type(int256).max)) {
+            vm.expectRevert();
+            BaseQuantoPerUSDUint256.wrap(x).toInt();
+        } else {
+            BaseQuantoPerUSDInt256 result = BaseQuantoPerUSDUint256.wrap(x).toInt();
+            assertEq(result.unwrap(), int256(x));
+        }
+    }
+
+    function testBaseQuantoPerUSDUint256ToBytes32() public {
+        uint256 x = type(uint256).max;
+        bytes32 result = BaseQuantoPerUSDUint256.wrap(x).toBytes32();
+        assertEq(result, bytes32(x));
+    }
+
+    function testBaseQuantoPerUSDUint256ToBytes32Fuzz(uint256 x) public {
+        bytes32 result = BaseQuantoPerUSDUint256.wrap(x).toBytes32();
+        assertEq(result, bytes32(x));
     }
 }
