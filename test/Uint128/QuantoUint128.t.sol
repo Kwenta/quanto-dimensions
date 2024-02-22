@@ -2,7 +2,7 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {BaseQuantoPerUSDUint128, BaseUint128, QuantoUint128, USDPerBaseUint128, USDPerQuantoUint128, USDUint128} from "src/UnitTypes.sol";
+import {BaseQuantoPerUSDUint128, BaseUint128, QuantoUint128, QuantoUint256, QuantoInt128, USDPerBaseUint128, USDPerQuantoUint128, USDUint128} from "src/UnitTypes.sol";
 
 contract QuantoUint128Test is Test {
     function setUp() public {}
@@ -341,5 +341,46 @@ contract QuantoUint128Test is Test {
             QuantoUint128 result = QuantoUint128.wrap(x).div(y);
             assertEq(result.unwrap(), z);
         }
+    }
+
+    function testQuantoUint128To256() public {
+        uint128 x = type(uint128).max;
+        QuantoUint256 result = QuantoUint128.wrap(x).to256();
+        assertEq(result.unwrap(), uint256(x));
+    }
+
+    function testQuantoUint128To256Fuzz(uint128 x) public {
+        QuantoUint256 result = QuantoUint128.wrap(x).to256();
+        assertEq(result.unwrap(), uint256(x));
+    }
+
+    function testQuantoUint128ToInt() public {
+        uint128 x = type(uint128).max;
+        vm.expectRevert();
+        QuantoUint128.wrap(x).toInt();
+        x = 1;
+        QuantoInt128 result = QuantoUint128.wrap(x).toInt();
+        assertEq(result.unwrap(), int128(x));
+    }
+
+    function testQuantoUint128ToIntFuzz(uint128 x) public {
+        if (x > uint128(type(int128).max)) {
+            vm.expectRevert();
+            QuantoUint128.wrap(x).toInt();
+        } else {
+            QuantoInt128 result = QuantoUint128.wrap(x).toInt();
+            assertEq(result.unwrap(), int128(x));
+        }
+    }
+
+    function testQuantoUint128ToBytes32() public {
+        uint128 x = type(uint128).max;
+        bytes32 result = QuantoUint128.wrap(x).toBytes32();
+        assertEq(result, bytes32(uint256(x)));
+    }
+
+    function testQuantoUint128ToBytes32Fuzz(uint128 x) public {
+        bytes32 result = QuantoUint128.wrap(x).toBytes32();
+        assertEq(result, bytes32(uint256(x)));
     }
 }

@@ -2,7 +2,7 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {BaseQuantoPerUSDUint128, BaseUint128, QuantoUint128, USDPerBaseUint128, USDPerQuantoUint128, USDUint128} from "src/UnitTypes.sol";
+import {BaseQuantoPerUSDUint128, BaseUint128, QuantoUint128, USDPerBaseUint128, USDPerQuantoUint128, USDPerQuantoUint256, USDPerQuantoInt128, USDUint128} from "src/UnitTypes.sol";
 
 contract USDPerQuantoUint128Test is Test {
     function setUp() public {}
@@ -390,5 +390,46 @@ contract USDPerQuantoUint128Test is Test {
             USDPerQuantoUint128 result = USDPerQuantoUint128.wrap(x).div(y);
             assertEq(result.unwrap(), z);
         }
+    }
+
+    function testUSDPerQuantoUint128To256() public {
+        uint128 x = type(uint128).max;
+        USDPerQuantoUint256 result = USDPerQuantoUint128.wrap(x).to256();
+        assertEq(result.unwrap(), uint256(x));
+    }
+
+    function testUSDPerQuantoUint128To256Fuzz(uint128 x) public {
+        USDPerQuantoUint256 result = USDPerQuantoUint128.wrap(x).to256();
+        assertEq(result.unwrap(), uint256(x));
+    }
+
+    function testUSDPerQuantoUint128ToInt() public {
+        uint128 x = type(uint128).max;
+        vm.expectRevert();
+        USDPerQuantoUint128.wrap(x).toInt();
+        x = 1;
+        USDPerQuantoInt128 result = USDPerQuantoUint128.wrap(x).toInt();
+        assertEq(result.unwrap(), int128(x));
+    }
+
+    function testUSDPerQuantoUint128ToIntFuzz(uint128 x) public {
+        if (x > uint128(type(int128).max)) {
+            vm.expectRevert();
+            USDPerQuantoUint128.wrap(x).toInt();
+        } else {
+            USDPerQuantoInt128 result = USDPerQuantoUint128.wrap(x).toInt();
+            assertEq(result.unwrap(), int128(x));
+        }
+    }
+
+    function testUSDPerQuantoUint128ToBytes32() public {
+        uint128 x = type(uint128).max;
+        bytes32 result = USDPerQuantoUint128.wrap(x).toBytes32();
+        assertEq(result, bytes32(uint256(x)));
+    }
+
+    function testUSDPerQuantoUint128ToBytes32Fuzz(uint128 x) public {
+        bytes32 result = USDPerQuantoUint128.wrap(x).toBytes32();
+        assertEq(result, bytes32(uint256(x)));
     }
 }

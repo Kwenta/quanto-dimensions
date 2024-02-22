@@ -2,7 +2,7 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {BaseQuantoPerUSDUint128, BaseUint128, QuantoUint128, USDPerBaseUint128, USDPerQuantoUint128, USDUint128} from "src/UnitTypes.sol";
+import {BaseQuantoPerUSDUint128, BaseUint128, BaseInt128, BaseUint256, QuantoUint128, USDPerBaseUint128, USDPerQuantoUint128, USDUint128} from "src/UnitTypes.sol";
 
 contract BaseUint128Test is Test {
     function setUp() public {}
@@ -339,5 +339,46 @@ contract BaseUint128Test is Test {
             BaseUint128 result = BaseUint128.wrap(x).div(y);
             assertEq(result.unwrap(), z);
         }
+    }
+
+    function testBaseUint128To256() public {
+        uint128 x = type(uint128).max;
+        BaseUint256 result = BaseUint128.wrap(x).to256();
+        assertEq(result.unwrap(), uint256(x));
+    }
+
+    function testBaseUint128To256Fuzz(uint128 x) public {
+        BaseUint256 result = BaseUint128.wrap(x).to256();
+        assertEq(result.unwrap(), uint256(x));
+    }
+
+    function testBaseUint128ToInt() public {
+        uint128 x = type(uint128).max;
+        vm.expectRevert();
+        BaseUint128.wrap(x).toInt();
+        x = 1;
+        BaseInt128 result = BaseUint128.wrap(x).toInt();
+        assertEq(result.unwrap(), int128(x));
+    }
+
+    function testBaseUint128ToIntFuzz(uint128 x) public {
+        if (x > uint128(type(int128).max)) {
+            vm.expectRevert();
+            BaseUint128.wrap(x).toInt();
+        } else {
+            BaseInt128 result = BaseUint128.wrap(x).toInt();
+            assertEq(result.unwrap(), int128(x));
+        }
+    }
+
+    function testBaseUint128ToBytes32() public {
+        uint128 x = type(uint128).max;
+        bytes32 result = BaseUint128.wrap(x).toBytes32();
+        assertEq(result, bytes32(uint256(x)));
+    }
+
+    function testBaseUint128ToBytes32Fuzz(uint128 x) public {
+        bytes32 result = BaseUint128.wrap(x).toBytes32();
+        assertEq(result, bytes32(uint256(x)));
     }
 }
