@@ -11,9 +11,11 @@ type QuantoUint128 is uint128;
 //////////////////////////////////////////////////////////////*/
 
 using {
-    Casting.unwrap
+    Casting.unwrap,
+    Casting.to256,
+    Casting.toInt,
+    Casting.toBytes32
 } for QuantoUint128 global;
-
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

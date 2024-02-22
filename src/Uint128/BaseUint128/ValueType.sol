@@ -11,9 +11,11 @@ type BaseUint128 is uint128;
 //////////////////////////////////////////////////////////////*/
 
 using {
-    Casting.unwrap
+    Casting.unwrap,
+    Casting.to256,
+    Casting.toInt,
+    Casting.toBytes32
 } for BaseUint128 global;
-
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

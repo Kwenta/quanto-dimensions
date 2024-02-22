@@ -11,9 +11,11 @@ type USDUint128 is uint128;
 //////////////////////////////////////////////////////////////*/
 
 using {
-    Casting.unwrap
+    Casting.unwrap,
+    Casting.to256,
+    Casting.toInt,
+    Casting.toBytes32
 } for USDUint128 global;
-
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS
