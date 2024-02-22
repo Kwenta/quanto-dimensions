@@ -10,7 +10,12 @@ type USDPerBaseUint256 is uint256;
                             CASTING
 //////////////////////////////////////////////////////////////*/
 
-using {Casting.unwrap, Casting.to128} for USDPerBaseUint256 global;
+using {
+    Casting.unwrap,
+    Casting.to128,
+    Casting.toInt,
+    Casting.toBytes32
+} for USDPerBaseUint256 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS
