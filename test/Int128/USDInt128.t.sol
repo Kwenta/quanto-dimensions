@@ -2,7 +2,7 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {BaseQuantoPerUSDInt128, BaseInt128, QuantoInt128, USDPerBaseInt128, USDPerQuantoInt128, USDInt128} from "src/UnitTypes.sol";
+import {BaseQuantoPerUSDInt128, BaseInt128, QuantoInt128, USDPerBaseInt128, USDPerQuantoInt128, USDInt128, USDInt256, USDUint128} from "src/UnitTypes.sol";
 
 contract USDInt128Test is Test {
     function setUp() public {}
@@ -318,6 +318,36 @@ contract USDInt128Test is Test {
         } else {
             USDInt128 result = USDInt128.wrap(x).div(y);
             assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testUSDInt128To256() public {
+        int128 x = type(int128).max;
+        USDInt256 result = USDInt128.wrap(x).to256();
+        assertEq(result.unwrap(), int256(x));
+    }
+
+    function testUSDInt128To256Fuzz(int128 x) public {
+        USDInt256 result = USDInt128.wrap(x).to256();
+        assertEq(result.unwrap(), int256(x));
+    }
+
+    function testUSDInt128ToUint() public {
+        int128 x = type(int128).min;
+        vm.expectRevert();
+        USDInt128.wrap(x).toUint();
+        x = 1;
+        USDUint128 result = USDInt128.wrap(x).toUint();
+        assertEq(result.unwrap(), uint128(x));
+    }
+
+    function testUSDInt128ToUintFuzz(int128 x) public {
+        if (x < 0) {
+            vm.expectRevert();
+            USDInt128.wrap(x).toUint();
+        } else {
+            USDUint128 result = USDInt128.wrap(x).toUint();
+            assertEq(result.unwrap(), uint128(x));
         }
     }
 }
