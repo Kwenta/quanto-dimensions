@@ -2,7 +2,7 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {BaseQuantoPerUSDInt256, BaseInt256, QuantoInt256, USDPerBaseInt256, USDPerQuantoInt256, USDInt256} from "src/UnitTypes.sol";
+import {BaseQuantoPerUSDInt256, BaseQuantoPerUSDInt128, BaseQuantoPerUSDUint256, BaseInt256, QuantoInt256, USDPerBaseInt256, USDPerQuantoInt256, USDInt256} from "src/UnitTypes.sol";
 
 contract BaseQuantoPerUSDInt256Test is Test {
     function setUp() public {}
@@ -410,6 +410,44 @@ contract BaseQuantoPerUSDInt256Test is Test {
                 .wrap(x)
                 .div(y);
             assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testBaseQuantoPerUSDInt256To128() public {
+        int256 x = type(int256).max;
+        vm.expectRevert();
+        BaseQuantoPerUSDInt256.wrap(x).to128();
+        x = 1;
+        BaseQuantoPerUSDInt128 result = BaseQuantoPerUSDInt256.wrap(x).to128();
+        assertEq(result.unwrap(), int256(x));
+    }
+
+    function testBaseQuantoPerUSDInt256To128Fuzz(int256 x) public {
+        if (x > int256(type(int128).max) || x < int256(type(int128).min)) {
+            vm.expectRevert();
+            BaseQuantoPerUSDInt256.wrap(x).to128();
+        } else {
+            BaseQuantoPerUSDInt128 result = BaseQuantoPerUSDInt256.wrap(x).to128();
+            assertEq(result.unwrap(), int128(x));
+        }
+    }
+
+    function testBaseQuantoPerUSDInt256ToUint() public {
+        int256 x = type(int256).min;
+        vm.expectRevert();
+        BaseQuantoPerUSDInt256.wrap(x).toUint();
+        x = 1;
+        BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDInt256.wrap(x).toUint();
+        assertEq(result.unwrap(), uint256(x));
+    }
+
+    function testBaseQuantoPerUSDInt256ToUintFuzz(int256 x) public {
+        if (x < 0) {
+            vm.expectRevert();
+            BaseQuantoPerUSDInt256.wrap(x).toUint();
+        } else {
+            BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDInt256.wrap(x).toUint();
+            assertEq(result.unwrap(), uint256(x));
         }
     }
 }
