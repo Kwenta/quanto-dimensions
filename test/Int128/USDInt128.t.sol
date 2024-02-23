@@ -3,11 +3,6 @@ pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
 import {
-    BaseQuantoPerUSDInt128,
-    BaseInt128,
-    QuantoInt128,
-    USDPerBaseInt128,
-    USDPerQuantoInt128,
     USDInt128,
     USDInt256,
     USDUint128

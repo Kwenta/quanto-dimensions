@@ -9,7 +9,6 @@ import {
     USDPerBaseInt128,
     USDPerBaseInt256,
     USDPerBaseUint128,
-    USDPerQuantoInt128,
     USDInt128
 } from "src/UnitTypes.sol";
 
