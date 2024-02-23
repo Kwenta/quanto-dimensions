@@ -310,7 +310,7 @@ contract USDPerQuantoInt256Test is Test {
 
     function testUSDPerQuantoInt256MulDecimalToUSD() public {
         USDPerQuantoInt256 x = USDPerQuantoInt256.wrap(100 ether);
-        BaseInt256 y = BaseInt256.wrap(200 ether);
+        QuantoInt256 y = QuantoInt256.wrap(200 ether);
         USDInt256 result = x.mulDecimalToUSD(y);
         assertEq(result.unwrap(), 20_000 ether);
     }
@@ -332,10 +332,10 @@ contract USDPerQuantoInt256Test is Test {
                 && (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
-            USDPerQuantoInt256.wrap(x).mulDecimalToUSD(BaseInt256.wrap(y));
+            USDPerQuantoInt256.wrap(x).mulDecimalToUSD(QuantoInt256.wrap(y));
         } else {
             USDInt256 result =
-                USDPerQuantoInt256.wrap(x).mulDecimalToUSD(BaseInt256.wrap(y));
+                USDPerQuantoInt256.wrap(x).mulDecimalToUSD(QuantoInt256.wrap(y));
             assertEq(result.unwrap(), z);
         }
     }

@@ -307,7 +307,7 @@ contract USDPerQuantoUint128Test is Test {
 
     function testUSDPerQuantoUint128MulDecimalToUSD() public {
         USDPerQuantoUint128 x = USDPerQuantoUint128.wrap(100 ether);
-        BaseUint128 y = BaseUint128.wrap(200 ether);
+        QuantoUint128 y = QuantoUint128.wrap(200 ether);
         USDUint128 result = x.mulDecimalToUSD(y);
         assertEq(result.unwrap(), 20_000 ether);
     }
@@ -329,10 +329,10 @@ contract USDPerQuantoUint128Test is Test {
                 && (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
-            USDPerQuantoUint128.wrap(x).mulDecimalToUSD(BaseUint128.wrap(y));
+            USDPerQuantoUint128.wrap(x).mulDecimalToUSD(QuantoUint128.wrap(y));
         } else {
             USDUint128 result =
-                USDPerQuantoUint128.wrap(x).mulDecimalToUSD(BaseUint128.wrap(y));
+                USDPerQuantoUint128.wrap(x).mulDecimalToUSD(QuantoUint128.wrap(y));
             assertEq(result.unwrap(), z);
         }
     }

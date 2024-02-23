@@ -138,7 +138,7 @@ function mulDecimal(USDPerQuantoUint256 x, uint256 y)
 }
 
 /// @notice Multiplies usd/quanto and quanto to get usd
-function mulDecimalToUSD(USDPerQuantoUint256 x, BaseUint256 y)
+function mulDecimalToUSD(USDPerQuantoUint256 x, QuantoUint256 y)
     pure
     returns (USDUint256 result)
 {
