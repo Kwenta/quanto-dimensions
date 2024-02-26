@@ -5,7 +5,6 @@ import {Test, console} from "forge-std/Test.sol";
 import {
     BaseQuantoPerUSDInt256,
     BaseQuantoPerUSDInt128,
-    BaseQuantoPerUSDUint256,
     BaseInt256,
     QuantoInt256,
     USDPerBaseInt256,
@@ -431,26 +430,6 @@ contract BaseQuantoPerUSDInt256Test is Test {
             BaseQuantoPerUSDInt128 result =
                 BaseQuantoPerUSDInt256.wrap(x).to128();
             assertEq(result.unwrap(), int128(x));
-        }
-    }
-
-    function testBaseQuantoPerUSDInt256ToUint() public {
-        int256 x = type(int256).min;
-        vm.expectRevert();
-        BaseQuantoPerUSDInt256.wrap(x).toUint();
-        x = 1;
-        BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDInt256.wrap(x).toUint();
-        assertEq(result.unwrap(), uint256(x));
-    }
-
-    function testBaseQuantoPerUSDInt256ToUintFuzz(int256 x) public {
-        if (x < 0) {
-            vm.expectRevert();
-            BaseQuantoPerUSDInt256.wrap(x).toUint();
-        } else {
-            BaseQuantoPerUSDUint256 result =
-                BaseQuantoPerUSDInt256.wrap(x).toUint();
-            assertEq(result.unwrap(), uint256(x));
         }
     }
 }

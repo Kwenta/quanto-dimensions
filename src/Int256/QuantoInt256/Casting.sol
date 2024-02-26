@@ -3,7 +3,6 @@ pragma solidity >=0.8.19;
 
 import {QuantoInt256} from "./ValueType.sol";
 import {QuantoInt128} from "../../Int128/QuantoInt128/ValueType.sol";
-import {QuantoUint256} from "../../Uint256/QuantoUint256/ValueType.sol";
 import {SafeCastI256} from "../../utils/SafeCast.sol";
 
 using SafeCastI256 for int256;
@@ -21,9 +20,4 @@ function unwrap(QuantoInt256 x) pure returns (int256 result) {
 /// @notice Converts a QuantoInt256 number into QuantoInt128.
 function to128(QuantoInt256 x) pure returns (QuantoInt128 result) {
     result = QuantoInt128.wrap(unwrap(x).to128());
-}
-
-/// @notice Converts a QuantoInt256 number into QuantoUint256.
-function toUint(QuantoInt256 x) pure returns (QuantoUint256 result) {
-    result = QuantoUint256.wrap(unwrap(x).toUint());
 }

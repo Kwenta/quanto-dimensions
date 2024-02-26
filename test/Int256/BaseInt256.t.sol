@@ -6,7 +6,6 @@ import {
     BaseQuantoPerUSDInt256,
     BaseInt256,
     BaseInt128,
-    BaseUint256,
     QuantoInt256,
     USDPerBaseInt256,
     USDPerQuantoInt256,
@@ -373,25 +372,6 @@ contract BaseInt256Test is Test {
         } else {
             BaseInt128 result = BaseInt256.wrap(x).to128();
             assertEq(result.unwrap(), int128(x));
-        }
-    }
-
-    function testBaseInt256ToUint() public {
-        int256 x = type(int256).min;
-        vm.expectRevert();
-        BaseInt256.wrap(x).toUint();
-        x = 1;
-        BaseUint256 result = BaseInt256.wrap(x).toUint();
-        assertEq(result.unwrap(), uint256(x));
-    }
-
-    function testBaseInt256ToUintFuzz(int256 x) public {
-        if (x < 0) {
-            vm.expectRevert();
-            BaseInt256.wrap(x).toUint();
-        } else {
-            BaseUint256 result = BaseInt256.wrap(x).toUint();
-            assertEq(result.unwrap(), uint256(x));
         }
     }
 }

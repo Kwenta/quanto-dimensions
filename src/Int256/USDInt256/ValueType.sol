@@ -10,7 +10,7 @@ type USDInt256 is int256;
                             CASTING
 //////////////////////////////////////////////////////////////*/
 
-using {Casting.unwrap, Casting.to128, Casting.toUint} for USDInt256 global;
+using {Casting.unwrap, Casting.to128} for USDInt256 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

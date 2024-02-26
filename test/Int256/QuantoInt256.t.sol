@@ -7,7 +7,6 @@ import {
     BaseInt256,
     QuantoInt256,
     QuantoInt128,
-    QuantoUint256,
     USDPerBaseInt256,
     USDPerQuantoInt256,
     USDInt256
@@ -375,25 +374,6 @@ contract QuantoInt256Test is Test {
         } else {
             QuantoInt128 result = QuantoInt256.wrap(x).to128();
             assertEq(result.unwrap(), int128(x));
-        }
-    }
-
-    function testQuantoInt256ToUint() public {
-        int256 x = type(int256).min;
-        vm.expectRevert();
-        QuantoInt256.wrap(x).toUint();
-        x = 1;
-        QuantoUint256 result = QuantoInt256.wrap(x).toUint();
-        assertEq(result.unwrap(), uint256(x));
-    }
-
-    function testQuantoInt256ToUintFuzz(int256 x) public {
-        if (x < 0) {
-            vm.expectRevert();
-            QuantoInt256.wrap(x).toUint();
-        } else {
-            QuantoUint256 result = QuantoInt256.wrap(x).toUint();
-            assertEq(result.unwrap(), uint256(x));
         }
     }
 }

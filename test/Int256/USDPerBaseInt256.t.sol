@@ -8,7 +8,6 @@ import {
     QuantoInt256,
     USDPerBaseInt256,
     USDPerBaseInt128,
-    USDPerBaseUint256,
     USDPerQuantoInt256,
     USDInt256
 } from "../../src/UnitTypes.sol";
@@ -415,25 +414,6 @@ contract USDPerBaseInt256Test is Test {
         } else {
             USDPerBaseInt128 result = USDPerBaseInt256.wrap(x).to128();
             assertEq(result.unwrap(), int128(x));
-        }
-    }
-
-    function testUSDPerBaseInt256ToUint() public {
-        int256 x = type(int256).min;
-        vm.expectRevert();
-        USDPerBaseInt256.wrap(x).toUint();
-        x = 1;
-        USDPerBaseUint256 result = USDPerBaseInt256.wrap(x).toUint();
-        assertEq(result.unwrap(), uint256(x));
-    }
-
-    function testUSDPerBaseInt256ToUintFuzz(int256 x) public {
-        if (x < 0) {
-            vm.expectRevert();
-            USDPerBaseInt256.wrap(x).toUint();
-        } else {
-            USDPerBaseUint256 result = USDPerBaseInt256.wrap(x).toUint();
-            assertEq(result.unwrap(), uint256(x));
         }
     }
 }

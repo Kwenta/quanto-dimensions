@@ -12,8 +12,7 @@ type BaseQuantoPerUSDInt256 is int256;
 
 using {
     Casting.unwrap,
-    Casting.to128,
-    Casting.toUint
+    Casting.to128
 } for BaseQuantoPerUSDInt256 global;
 
 /*//////////////////////////////////////////////////////////////

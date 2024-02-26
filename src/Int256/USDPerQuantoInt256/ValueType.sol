@@ -12,8 +12,7 @@ type USDPerQuantoInt256 is int256;
 
 using {
     Casting.unwrap,
-    Casting.to128,
-    Casting.toUint
+    Casting.to128
 } for USDPerQuantoInt256 global;
 
 /*//////////////////////////////////////////////////////////////

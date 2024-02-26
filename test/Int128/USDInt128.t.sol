@@ -2,7 +2,7 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {USDInt128, USDUint128} from "../../src/UnitTypes.sol";
+import {USDInt128} from "../../src/UnitTypes.sol";
 
 contract USDInt128Test is Test {
     function setUp() public {}
@@ -316,25 +316,6 @@ contract USDInt128Test is Test {
         } else {
             USDInt128 result = USDInt128.wrap(x).div(y);
             assertEq(result.unwrap(), z);
-        }
-    }
-
-    function testUSDInt128ToUint() public {
-        int128 x = type(int128).min;
-        vm.expectRevert();
-        USDInt128.wrap(x).toUint();
-        x = 1;
-        USDUint128 result = USDInt128.wrap(x).toUint();
-        assertEq(result.unwrap(), uint128(x));
-    }
-
-    function testUSDInt128ToUintFuzz(int128 x) public {
-        if (x < 0) {
-            vm.expectRevert();
-            USDInt128.wrap(x).toUint();
-        } else {
-            USDUint128 result = USDInt128.wrap(x).toUint();
-            assertEq(result.unwrap(), uint128(x));
         }
     }
 }

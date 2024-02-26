@@ -10,7 +10,7 @@ type QuantoInt128 is int128;
                             CASTING
 //////////////////////////////////////////////////////////////*/
 
-using {Casting.unwrap, Casting.toUint} for QuantoInt128 global;
+using {Casting.unwrap} for QuantoInt128 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

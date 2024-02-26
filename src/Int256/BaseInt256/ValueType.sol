@@ -10,7 +10,7 @@ type BaseInt256 is int256;
                             CASTING
 //////////////////////////////////////////////////////////////*/
 
-using {Casting.unwrap, Casting.to128, Casting.toUint} for BaseInt256 global;
+using {Casting.unwrap, Casting.to128} for BaseInt256 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

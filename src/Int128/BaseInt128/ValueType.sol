@@ -10,7 +10,7 @@ type BaseInt128 is int128;
                             CASTING
 //////////////////////////////////////////////////////////////*/
 
-using {Casting.unwrap, Casting.toUint} for BaseInt128 global;
+using {Casting.unwrap} for BaseInt128 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

@@ -3,7 +3,6 @@ pragma solidity >=0.8.19;
 
 import {USDPerBaseInt256} from "./ValueType.sol";
 import {USDPerBaseInt128} from "../../Int128/USDPerBaseInt128/ValueType.sol";
-import {USDPerBaseUint256} from "../../Uint256/USDPerBaseUint256/ValueType.sol";
 import {SafeCastI256} from "../../utils/SafeCast.sol";
 
 using SafeCastI256 for int256;
@@ -21,9 +20,4 @@ function unwrap(USDPerBaseInt256 x) pure returns (int256 result) {
 /// @notice Converts a USDPerBaseInt256 number into USDPerBaseInt128.
 function to128(USDPerBaseInt256 x) pure returns (USDPerBaseInt128 result) {
     result = USDPerBaseInt128.wrap(unwrap(x).to128());
-}
-
-/// @notice Converts a USDPerBaseInt256 number into USDPerBaseUint256.
-function toUint(USDPerBaseInt256 x) pure returns (USDPerBaseUint256 result) {
-    result = USDPerBaseUint256.wrap(unwrap(x).toUint());
 }

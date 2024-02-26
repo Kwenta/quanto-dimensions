@@ -10,7 +10,7 @@ type USDPerQuantoInt128 is int128;
                             CASTING
 //////////////////////////////////////////////////////////////*/
 
-using {Casting.unwrap, Casting.toUint} for USDPerQuantoInt128 global;
+using {Casting.unwrap} for USDPerQuantoInt128 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS
