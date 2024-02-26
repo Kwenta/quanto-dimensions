@@ -2,10 +2,7 @@
 pragma solidity >=0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {
-    USDInt128,
-    USDUint128
-} from "../../src/UnitTypes.sol";
+import {USDInt128, USDUint128} from "../../src/UnitTypes.sol";
 
 contract USDInt128Test is Test {
     function setUp() public {}

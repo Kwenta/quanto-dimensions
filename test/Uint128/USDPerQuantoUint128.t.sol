@@ -330,8 +330,9 @@ contract USDPerQuantoUint128Test is Test {
             vm.expectRevert();
             USDPerQuantoUint128.wrap(x).mulDecimalToUSD(QuantoUint128.wrap(y));
         } else {
-            USDUint128 result =
-                USDPerQuantoUint128.wrap(x).mulDecimalToUSD(QuantoUint128.wrap(y));
+            USDUint128 result = USDPerQuantoUint128.wrap(x).mulDecimalToUSD(
+                QuantoUint128.wrap(y)
+            );
             assertEq(result.unwrap(), z);
         }
     }

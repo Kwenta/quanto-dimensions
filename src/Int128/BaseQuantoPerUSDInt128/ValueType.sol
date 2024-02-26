@@ -10,10 +10,7 @@ type BaseQuantoPerUSDInt128 is int128;
                             CASTING
 //////////////////////////////////////////////////////////////*/
 
-using {
-    Casting.unwrap,
-    Casting.toUint
-} for BaseQuantoPerUSDInt128 global;
+using {Casting.unwrap, Casting.toUint} for BaseQuantoPerUSDInt128 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS
