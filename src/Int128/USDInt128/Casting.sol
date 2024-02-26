@@ -2,7 +2,6 @@
 pragma solidity >=0.8.19;
 
 import {USDInt128} from "./ValueType.sol";
-import {USDInt256} from "src/Int256/USDInt256/ValueType.sol";
 import {USDUint128} from "src/Uint128/USDUint128/ValueType.sol";
 import {SafeCastI128} from
     "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
@@ -17,11 +16,6 @@ function wrap(int128 x) pure returns (USDInt128 result) {
 /// @notice Unwraps a USDInt128 number into int128.
 function unwrap(USDInt128 x) pure returns (int128 result) {
     result = USDInt128.unwrap(x);
-}
-
-/// @notice Converts a USDInt128 number into USDInt256.
-function to256(USDInt128 x) pure returns (USDInt256 result) {
-    result = USDInt256.wrap(unwrap(x).to256());
 }
 
 /// @notice Converts a USDInt128 number into USDUint128.

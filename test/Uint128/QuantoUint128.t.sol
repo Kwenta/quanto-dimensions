@@ -6,7 +6,6 @@ import {
     BaseQuantoPerUSDUint128,
     BaseUint128,
     QuantoUint128,
-    QuantoUint256,
     QuantoInt128,
     USDPerBaseUint128,
     USDPerQuantoUint128,
@@ -349,17 +348,6 @@ contract QuantoUint128Test is Test {
             QuantoUint128 result = QuantoUint128.wrap(x).div(y);
             assertEq(result.unwrap(), z);
         }
-    }
-
-    function testQuantoUint128To256() public {
-        uint128 x = type(uint128).max;
-        QuantoUint256 result = QuantoUint128.wrap(x).to256();
-        assertEq(result.unwrap(), uint256(x));
-    }
-
-    function testQuantoUint128To256Fuzz(uint128 x) public {
-        QuantoUint256 result = QuantoUint128.wrap(x).to256();
-        assertEq(result.unwrap(), uint256(x));
     }
 
     function testQuantoUint128ToInt() public {

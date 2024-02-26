@@ -2,8 +2,6 @@
 pragma solidity >=0.8.19;
 
 import {BaseQuantoPerUSDInt128} from "./ValueType.sol";
-import {BaseQuantoPerUSDInt256} from
-    "src/Int256/BaseQuantoPerUSDInt256/ValueType.sol";
 import {BaseQuantoPerUSDUint128} from
     "src/Uint128/BaseQuantoPerUSDUint128/ValueType.sol";
 import {SafeCastI128} from
@@ -19,14 +17,6 @@ function wrap(int128 x) pure returns (BaseQuantoPerUSDInt128 result) {
 /// @notice Unwraps a BaseQuantoPerUSDInt128 number into int128.
 function unwrap(BaseQuantoPerUSDInt128 x) pure returns (int128 result) {
     result = BaseQuantoPerUSDInt128.unwrap(x);
-}
-
-/// @notice Converts a BaseQuantoPerUSDInt128 number into BaseQuantoPerUSDInt256.
-function to256(BaseQuantoPerUSDInt128 x)
-    pure
-    returns (BaseQuantoPerUSDInt256 result)
-{
-    result = BaseQuantoPerUSDInt256.wrap(unwrap(x).to256());
 }
 
 /// @notice Converts a BaseQuantoPerUSDInt128 number into BaseQuantoPerUSDUint128.

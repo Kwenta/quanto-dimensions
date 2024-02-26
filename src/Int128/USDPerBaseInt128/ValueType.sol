@@ -12,7 +12,6 @@ type USDPerBaseInt128 is int128;
 
 using {
     Casting.unwrap,
-    Casting.to256,
     Casting.toUint
 } for USDPerBaseInt128 global;
 

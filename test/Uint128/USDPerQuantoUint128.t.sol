@@ -8,7 +8,6 @@ import {
     QuantoUint128,
     USDPerBaseUint128,
     USDPerQuantoUint128,
-    USDPerQuantoUint256,
     USDPerQuantoInt128,
     USDUint128
 } from "src/UnitTypes.sol";
@@ -391,17 +390,6 @@ contract USDPerQuantoUint128Test is Test {
             USDPerQuantoUint128 result = USDPerQuantoUint128.wrap(x).div(y);
             assertEq(result.unwrap(), z);
         }
-    }
-
-    function testUSDPerQuantoUint128To256() public {
-        uint128 x = type(uint128).max;
-        USDPerQuantoUint256 result = USDPerQuantoUint128.wrap(x).to256();
-        assertEq(result.unwrap(), uint256(x));
-    }
-
-    function testUSDPerQuantoUint128To256Fuzz(uint128 x) public {
-        USDPerQuantoUint256 result = USDPerQuantoUint128.wrap(x).to256();
-        assertEq(result.unwrap(), uint256(x));
     }
 
     function testUSDPerQuantoUint128ToInt() public {

@@ -2,7 +2,6 @@
 pragma solidity >=0.8.19;
 
 import {QuantoUint128} from "./ValueType.sol";
-import {QuantoUint256} from "src/Uint256/QuantoUint256/ValueType.sol";
 import {QuantoInt128} from "src/Int128/QuantoInt128/ValueType.sol";
 import {SafeCastU128} from
     "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
@@ -17,11 +16,6 @@ function wrap(uint128 x) pure returns (QuantoUint128 result) {
 /// @notice Unwraps a QuantoUint128 number into uint128.
 function unwrap(QuantoUint128 x) pure returns (uint128 result) {
     result = QuantoUint128.unwrap(x);
-}
-
-/// @notice Converts a QuantoUint128 number into QuantoUint256.
-function to256(QuantoUint128 x) pure returns (QuantoUint256 result) {
-    result = QuantoUint256.wrap(unwrap(x).to256());
 }
 
 /// @notice Converts a QuantoUint128 number into QuantoInt128.
