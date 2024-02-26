@@ -2,9 +2,9 @@
 pragma solidity >=0.8.19;
 
 import {QuantoInt256} from "./ValueType.sol";
-import {QuantoInt128} from "src/Int128/QuantoInt128/ValueType.sol";
-import {QuantoUint256} from "src/Uint256/QuantoUint256/ValueType.sol";
-import {SafeCastI256} from "src/utils/SafeCast.sol";
+import {QuantoInt128} from "../../Int128/QuantoInt128/ValueType.sol";
+import {QuantoUint256} from "../../Uint256/QuantoUint256/ValueType.sol";
+import {SafeCastI256} from "../../utils/SafeCast.sol";
 
 using SafeCastI256 for int256;
 

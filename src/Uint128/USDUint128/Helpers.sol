@@ -3,8 +3,8 @@ pragma solidity >=0.8.19;
 
 import "./Casting.sol";
 import {USDUint128} from "./ValueType.sol";
-import {DecimalMath} from "src/utils/DecimalMath.sol";
-import {SafeCastU256} from "src/utils/SafeCast.sol";
+import {DecimalMath} from "../../utils/DecimalMath.sol";
+import {SafeCastU256} from "../../utils/SafeCast.sol";
 
 using DecimalMath for uint128;
 using SafeCastU256 for uint256;

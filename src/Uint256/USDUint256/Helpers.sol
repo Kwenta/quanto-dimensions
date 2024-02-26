@@ -3,7 +3,7 @@ pragma solidity >=0.8.19;
 
 import "./Casting.sol";
 import {USDUint256} from "./ValueType.sol";
-import {DecimalMath} from "src/utils/DecimalMath.sol";
+import {DecimalMath} from "../../utils/DecimalMath.sol";
 
 using DecimalMath for uint256;
 

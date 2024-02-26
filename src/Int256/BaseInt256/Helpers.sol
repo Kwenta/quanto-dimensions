@@ -5,7 +5,7 @@ import "./Casting.sol";
 import {BaseInt256} from "./ValueType.sol";
 import {USDPerBaseInt256} from "../USDPerBaseInt256/ValueType.sol";
 import {USDInt256} from "../USDInt256/ValueType.sol";
-import {DecimalMath} from "src/utils/DecimalMath.sol";
+import {DecimalMath} from "../../utils/DecimalMath.sol";
 
 using DecimalMath for int256;
 

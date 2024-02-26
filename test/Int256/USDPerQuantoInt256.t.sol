@@ -11,7 +11,7 @@ import {
     USDPerQuantoInt128,
     USDPerQuantoUint256,
     USDInt256
-} from "src/UnitTypes.sol";
+} from "../../src/UnitTypes.sol";
 
 contract USDPerQuantoInt256Test is Test {
     function setUp() public {}

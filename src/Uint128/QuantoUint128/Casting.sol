@@ -2,8 +2,8 @@
 pragma solidity >=0.8.19;
 
 import {QuantoUint128} from "./ValueType.sol";
-import {QuantoInt128} from "src/Int128/QuantoInt128/ValueType.sol";
-import {SafeCastU128} from "src/utils/SafeCast.sol";
+import {QuantoInt128} from "../../Int128/QuantoInt128/ValueType.sol";
+import {SafeCastU128} from "../../utils/SafeCast.sol";
 
 using SafeCastU128 for uint128;
 

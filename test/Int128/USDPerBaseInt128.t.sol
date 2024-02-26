@@ -9,7 +9,7 @@ import {
     USDPerBaseInt128,
     USDPerBaseUint128,
     USDInt128
-} from "src/UnitTypes.sol";
+} from "../../src/UnitTypes.sol";
 
 contract USDPerBaseInt128Test is Test {
     function setUp() public {}

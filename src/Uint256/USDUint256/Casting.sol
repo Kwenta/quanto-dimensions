@@ -2,9 +2,9 @@
 pragma solidity >=0.8.19;
 
 import {USDUint256} from "./ValueType.sol";
-import {USDUint128} from "src/Uint128/USDUint128/ValueType.sol";
-import {USDInt256} from "src/Int256/USDInt256/ValueType.sol";
-import {SafeCastU256} from "src/utils/SafeCast.sol";
+import {USDUint128} from "../../Uint128/USDUint128/ValueType.sol";
+import {USDInt256} from "../../Int256/USDInt256/ValueType.sol";
+import {SafeCastU256} from "../../utils/SafeCast.sol";
 
 using SafeCastU256 for uint256;
 

@@ -3,8 +3,8 @@ pragma solidity >=0.8.19;
 
 import {USDPerQuantoInt128} from "./ValueType.sol";
 import {USDPerQuantoUint128} from
-    "src/Uint128/USDPerQuantoUint128/ValueType.sol";
-import {SafeCastI128} from "src/utils/SafeCast.sol";
+    "../../Uint128/USDPerQuantoUint128/ValueType.sol";
+import {SafeCastI128} from "../../utils/SafeCast.sol";
 
 using SafeCastI128 for int128;
 

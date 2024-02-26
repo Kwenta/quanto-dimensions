@@ -2,8 +2,8 @@
 pragma solidity >=0.8.19;
 
 import {USDUint128} from "./ValueType.sol";
-import {USDInt128} from "src/Int128/USDInt128/ValueType.sol";
-import {SafeCastU128} from "src/utils/SafeCast.sol";
+import {USDInt128} from "../../Int128/USDInt128/ValueType.sol";
+import {SafeCastU128} from "../../utils/SafeCast.sol";
 
 using SafeCastU128 for uint128;
 

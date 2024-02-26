@@ -7,8 +7,8 @@ import {BaseInt128} from "../BaseInt128/ValueType.sol";
 import {USDPerBaseInt128} from "../USDPerBaseInt128/ValueType.sol";
 import {USDPerQuantoInt128} from "../USDPerQuantoInt128/ValueType.sol";
 import {USDInt128} from "../USDInt128/ValueType.sol";
-import {DecimalMath} from "src/utils/DecimalMath.sol";
-import {SafeCastI256} from "src/utils/SafeCast.sol";
+import {DecimalMath} from "../../utils/DecimalMath.sol";
+import {SafeCastI256} from "../../utils/SafeCast.sol";
 
 using DecimalMath for int128;
 using SafeCastI256 for int256;

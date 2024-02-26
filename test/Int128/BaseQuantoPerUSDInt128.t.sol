@@ -9,7 +9,7 @@ import {
     QuantoInt128,
     USDPerBaseInt128,
     USDPerQuantoInt128
-} from "src/UnitTypes.sol";
+} from "../../src/UnitTypes.sol";
 
 contract BaseQuantoPerUSDInt128Test is Test {
     function setUp() public {}

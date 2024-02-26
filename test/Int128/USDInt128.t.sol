@@ -5,7 +5,7 @@ import {Test, console} from "forge-std/Test.sol";
 import {
     USDInt128,
     USDUint128
-} from "src/UnitTypes.sol";
+} from "../../src/UnitTypes.sol";
 
 contract USDInt128Test is Test {
     function setUp() public {}
