@@ -2,10 +2,7 @@
 pragma solidity >=0.8.19;
 
 import {USDPerBaseUint128} from "./ValueType.sol";
-import {USDPerBaseInt128} from "../../Int128/USDPerBaseInt128/ValueType.sol";
-import {SafeCastU128} from "../../utils/SafeCast.sol";
 
-using SafeCastU128 for uint128;
 
 /// @notice Wraps a uint128 number into the USDPerBaseUint128 value type.
 function wrap(uint128 x) pure returns (USDPerBaseUint128 result) {
@@ -15,11 +12,6 @@ function wrap(uint128 x) pure returns (USDPerBaseUint128 result) {
 /// @notice Unwraps a USDPerBaseUint128 number into uint128.
 function unwrap(USDPerBaseUint128 x) pure returns (uint128 result) {
     result = USDPerBaseUint128.unwrap(x);
-}
-
-/// @notice Converts a USDPerBaseUint128 number into USDPerBaseInt128.
-function toInt(USDPerBaseUint128 x) pure returns (USDPerBaseInt128 result) {
-    result = USDPerBaseInt128.wrap(unwrap(x).toInt());
 }
 
 /// @notice Converts a USDPerBaseUint128 number into bytes32.

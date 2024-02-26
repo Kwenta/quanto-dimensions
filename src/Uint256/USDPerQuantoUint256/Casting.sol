@@ -4,7 +4,6 @@ pragma solidity >=0.8.19;
 import {USDPerQuantoUint256} from "./ValueType.sol";
 import {USDPerQuantoUint128} from
     "../../Uint128/USDPerQuantoUint128/ValueType.sol";
-import {USDPerQuantoInt256} from "../../Int256/USDPerQuantoInt256/ValueType.sol";
 import {SafeCastU256} from "../../utils/SafeCast.sol";
 
 using SafeCastU256 for uint256;
@@ -25,14 +24,6 @@ function to128(USDPerQuantoUint256 x)
     returns (USDPerQuantoUint128 result)
 {
     result = USDPerQuantoUint128.wrap(unwrap(x).to128());
-}
-
-/// @notice Converts a USDPerQuantoUint256 number into USDPerQuantoInt256.
-function toInt(USDPerQuantoUint256 x)
-    pure
-    returns (USDPerQuantoInt256 result)
-{
-    result = USDPerQuantoInt256.wrap(unwrap(x).toInt());
 }
 
 /// @notice Converts a USDPerQuantoUint256 number into bytes32.

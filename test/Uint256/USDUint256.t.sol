@@ -9,7 +9,6 @@ import {
     USDPerBaseUint256,
     USDPerQuantoUint256,
     USDUint256,
-    USDInt256,
     USDUint128
 } from "../../src/UnitTypes.sol";
 
@@ -334,25 +333,6 @@ contract USDUint256Test is Test {
         } else {
             USDUint128 result = USDUint256.wrap(x).to128();
             assertEq(result.unwrap(), uint128(x));
-        }
-    }
-
-    function testUSDUint256ToInt() public {
-        uint256 x = type(uint256).max;
-        vm.expectRevert();
-        USDUint256.wrap(x).toInt();
-        x = 1;
-        USDInt256 result = USDUint256.wrap(x).toInt();
-        assertEq(result.unwrap(), int256(x));
-    }
-
-    function testUSDUint256ToIntFuzz(uint256 x) public {
-        if (x > uint256(type(int256).max)) {
-            vm.expectRevert();
-            USDUint256.wrap(x).toInt();
-        } else {
-            USDInt256 result = USDUint256.wrap(x).toInt();
-            assertEq(result.unwrap(), int256(x));
         }
     }
 

@@ -4,7 +4,6 @@ pragma solidity >=0.8.19;
 import {Test, console} from "forge-std/Test.sol";
 import {
     BaseQuantoPerUSDUint256,
-    BaseQuantoPerUSDInt256,
     BaseQuantoPerUSDUint128,
     BaseUint256,
     QuantoUint256,
@@ -422,17 +421,6 @@ contract BaseQuantoPerUSDUint256Test is Test {
             BaseQuantoPerUSDUint128 result =
                 BaseQuantoPerUSDUint256.wrap(x).to128();
             assertEq(result.unwrap(), uint128(x));
-        }
-    }
-
-    function testBaseQuantoPerUSDUint256ToIntFuzz(uint256 x) public {
-        if (x > uint256(type(int256).max)) {
-            vm.expectRevert();
-            BaseQuantoPerUSDUint256.wrap(x).toInt();
-        } else {
-            BaseQuantoPerUSDInt256 result =
-                BaseQuantoPerUSDUint256.wrap(x).toInt();
-            assertEq(result.unwrap(), int256(x));
         }
     }
 

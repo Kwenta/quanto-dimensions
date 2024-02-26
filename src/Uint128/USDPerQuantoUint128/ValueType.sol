@@ -12,7 +12,6 @@ type USDPerQuantoUint128 is uint128;
 
 using {
     Casting.unwrap,
-    Casting.toInt,
     Casting.toBytes32
 } for USDPerQuantoUint128 global;
 
