@@ -348,15 +348,4 @@ contract QuantoUint256Test is Test {
             assertEq(result.unwrap(), z);
         }
     }
-
-    function testQuantoUint256ToBytes32() public {
-        uint256 x = type(uint256).max;
-        bytes32 result = QuantoUint256.wrap(x).toBytes32();
-        assertEq(result, bytes32(x));
-    }
-
-    function testQuantoUint256ToBytes32Fuzz(uint256 x) public {
-        bytes32 result = QuantoUint256.wrap(x).toBytes32();
-        assertEq(result, bytes32(x));
-    }
 }

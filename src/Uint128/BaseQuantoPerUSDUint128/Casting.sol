@@ -12,8 +12,3 @@ function wrap(uint128 x) pure returns (BaseQuantoPerUSDUint128 result) {
 function unwrap(BaseQuantoPerUSDUint128 x) pure returns (uint128 result) {
     result = BaseQuantoPerUSDUint128.unwrap(x);
 }
-
-/// @notice Converts a BaseQuantoPerUSDUint128 number into bytes32.
-function toBytes32(BaseQuantoPerUSDUint128 x) pure returns (bytes32 result) {
-    result = bytes32(uint256(unwrap(x)));
-}

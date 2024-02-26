@@ -12,8 +12,3 @@ function wrap(uint256 x) pure returns (BaseUint256 result) {
 function unwrap(BaseUint256 x) pure returns (uint256 result) {
     result = BaseUint256.unwrap(x);
 }
-
-/// @notice Converts a BaseUint256 number into bytes32.
-function toBytes32(BaseUint256 x) pure returns (bytes32 result) {
-    result = bytes32(unwrap(x));
-}

@@ -402,15 +402,4 @@ contract BaseQuantoPerUSDUint256Test is Test {
             assertEq(result.unwrap(), z);
         }
     }
-
-    function testBaseQuantoPerUSDUint256ToBytes32() public {
-        uint256 x = type(uint256).max;
-        bytes32 result = BaseQuantoPerUSDUint256.wrap(x).toBytes32();
-        assertEq(result, bytes32(x));
-    }
-
-    function testBaseQuantoPerUSDUint256ToBytes32Fuzz(uint256 x) public {
-        bytes32 result = BaseQuantoPerUSDUint256.wrap(x).toBytes32();
-        assertEq(result, bytes32(x));
-    }
 }

@@ -12,9 +12,3 @@ function wrap(uint256 x) pure returns (QuantoUint256 result) {
 function unwrap(QuantoUint256 x) pure returns (uint256 result) {
     result = QuantoUint256.unwrap(x);
 }
-
-
-/// @notice Converts a QuantoUint256 number into bytes32.
-function toBytes32(QuantoUint256 x) pure returns (bytes32 result) {
-    result = bytes32(unwrap(x));
-}

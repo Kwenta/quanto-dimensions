@@ -12,8 +12,3 @@ function wrap(uint256 x) pure returns (USDPerQuantoUint256 result) {
 function unwrap(USDPerQuantoUint256 x) pure returns (uint256 result) {
     result = USDPerQuantoUint256.unwrap(x);
 }
-
-/// @notice Converts a USDPerQuantoUint256 number into bytes32.
-function toBytes32(USDPerQuantoUint256 x) pure returns (bytes32 result) {
-    result = bytes32(unwrap(x));
-}

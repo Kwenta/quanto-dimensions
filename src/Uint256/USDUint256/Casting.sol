@@ -12,8 +12,3 @@ function wrap(uint256 x) pure returns (USDUint256 result) {
 function unwrap(USDUint256 x) pure returns (uint256 result) {
     result = USDUint256.unwrap(x);
 }
-
-/// @notice Converts a USDUint256 number into bytes32.
-function toBytes32(USDUint256 x) pure returns (bytes32 result) {
-    result = bytes32(unwrap(x));
-}

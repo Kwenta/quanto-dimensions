@@ -12,8 +12,3 @@ function wrap(uint128 x) pure returns (QuantoUint128 result) {
 function unwrap(QuantoUint128 x) pure returns (uint128 result) {
     result = QuantoUint128.unwrap(x);
 }
-
-/// @notice Converts a QuantoUint128 number into bytes32.
-function toBytes32(QuantoUint128 x) pure returns (bytes32 result) {
-    result = bytes32(uint256(unwrap(x)));
-}

@@ -347,15 +347,4 @@ contract BaseUint256Test is Test {
             assertEq(result.unwrap(), z);
         }
     }
-
-    function testBaseUint256ToBytes32() public {
-        uint256 x = type(uint256).max;
-        bytes32 result = BaseUint256.wrap(x).toBytes32();
-        assertEq(result, bytes32(x));
-    }
-
-    function testBaseUint256ToBytes32Fuzz(uint256 x) public {
-        bytes32 result = BaseUint256.wrap(x).toBytes32();
-        assertEq(result, bytes32(x));
-    }
 }

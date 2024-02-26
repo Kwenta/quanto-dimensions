@@ -347,15 +347,4 @@ contract BaseUint128Test is Test {
             assertEq(result.unwrap(), z);
         }
     }
-
-    function testBaseUint128ToBytes32() public {
-        uint128 x = type(uint128).max;
-        bytes32 result = BaseUint128.wrap(x).toBytes32();
-        assertEq(result, bytes32(uint256(x)));
-    }
-
-    function testBaseUint128ToBytes32Fuzz(uint128 x) public {
-        bytes32 result = BaseUint128.wrap(x).toBytes32();
-        assertEq(result, bytes32(uint256(x)));
-    }
 }
