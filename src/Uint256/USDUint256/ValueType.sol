@@ -12,7 +12,6 @@ type USDUint256 is uint256;
 
 using {
     Casting.unwrap,
-    Casting.to128,
     Casting.toBytes32
 } for USDUint256 global;
 
