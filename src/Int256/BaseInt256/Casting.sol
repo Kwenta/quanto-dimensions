@@ -4,8 +4,7 @@ pragma solidity >=0.8.19;
 import {BaseInt256} from "./ValueType.sol";
 import {BaseInt128} from "src/Int128/BaseInt128/ValueType.sol";
 import {BaseUint256} from "src/Uint256/BaseUint256/ValueType.sol";
-import {SafeCastI256} from
-    "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
+import {SafeCastI256} from "src/utils/SafeCast.sol";
 
 using SafeCastI256 for int256;
 

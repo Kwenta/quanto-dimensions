@@ -5,8 +5,7 @@ import {USDPerQuantoInt256} from "./ValueType.sol";
 import {USDPerQuantoInt128} from "src/Int128/USDPerQuantoInt128/ValueType.sol";
 import {USDPerQuantoUint256} from
     "src/Uint256/USDPerQuantoUint256/ValueType.sol";
-import {SafeCastI256} from
-    "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
+import {SafeCastI256} from "src/utils/SafeCast.sol";
 
 using SafeCastI256 for int256;
 

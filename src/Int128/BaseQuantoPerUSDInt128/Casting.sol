@@ -4,8 +4,7 @@ pragma solidity >=0.8.19;
 import {BaseQuantoPerUSDInt128} from "./ValueType.sol";
 import {BaseQuantoPerUSDUint128} from
     "src/Uint128/BaseQuantoPerUSDUint128/ValueType.sol";
-import {SafeCastI128} from
-    "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
+import {SafeCastI128} from "src/utils/SafeCast.sol";
 
 using SafeCastI128 for int128;
 
