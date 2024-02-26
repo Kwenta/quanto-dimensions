@@ -4,9 +4,8 @@ pragma solidity >=0.8.19;
 import {Test, console} from "forge-std/Test.sol";
 import {
     BaseQuantoPerUSDInt128,
-    BaseInt128,
     QuantoInt128,
-    USDPerBaseInt128,
+    BaseInt128,
     USDPerQuantoInt128,
     USDPerQuantoUint128,
     USDInt128
@@ -309,7 +308,7 @@ contract USDPerQuantoInt128Test is Test {
 
     function testUSDPerQuantoInt128MulDecimalToUSD() public {
         USDPerQuantoInt128 x = USDPerQuantoInt128.wrap(100 ether);
-        BaseInt128 y = BaseInt128.wrap(200 ether);
+        QuantoInt128 y = QuantoInt128.wrap(200 ether);
         USDInt128 result = x.mulDecimalToUSD(y);
         assertEq(result.unwrap(), 20_000 ether);
     }
@@ -331,10 +330,10 @@ contract USDPerQuantoInt128Test is Test {
                 && (z / y != (x / 1 ether) || z / x != (y / 1 ether))
         ) {
             vm.expectRevert();
-            USDPerQuantoInt128.wrap(x).mulDecimalToUSD(BaseInt128.wrap(y));
+            USDPerQuantoInt128.wrap(x).mulDecimalToUSD(QuantoInt128.wrap(y));
         } else {
             USDInt128 result =
-                USDPerQuantoInt128.wrap(x).mulDecimalToUSD(BaseInt128.wrap(y));
+                USDPerQuantoInt128.wrap(x).mulDecimalToUSD(QuantoInt128.wrap(y));
             assertEq(result.unwrap(), z);
         }
     }
