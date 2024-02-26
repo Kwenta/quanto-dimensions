@@ -7,8 +7,7 @@ import {BaseInt256} from "../BaseInt256/ValueType.sol";
 import {USDPerBaseInt256} from "../USDPerBaseInt256/ValueType.sol";
 import {USDPerQuantoInt256} from "../USDPerQuantoInt256/ValueType.sol";
 import {USDInt256} from "../USDInt256/ValueType.sol";
-import {DecimalMath} from
-    "lib/synthetix-v3/utils/core-contracts/contracts/utils/DecimalMath.sol";
+import {DecimalMath} from "src/utils/DecimalMath.sol";
 
 using DecimalMath for int256;
 

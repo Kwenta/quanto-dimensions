@@ -8,8 +8,7 @@ import {USDPerQuantoUint128} from "../USDPerQuantoUint128/ValueType.sol";
 import {BaseUint128} from "../BaseUint128/ValueType.sol";
 import {QuantoUint128} from "../QuantoUint128/ValueType.sol";
 import {USDUint128} from "../USDUint128/ValueType.sol";
-import {DecimalMath} from
-    "lib/synthetix-v3/utils/core-contracts/contracts/utils/DecimalMath.sol";
+import {DecimalMath} from "src/utils/DecimalMath.sol";
 import {SafeCastU256} from
     "lib/synthetix-v3/utils/core-contracts/contracts/utils/SafeCast.sol";
 
