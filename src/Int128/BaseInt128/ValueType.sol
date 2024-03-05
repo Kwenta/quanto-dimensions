@@ -10,7 +10,7 @@ type BaseInt128 is int128;
                             CASTING
 //////////////////////////////////////////////////////////////*/
 
-using {Casting.unwrap, Casting.to256, Casting.toUint} for BaseInt128 global;
+using {Casting.unwrap} for BaseInt128 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS
@@ -21,7 +21,6 @@ using {
     Helpers.increment,
     Helpers.mul,
     Helpers.mulDecimal,
-    Helpers.mulDecimalToUSD,
     Helpers.div
 } for BaseInt128 global;
 

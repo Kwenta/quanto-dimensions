@@ -6,10 +6,12 @@ import {
     BaseInt128,
     BaseUint128,
     USDPerBaseInt128,
-    USDInt128
+    USDInt128,
+    ExternalInteractionsBaseInt128
 } from "src/UnitTypes.sol";
 
 contract BaseInt128Test is Test {
+    using ExternalInteractionsBaseInt128 for BaseInt128;
     function setUp() public {}
 
     function testBaseInt128Add() public {
@@ -302,7 +304,7 @@ contract BaseInt128Test is Test {
     function testBaseInt128MulDecimalToUSD() public {
         BaseInt128 x = BaseInt128.wrap(100 ether);
         USDPerBaseInt128 y = USDPerBaseInt128.wrap(200 ether);
-        USDInt128 result = x.mulDecimalToUSD(y);
+        USDInt128 result = ExternalInteractionsBaseInt128.mulDecimalToUSD(x, y);
         assertEq(result.unwrap(), 20_000 ether);
     }
 

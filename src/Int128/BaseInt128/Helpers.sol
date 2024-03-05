@@ -3,8 +3,6 @@ pragma solidity >=0.8.19;
 
 import "./Casting.sol";
 import {BaseInt128} from "./ValueType.sol";
-import {USDPerBaseInt128} from "../USDPerBaseInt128/ValueType.sol";
-import {USDInt128} from "../USDInt128/ValueType.sol";
 import {DecimalMath} from "src/utils/DecimalMath.sol";
 import {SafeCastI256} from "src/utils/SafeCast.sol";
 
@@ -94,14 +92,6 @@ function mul(BaseInt128 x, int128 y) pure returns (BaseInt128 result) {
 /// @notice Multiplies base and dimensionless to get base
 function mulDecimal(BaseInt128 x, int128 y) pure returns (BaseInt128 result) {
     result = wrap(x.unwrap().mulDecimal(y).to128());
-}
-
-/// @notice Multiplies base and usd/base to get usd
-function mulDecimalToUSD(BaseInt128 x, USDPerBaseInt128 y)
-    pure
-    returns (USDInt128 result)
-{
-    result = USDInt128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
 }
 
 /// @notice Implements the checked division operation (/) in the BaseInt128 type.
