@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.19;
 
-import "./Casting.sol";
 import "./ValueType.sol";
 import {BaseInt128} from "./ValueType.sol";
 import {BaseInt256} from "src/Int256/BaseInt256/ValueType.sol";
@@ -14,7 +13,7 @@ import {SafeCastI256} from "src/utils/SafeCast.sol";
 import {DecimalMath} from "src/utils/DecimalMath.sol";
 
 /// @notice External Casting utilities for BaseInt128.
-library ExternalInteractionsBaseInt128 {
+library InteractionsBaseInt128 {
     using DecimalMath for int128;
     using SafeCastI128 for int128;
     using SafeCastI256 for int256;
@@ -31,7 +30,7 @@ library ExternalInteractionsBaseInt128 {
 
     /// @notice Multiplies base and usd/base to get usd
     function mulDecimalToUSD(BaseInt128 x, USDPerBaseInt128 y)
-        public pure
+        internal pure
         returns (USDInt128 result)
     {
         result = USDInt128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());

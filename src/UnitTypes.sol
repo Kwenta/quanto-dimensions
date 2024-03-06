@@ -12,7 +12,7 @@ import {QuantoInt128} from "./Int128/QuantoInt128/ValueType.sol";
 import {USDPerBaseInt128} from "./Int128/USDPerBaseInt128/ValueType.sol";
 import {USDPerQuantoInt128} from "./Int128/USDPerQuantoInt128/ValueType.sol";
 import {USDInt128} from "./Int128/USDInt128/ValueType.sol";
-import {ExternalInteractionsBaseInt128} from "./Int128/BaseInt128/Interaction.sol";
+import {InteractionsBaseInt128} from "./Int128/BaseInt128/Interactions.sol";
 
 /*//////////////////////////////////////////////////////////////
                                 INT256
