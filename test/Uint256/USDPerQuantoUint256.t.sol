@@ -10,10 +10,13 @@ import {
     USDPerQuantoUint256,
     USDPerQuantoInt256,
     USDPerQuantoUint128,
-    USDUint256
+    USDUint256,
+    InteractionsUSDPerQuantoUint256
 } from "src/UnitTypes.sol";
 
 contract USDPerQuantoUint256Test is Test {
+    using InteractionsUSDPerQuantoUint256 for USDPerQuantoUint256;
+
     function setUp() public {}
 
     function testUSDPerQuantoUint256Add() public {

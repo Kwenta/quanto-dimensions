@@ -8,10 +8,13 @@ import {
     BaseInt128,
     QuantoInt128,
     USDPerBaseInt128,
-    USDPerQuantoInt128
+    USDPerQuantoInt128,
+    InteractionsBaseQuantoPerUSDInt128
 } from "src/UnitTypes.sol";
 
 contract BaseQuantoPerUSDInt128Test is Test {
+    using InteractionsBaseQuantoPerUSDInt128 for BaseQuantoPerUSDInt128;
+    
     function setUp() public {}
 
     function testBaseQuantoPerUSDInt128Add() public {

@@ -12,6 +12,7 @@ import {
 
 contract BaseInt128Test is Test {
     using InteractionsBaseInt128 for BaseInt128;
+    
     function setUp() public {}
 
     function testBaseInt128Add() public {

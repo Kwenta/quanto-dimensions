@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.19;
 
-import "./Casting.sol" as Casting;
-import "./Helpers.sol" as Helpers;
+import {DecimalMath} from "src/utils/DecimalMath.sol";
 
 type BaseQuantoPerUSDInt256 is int256;
 
@@ -10,24 +9,176 @@ type BaseQuantoPerUSDInt256 is int256;
                             CASTING
 //////////////////////////////////////////////////////////////*/
 
+/// @notice Wraps a int256 number into the BaseQuantoPerUSDInt256 value type.
+function wrap(int256 x) pure returns (BaseQuantoPerUSDInt256 result) {
+    result = BaseQuantoPerUSDInt256.wrap(x);
+}
+
+/// @notice Unwraps a BaseQuantoPerUSDInt256 number into int256.
+function unwrap(BaseQuantoPerUSDInt256 x) pure returns (int256 result) {
+    result = BaseQuantoPerUSDInt256.unwrap(x);
+}
+
 using {
-    Casting.unwrap,
-    Casting.to128,
-    Casting.toUint
+    unwrap
 } for BaseQuantoPerUSDInt256 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS
 //////////////////////////////////////////////////////////////*/
 
+using DecimalMath for int256;
+
+/// @notice Implements the checked addition operation (+) in the BaseQuantoPerUSDInt256 type.
+function add(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (BaseQuantoPerUSDInt256 result)
+{
+    result = wrap(x.unwrap() + y.unwrap());
+}
+
+/// @notice Implements the checked subtraction operation (-) in the BaseQuantoPerUSDInt256 type.
+function sub(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (BaseQuantoPerUSDInt256 result)
+{
+    result = wrap(x.unwrap() - y.unwrap());
+}
+
+/// @notice Implements the AND (&) bitwise operation in the BaseQuantoPerUSDInt256 type.
+function and(BaseQuantoPerUSDInt256 x, int256 bits)
+    pure
+    returns (BaseQuantoPerUSDInt256 result)
+{
+    result = wrap(x.unwrap() & bits);
+}
+
+/// @notice Implements the AND (&) bitwise operation in the BaseQuantoPerUSDInt256 type.
+function and2(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (BaseQuantoPerUSDInt256 result)
+{
+    result = wrap(x.unwrap() & y.unwrap());
+}
+
+/// @notice Implements the equality operation (==) in the BaseQuantoPerUSDInt256 type.
+function eq(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (bool)
+{
+    return x.unwrap() == y.unwrap();
+}
+
+/// @notice Implements the greater than operation (>) in the BaseQuantoPerUSDInt256 type.
+function gt(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (bool)
+{
+    return x.unwrap() > y.unwrap();
+}
+
+/// @notice Implements the greater than or equal to operation (>=) in the BaseQuantoPerUSDInt256 type.
+function gte(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (bool)
+{
+    return x.unwrap() >= y.unwrap();
+}
+
+/// @notice Implements the less than operation (<) in the BaseQuantoPerUSDInt256 type.
+function lt(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (bool)
+{
+    return x.unwrap() < y.unwrap();
+}
+
+/// @notice Implements the less than or equal to operation (<=) in the BaseQuantoPerUSDInt256 type.
+function lte(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (bool)
+{
+    return x.unwrap() <= y.unwrap();
+}
+
+/// @notice Implements the modulus operation (%) in the BaseQuantoPerUSDInt256 type.
+function mod(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (BaseQuantoPerUSDInt256 result)
+{
+    result = wrap(x.unwrap() % y.unwrap());
+}
+
+/// @notice Implements the not equal operation (!=) in the BaseQuantoPerUSDInt256 type.
+function neq(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (bool)
+{
+    return x.unwrap() != y.unwrap();
+}
+
+/// @notice Implements the NOT (~) bitwise operation in the BaseQuantoPerUSDInt256 type.
+function not(BaseQuantoPerUSDInt256 x)
+    pure
+    returns (BaseQuantoPerUSDInt256 result)
+{
+    result = wrap(~x.unwrap());
+}
+
+/// @notice Implements the OR (|) bitwise operation in the BaseQuantoPerUSDInt256 type.
+function or(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (BaseQuantoPerUSDInt256 result)
+{
+    result = wrap(x.unwrap() | y.unwrap());
+}
+
+/// @notice Implements the XOR (^) bitwise operation in the BaseQuantoPerUSDInt256 type.
+function xor(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (BaseQuantoPerUSDInt256 result)
+{
+    result = wrap(x.unwrap() ^ y.unwrap());
+}
+
+/// @notice Implements the checked addition operation (+1) in the BaseQuantoPerUSDInt256 type.
+function increment(BaseQuantoPerUSDInt256 x)
+    pure
+    returns (BaseQuantoPerUSDInt256 result)
+{
+    result = x + wrap(1);
+}
+
+/// @notice Implements the checked multiplication operation (*) in the BaseQuantoPerUSDInt256 type.
+function mul(BaseQuantoPerUSDInt256 x, int256 y)
+    pure
+    returns (BaseQuantoPerUSDInt256 result)
+{
+    result = wrap(x.unwrap() * y);
+}
+
+/// @notice Multiplies (base * quanto)/usd and dimensionless to get (base * quanto)/usd
+function mulDecimal(BaseQuantoPerUSDInt256 x, int256 y)
+    pure
+    returns (BaseQuantoPerUSDInt256 result)
+{
+    result = wrap(x.unwrap().mulDecimal(y));
+}
+
+/// @notice Implements the checked division operation (/) in the BaseQuantoPerUSDInt256 type.
+function div(BaseQuantoPerUSDInt256 x, int256 y)
+    pure
+    returns (BaseQuantoPerUSDInt256 result)
+{
+    result = wrap(x.unwrap() / y);
+}
+
 using {
-    Helpers.and,
-    Helpers.increment,
-    Helpers.mul,
-    Helpers.mulDecimal,
-    Helpers.mulDecimalToQuanto,
-    Helpers.mulDecimalToBase,
-    Helpers.div
+    and,
+    increment,
+    mul,
+    mulDecimal,
+    div
 } for BaseQuantoPerUSDInt256 global;
 
 /*//////////////////////////////////////////////////////////////////////////
@@ -36,17 +187,17 @@ using {
 
 // The global "using for" directive makes it possible to use these operators on the BaseQuantoPerUSDInt256 type.
 using {
-    Helpers.add as +,
-    Helpers.and2 as &,
-    Helpers.sub as -,
-    Helpers.eq as ==,
-    Helpers.gt as >,
-    Helpers.gte as >=,
-    Helpers.lt as <,
-    Helpers.lte as <=,
-    Helpers.mod as %,
-    Helpers.neq as !=,
-    Helpers.or as |,
-    Helpers.not as ~,
-    Helpers.xor as ^
+    add as +,
+    and2 as &,
+    sub as -,
+    eq as ==,
+    gt as >,
+    gte as >=,
+    lt as <,
+    lte as <=,
+    mod as %,
+    neq as !=,
+    or as |,
+    not as ~,
+    xor as ^
 } for BaseQuantoPerUSDInt256 global;
