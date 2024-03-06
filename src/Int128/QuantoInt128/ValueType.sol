@@ -142,12 +142,21 @@ function div(QuantoInt128 x, int128 y) pure returns (QuantoInt128 result) {
     result = wrap(x.unwrap() / y);
 }
 
+/// @notice Divides quanto and dimensionless to get quanto
+function divDecimal(QuantoInt128 x, int128 y)
+    pure
+    returns (QuantoInt128 result)
+{
+    result = wrap(x.unwrap().divDecimal(y).to128());
+}
+
 using {
     and,
     increment,
     mul,
     mulDecimal,
-    div
+    div,
+    divDecimal
 } for QuantoInt128 global;
 
 /*//////////////////////////////////////////////////////////////////////////

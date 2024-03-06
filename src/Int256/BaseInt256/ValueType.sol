@@ -117,12 +117,18 @@ function div(BaseInt256 x, int256 y) pure returns (BaseInt256 result) {
     result = wrap(x.unwrap() / y);
 }
 
+/// @notice Divides base and dimensionless to get base
+function divDecimal(BaseInt256 x, int256 y) pure returns (BaseInt256 result) {
+    result = wrap(x.unwrap().divDecimal(y));
+}
+
 using {
     and,
     increment,
     mul,
     mulDecimal,
-    div
+    div,
+    divDecimal
 } for BaseInt256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

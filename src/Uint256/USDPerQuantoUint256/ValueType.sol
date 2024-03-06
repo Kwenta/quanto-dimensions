@@ -161,12 +161,21 @@ function div(USDPerQuantoUint256 x, uint256 y)
     result = wrap(x.unwrap() / y);
 }
 
+/// @notice Divides usd/quanto and dimensionless to get usd/quanto
+function divDecimal(USDPerQuantoUint256 x, uint256 y)
+    pure
+    returns (USDPerQuantoUint256 result)
+{
+    result = wrap(x.unwrap().divDecimal(y));
+}
+
 using {
     and,
     increment,
     mul,
     mulDecimal,
-    div
+    div,
+    divDecimal
 } for USDPerQuantoUint256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

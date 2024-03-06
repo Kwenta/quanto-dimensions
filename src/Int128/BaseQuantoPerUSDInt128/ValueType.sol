@@ -175,13 +175,21 @@ function div(BaseQuantoPerUSDInt128 x, int128 y)
     result = wrap(x.unwrap() / y);
 }
 
+/// @notice Divides (base * quanto)/usd and dimensionless to get (base * quanto)/usd
+function divDecimal(BaseQuantoPerUSDInt128 x, int128 y)
+    pure
+    returns (BaseQuantoPerUSDInt128 result)
+{
+    result = wrap(x.unwrap().divDecimal(y).to128());
+}
 
 using {
     and,
     increment,
     mul,
     mulDecimal,
-    div
+    div,
+    divDecimal
 } for BaseQuantoPerUSDInt128 global;
 
 /*//////////////////////////////////////////////////////////////////////////

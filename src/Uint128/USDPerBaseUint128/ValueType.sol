@@ -154,12 +154,21 @@ function div(USDPerBaseUint128 x, uint128 y)
     result = wrap(x.unwrap() / y);
 }
 
+/// @notice Divides usd/base and dimensionless to get usd/base
+function divDecimal(USDPerBaseUint128 x, uint128 y)
+    pure
+    returns (USDPerBaseUint128 result)
+{
+    result = wrap(x.unwrap().divDecimal(y).to128());
+}
+
 using {
     and,
     increment,
     mul,
     mulDecimal,
-    div
+    div,
+    divDecimal
 } for USDPerBaseUint128 global;
 
 /*//////////////////////////////////////////////////////////////////////////

@@ -117,12 +117,18 @@ function div(USDInt256 x, int256 y) pure returns (USDInt256 result) {
     result = wrap(x.unwrap() / y);
 }
 
+/// @notice Divides USDInt256 and dimensionless to get USDInt256
+function divDecimal(USDInt256 x, int256 y) pure returns (USDInt256 result) {
+    result = wrap(x.unwrap().divDecimal(y));
+}
+
 using {
     and,
     increment,
     mul,
     mulDecimal,
-    div
+    div,
+    divDecimal
 } for USDInt256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

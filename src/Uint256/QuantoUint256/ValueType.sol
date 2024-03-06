@@ -143,12 +143,21 @@ function div(QuantoUint256 x, uint256 y) pure returns (QuantoUint256 result) {
     result = wrap(x.unwrap() / y);
 }
 
+/// @notice Divides quanto and dimensionless to get quanto
+function divDecimal(QuantoUint256 x, uint256 y)
+    pure
+    returns (QuantoUint256 result)
+{
+    result = wrap(x.unwrap().divDecimal(y));
+}
+
 using {
     and,
     increment,
     mul,
     mulDecimal,
-    div
+    div,
+    divDecimal
 } for QuantoUint256 global;
 
 /*//////////////////////////////////////////////////////////////////////////
