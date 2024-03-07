@@ -20,9 +20,7 @@ function unwrap(USDPerBaseUint128 x) pure returns (uint128 result) {
     result = USDPerBaseUint128.unwrap(x);
 }
 
-using {
-    unwrap
-} for USDPerBaseUint128 global;
+using {unwrap} for USDPerBaseUint128 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

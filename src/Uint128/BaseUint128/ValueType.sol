@@ -20,9 +20,7 @@ function unwrap(BaseUint128 x) pure returns (uint128 result) {
     result = BaseUint128.unwrap(x);
 }
 
-using {
-    unwrap
-} for BaseUint128 global;
+using {unwrap} for BaseUint128 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

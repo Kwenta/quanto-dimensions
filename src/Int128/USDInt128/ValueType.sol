@@ -26,8 +26,6 @@ using {unwrap} for USDInt128 global;
                             HELPERS
 //////////////////////////////////////////////////////////////*/
 
-
-
 using DecimalMath for int128;
 using SafeCastI256 for int256;
 
@@ -122,7 +120,10 @@ function div(USDInt128 x, int128 y) pure returns (USDInt128 result) {
 }
 
 /// @notice Divides USDInt128 and dimensionless to get USDInt128
-function divDecimalInt128(USDInt128 x, int128 y) pure returns (USDInt128 result) {
+function divDecimalInt128(USDInt128 x, int128 y)
+    pure
+    returns (USDInt128 result)
+{
     result = wrap(x.unwrap().divDecimalInt128(y));
 }
 

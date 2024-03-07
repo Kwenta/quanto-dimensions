@@ -404,8 +404,12 @@ contract USDPerBaseUint128Test is Test {
         uint256 z;
         uint256 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := div(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
         }
         bool mulOverflow = (x != 0) && (j / 1 ether != x);
         if (mulOverflow || y == 0) {
@@ -424,19 +428,26 @@ contract USDPerBaseUint128Test is Test {
         assertEq(result.unwrap(), 25 ether);
     }
 
-    function testUSDPerBaseUint128DivDecimalUint128Fuzz(uint128 x, uint128 y) public {
+    function testUSDPerBaseUint128DivDecimalUint128Fuzz(uint128 x, uint128 y)
+        public
+    {
         uint128 z;
         uint128 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := div(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
         }
         bool mulOverflow = (x != 0) && (j / 1 ether != x);
         if (mulOverflow || y == 0) {
             vm.expectRevert();
             USDPerBaseUint128.wrap(x).divDecimalUint128(y);
         } else {
-            USDPerBaseUint128 result = USDPerBaseUint128.wrap(x).divDecimalUint128(y);
+            USDPerBaseUint128 result =
+                USDPerBaseUint128.wrap(x).divDecimalUint128(y);
             assertEq(result.unwrap(), z);
         }
     }

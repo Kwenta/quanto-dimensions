@@ -123,12 +123,7 @@ function divDecimal(USDInt256 x, int256 y) pure returns (USDInt256 result) {
 }
 
 using {
-    and,
-    increment,
-    mul,
-    mulDecimal,
-    div,
-    divDecimal
+    and, increment, mul, mulDecimal, div, divDecimal
 } for USDInt256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

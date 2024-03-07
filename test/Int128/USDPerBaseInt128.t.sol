@@ -412,8 +412,12 @@ contract USDPerBaseInt128Test is Test {
         int256 z;
         int256 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := sdiv(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
         }
         bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
             || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
@@ -434,12 +438,18 @@ contract USDPerBaseInt128Test is Test {
         assertEq(result.unwrap(), 25 ether);
     }
 
-    function testUSDPerBaseInt128DivDecimalInt128Fuzz(int128 x, int128 y) public {
+    function testUSDPerBaseInt128DivDecimalInt128Fuzz(int128 x, int128 y)
+        public
+    {
         int128 z;
         int128 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := sdiv(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
         }
         bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
             || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
@@ -448,7 +458,8 @@ contract USDPerBaseInt128Test is Test {
             vm.expectRevert();
             USDPerBaseInt128.wrap(x).divDecimalInt128(y);
         } else {
-            USDPerBaseInt128 result = USDPerBaseInt128.wrap(x).divDecimalInt128(y);
+            USDPerBaseInt128 result =
+                USDPerBaseInt128.wrap(x).divDecimalInt128(y);
             assertEq(result.unwrap(), z);
         }
     }

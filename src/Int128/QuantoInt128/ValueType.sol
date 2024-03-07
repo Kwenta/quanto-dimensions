@@ -20,9 +20,7 @@ function unwrap(QuantoInt128 x) pure returns (int128 result) {
     result = QuantoInt128.unwrap(x);
 }
 
-using {
-    unwrap
-} for QuantoInt128 global;
+using {unwrap} for QuantoInt128 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

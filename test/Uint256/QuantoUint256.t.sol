@@ -365,8 +365,12 @@ contract QuantoUint256Test is Test {
         uint256 z;
         uint256 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := div(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
         }
         bool mulOverflow = (x != 0) && (j / 1 ether != x);
         if (mulOverflow || y == 0) {

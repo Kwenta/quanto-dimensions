@@ -13,7 +13,7 @@ import {
 
 contract BaseInt128Test is Test {
     using InteractionsBaseInt128 for BaseInt128;
-    
+
     function setUp() public {}
 
     function testBaseInt128Add() public {
@@ -368,8 +368,12 @@ contract BaseInt128Test is Test {
         int256 z;
         int256 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := sdiv(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
         }
         bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
             || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
@@ -394,8 +398,12 @@ contract BaseInt128Test is Test {
         int128 z;
         int128 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := sdiv(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
         }
         bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
             || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);

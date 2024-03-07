@@ -18,23 +18,36 @@ library InteractionsUSDPerBaseUint256 {
     using DecimalMath for uint256;
 
     /// @notice Converts a USDPerBaseUint256 number into USDPerBaseUint128.
-    function to128(USDPerBaseUint256 x) internal pure returns (USDPerBaseUint128 result) {
+    function to128(USDPerBaseUint256 x)
+        internal
+        pure
+        returns (USDPerBaseUint128 result)
+    {
         result = USDPerBaseUint128.wrap(unwrap(x).to128());
     }
 
     /// @notice Converts a USDPerBaseUint256 number into USDPerBaseInt256.
-    function toInt(USDPerBaseUint256 x) internal pure returns (USDPerBaseInt256 result) {
+    function toInt(USDPerBaseUint256 x)
+        internal
+        pure
+        returns (USDPerBaseInt256 result)
+    {
         result = USDPerBaseInt256.wrap(unwrap(x).toInt());
     }
 
     /// @notice Converts a USDPerBaseUint256 number into bytes32.
-    function toBytes32(USDPerBaseUint256 x) internal pure returns (bytes32 result) {
+    function toBytes32(USDPerBaseUint256 x)
+        internal
+        pure
+        returns (bytes32 result)
+    {
         result = bytes32(unwrap(x));
     }
 
     /// @notice Multiplies usd/base and base to get usd
     function mulDecimalToUSD(USDPerBaseUint256 x, BaseUint256 y)
-        internal pure
+        internal
+        pure
         returns (USDUint256 result)
     {
         result = USDUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
@@ -42,7 +55,8 @@ library InteractionsUSDPerBaseUint256 {
 
     /// @notice Multiplies usd/base and (base*quanto)/usd to get quanto
     function mulDecimalToQuanto(USDPerBaseUint256 x, BaseQuantoPerUSDUint256 y)
-        internal pure
+        internal
+        pure
         returns (QuantoUint256 result)
     {
         result = QuantoUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));

@@ -30,14 +30,19 @@ library InteractionsBaseInt128 {
 
     /// @notice Multiplies base and usd/base to get usd
     function mulDecimalToUSD(BaseInt128 x, USDPerBaseInt128 y)
-        internal pure
+        internal
+        pure
         returns (USDInt128 result)
     {
         result = USDInt128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
     }
 
     /// @notice Divides base and dimensionless to get base
-    function divDecimal(BaseInt128 x, int128 y) internal pure returns (BaseInt256 result) {
+    function divDecimal(BaseInt128 x, int128 y)
+        internal
+        pure
+        returns (BaseInt256 result)
+    {
         result = BaseInt256.wrap(x.unwrap().divDecimal(y));
     }
 }

@@ -393,7 +393,7 @@ contract USDPerBaseUint256Test is Test {
         }
     }
 
-    function testUSDPerBaseUint256DivDecimal() public {   
+    function testUSDPerBaseUint256DivDecimal() public {
         USDPerBaseUint256 x = USDPerBaseUint256.wrap(500 ether);
         uint256 y = 2 ether;
         USDPerBaseUint256 result = x.divDecimal(y);
@@ -404,8 +404,12 @@ contract USDPerBaseUint256Test is Test {
         uint256 z;
         uint256 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := div(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
         }
         bool mulOverflow = (x != 0) && (j / 1 ether != x);
         if (mulOverflow || y == 0) {

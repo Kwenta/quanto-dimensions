@@ -18,23 +18,36 @@ library InteractionsQuantoUint256 {
     using DecimalMath for uint256;
 
     /// @notice Converts a QuantoUint256 number into QuantoUint128.
-    function to128(QuantoUint256 x) internal pure returns (QuantoUint128 result) {
+    function to128(QuantoUint256 x)
+        internal
+        pure
+        returns (QuantoUint128 result)
+    {
         result = QuantoUint128.wrap(unwrap(x).to128());
     }
 
     /// @notice Converts a QuantoUint256 number into QuantoInt256.
-    function toInt(QuantoUint256 x) internal pure returns (QuantoInt256 result) {
+    function toInt(QuantoUint256 x)
+        internal
+        pure
+        returns (QuantoInt256 result)
+    {
         result = QuantoInt256.wrap(unwrap(x).toInt());
     }
 
     /// @notice Converts a QuantoUint256 number into bytes32.
-    function toBytes32(QuantoUint256 x) internal pure returns (bytes32 result) {
+    function toBytes32(QuantoUint256 x)
+        internal
+        pure
+        returns (bytes32 result)
+    {
         result = bytes32(unwrap(x));
     }
 
     /// @notice Multiplies quanto and usd/quanto to get usd
     function mulDecimalToUSD(QuantoUint256 x, USDPerQuantoUint256 y)
-        internal pure
+        internal
+        pure
         returns (USDUint256 result)
     {
         result = USDUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));

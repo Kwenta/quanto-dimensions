@@ -22,13 +22,18 @@ library InteractionsUSDPerQuantoInt128 {
     using SafeCastI256 for int256;
 
     /// @notice Converts a USDPerQuantoInt128 number into USDPerQuantoInt256.
-    function to256(USDPerQuantoInt128 x) internal pure returns (USDPerQuantoInt256 result) {
+    function to256(USDPerQuantoInt128 x)
+        internal
+        pure
+        returns (USDPerQuantoInt256 result)
+    {
         result = USDPerQuantoInt256.wrap(unwrap(x).to256());
     }
 
     /// @notice Converts a USDPerQuantoInt128 number into USDPerQuantoUint128.
     function toUint(USDPerQuantoInt128 x)
-        internal pure
+        internal
+        pure
         returns (USDPerQuantoUint128 result)
     {
         result = USDPerQuantoUint128.wrap(unwrap(x).toUint());
@@ -36,7 +41,8 @@ library InteractionsUSDPerQuantoInt128 {
 
     /// @notice Multiplies usd/quanto and quanto to get usd
     function mulDecimalToUSD(USDPerQuantoInt128 x, QuantoInt128 y)
-        internal pure
+        internal
+        pure
         returns (USDInt128 result)
     {
         result = USDInt128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
@@ -44,7 +50,8 @@ library InteractionsUSDPerQuantoInt128 {
 
     /// @notice Multiplies usd/quanto and (base*quanto)/usd to get base
     function mulDecimalToBase(USDPerQuantoInt128 x, BaseQuantoPerUSDInt128 y)
-        internal pure
+        internal
+        pure
         returns (BaseInt128 result)
     {
         result = BaseInt128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
@@ -52,7 +59,8 @@ library InteractionsUSDPerQuantoInt128 {
 
     /// @notice Divides usd/quanto and dimensionless to get usd/quanto
     function divDecimal(USDPerQuantoInt128 x, int128 y)
-        internal pure
+        internal
+        pure
         returns (USDPerQuantoInt256 result)
     {
         result = USDPerQuantoInt256.wrap(x.unwrap().divDecimal(y));

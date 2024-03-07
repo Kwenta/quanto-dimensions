@@ -424,12 +424,18 @@ contract BaseQuantoPerUSDInt256Test is Test {
         assertEq(result.unwrap(), 250 ether);
     }
 
-    function testBaseQuantoPerUSDInt256DivDecimalFuzz(int256 x, int256 y) public {
+    function testBaseQuantoPerUSDInt256DivDecimalFuzz(int256 x, int256 y)
+        public
+    {
         int256 z;
         int256 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := sdiv(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
         }
         bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
             || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
@@ -438,7 +444,8 @@ contract BaseQuantoPerUSDInt256Test is Test {
             vm.expectRevert();
             BaseQuantoPerUSDInt256.wrap(x).divDecimal(y);
         } else {
-            BaseQuantoPerUSDInt256 result = BaseQuantoPerUSDInt256.wrap(x).divDecimal(y);
+            BaseQuantoPerUSDInt256 result =
+                BaseQuantoPerUSDInt256.wrap(x).divDecimal(y);
             assertEq(result.unwrap(), z);
         }
     }

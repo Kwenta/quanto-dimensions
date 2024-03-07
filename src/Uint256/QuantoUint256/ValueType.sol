@@ -19,9 +19,7 @@ function unwrap(QuantoUint256 x) pure returns (uint256 result) {
     result = QuantoUint256.unwrap(x);
 }
 
-using {
-    unwrap
-} for QuantoUint256 global;
+using {unwrap} for QuantoUint256 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

@@ -20,9 +20,7 @@ function unwrap(USDPerQuantoUint128 x) pure returns (uint128 result) {
     result = USDPerQuantoUint128.unwrap(x);
 }
 
-using {
-    unwrap
-} for USDPerQuantoUint128 global;
+using {unwrap} for USDPerQuantoUint128 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

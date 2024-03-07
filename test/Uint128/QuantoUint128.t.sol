@@ -365,8 +365,12 @@ contract QuantoUint128Test is Test {
         uint256 z;
         uint256 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := div(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
         }
         bool mulOverflow = (x != 0) && (j / 1 ether != x);
         if (mulOverflow || y == 0) {
@@ -385,12 +389,18 @@ contract QuantoUint128Test is Test {
         assertEq(result.unwrap(), 25 ether);
     }
 
-    function testQuantoUint128DivDecimalUint128Fuzz(uint128 x, uint128 y) public {
+    function testQuantoUint128DivDecimalUint128Fuzz(uint128 x, uint128 y)
+        public
+    {
         uint128 z;
         uint128 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := div(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
         }
         bool mulOverflow = (x != 0) && (j / 1 ether != x);
         if (mulOverflow || y == 0) {

@@ -5,7 +5,7 @@ import "./ValueType.sol";
 import {USDPerQuantoInt128} from "src/Int128/USDPerQuantoInt128/ValueType.sol";
 import {USDPerQuantoUint256} from
     "src/Uint256/USDPerQuantoUint256/ValueType.sol";
-    import {BaseQuantoPerUSDInt256} from "../BaseQuantoPerUSDInt256/ValueType.sol";
+import {BaseQuantoPerUSDInt256} from "../BaseQuantoPerUSDInt256/ValueType.sol";
 import {USDPerBaseInt256} from "../USDPerBaseInt256/ValueType.sol";
 import {BaseInt256} from "../BaseInt256/ValueType.sol";
 import {QuantoInt256} from "../QuantoInt256/ValueType.sol";
@@ -20,13 +20,18 @@ library InteractionsUSDPerQuantoInt256 {
     using DecimalMath for int256;
 
     /// @notice Converts a USDPerQuantoInt256 number into USDPerQuantoInt128.
-    function to128(USDPerQuantoInt256 x) internal pure returns (USDPerQuantoInt128 result) {
+    function to128(USDPerQuantoInt256 x)
+        internal
+        pure
+        returns (USDPerQuantoInt128 result)
+    {
         result = USDPerQuantoInt128.wrap(unwrap(x).to128());
     }
 
     /// @notice Converts a USDPerQuantoInt256 number into USDPerQuantoUint256.
     function toUint(USDPerQuantoInt256 x)
-        internal pure
+        internal
+        pure
         returns (USDPerQuantoUint256 result)
     {
         result = USDPerQuantoUint256.wrap(unwrap(x).toUint());
@@ -34,7 +39,8 @@ library InteractionsUSDPerQuantoInt256 {
 
     /// @notice Multiplies usd/quanto and quanto to get usd
     function mulDecimalToUSD(USDPerQuantoInt256 x, QuantoInt256 y)
-        internal pure
+        internal
+        pure
         returns (USDInt256 result)
     {
         result = USDInt256.wrap(x.unwrap().mulDecimal(y.unwrap()));
@@ -42,7 +48,8 @@ library InteractionsUSDPerQuantoInt256 {
 
     /// @notice Multiplies usd/quanto and (base*quanto)/usd to get base
     function mulDecimalToBase(USDPerQuantoInt256 x, BaseQuantoPerUSDInt256 y)
-        internal pure
+        internal
+        pure
         returns (BaseInt256 result)
     {
         result = BaseInt256.wrap(x.unwrap().mulDecimal(y.unwrap()));

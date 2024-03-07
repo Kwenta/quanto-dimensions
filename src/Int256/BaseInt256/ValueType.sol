@@ -123,12 +123,7 @@ function divDecimal(BaseInt256 x, int256 y) pure returns (BaseInt256 result) {
 }
 
 using {
-    and,
-    increment,
-    mul,
-    mulDecimal,
-    div,
-    divDecimal
+    and, increment, mul, mulDecimal, div, divDecimal
 } for BaseInt256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

@@ -34,7 +34,8 @@ library InteractionsBaseUint128 {
 
     /// @notice Multiplies base and usd/base to get usd
     function mulDecimalToUSD(BaseUint128 x, USDPerBaseUint128 y)
-        internal pure
+        internal
+        pure
         returns (USDUint128 result)
     {
         result = USDUint128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
@@ -42,7 +43,8 @@ library InteractionsBaseUint128 {
 
     /// @notice Divides base and dimensionless to get base
     function divDecimal(BaseUint128 x, uint128 y)
-        internal pure
+        internal
+        pure
         returns (BaseUint256 result)
     {
         result = BaseUint256.wrap(x.unwrap().divDecimal(y));

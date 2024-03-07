@@ -16,7 +16,7 @@ import {
 
 contract BaseUint128Test is Test {
     using InteractionsBaseUint128 for BaseUint128;
-    
+
     function setUp() public {}
 
     function testBaseUint128Add() public {
@@ -364,8 +364,12 @@ contract BaseUint128Test is Test {
         uint256 z;
         uint256 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := div(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
         }
         bool mulOverflow = (x != 0) && (j / 1 ether != x);
         if (mulOverflow || y == 0) {
@@ -384,12 +388,18 @@ contract BaseUint128Test is Test {
         assertEq(result.unwrap(), 25 ether);
     }
 
-    function testBaseUint128DivDecimalUint128Fuzz(uint128 x, uint128 y) public {
+    function testBaseUint128DivDecimalUint128Fuzz(uint128 x, uint128 y)
+        public
+    {
         uint128 z;
         uint128 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := div(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
         }
         bool mulOverflow = (x != 0) && (j / 1 ether != x);
         if (mulOverflow || y == 0) {

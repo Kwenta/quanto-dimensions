@@ -337,8 +337,12 @@ contract USDInt128Test is Test {
         int256 z;
         int256 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := sdiv(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
         }
         bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
             || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
@@ -363,8 +367,12 @@ contract USDInt128Test is Test {
         int128 z;
         int128 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := sdiv(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
         }
         bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
             || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);

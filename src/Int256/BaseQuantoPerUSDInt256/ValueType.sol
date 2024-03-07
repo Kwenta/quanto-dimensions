@@ -19,9 +19,7 @@ function unwrap(BaseQuantoPerUSDInt256 x) pure returns (int256 result) {
     result = BaseQuantoPerUSDInt256.unwrap(x);
 }
 
-using {
-    unwrap
-} for BaseQuantoPerUSDInt256 global;
+using {unwrap} for BaseQuantoPerUSDInt256 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

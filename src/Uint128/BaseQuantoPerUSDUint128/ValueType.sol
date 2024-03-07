@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.19;
 
-
 import {DecimalMath} from "src/utils/DecimalMath.sol";
 import {SafeCastU256} from "src/utils/SafeCast.sol";
 
@@ -21,9 +20,7 @@ function unwrap(BaseQuantoPerUSDUint128 x) pure returns (uint128 result) {
     result = BaseQuantoPerUSDUint128.unwrap(x);
 }
 
-using {
-    unwrap
-} for BaseQuantoPerUSDUint128 global;
+using {unwrap} for BaseQuantoPerUSDUint128 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

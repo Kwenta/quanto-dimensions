@@ -19,9 +19,7 @@ function unwrap(USDUint256 x) pure returns (uint256 result) {
     result = USDUint256.unwrap(x);
 }
 
-using {
-    unwrap
-} for USDUint256 global;
+using {unwrap} for USDUint256 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS
@@ -125,12 +123,7 @@ function divDecimal(USDUint256 x, uint256 y) pure returns (USDUint256 result) {
 }
 
 using {
-    and,
-    increment,
-    mul,
-    mulDecimal,
-    div,
-    divDecimal
+    and, increment, mul, mulDecimal, div, divDecimal
 } for USDUint256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

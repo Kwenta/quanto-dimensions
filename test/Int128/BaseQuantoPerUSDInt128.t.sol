@@ -15,7 +15,7 @@ import {
 
 contract BaseQuantoPerUSDInt128Test is Test {
     using InteractionsBaseQuantoPerUSDInt128 for BaseQuantoPerUSDInt128;
-    
+
     function setUp() public {}
 
     function testBaseQuantoPerUSDInt128Add() public {
@@ -423,12 +423,18 @@ contract BaseQuantoPerUSDInt128Test is Test {
         assertEq(result.unwrap(), 250 ether);
     }
 
-    function testBaseQuantoPerUSDInt128DivDecimalFuzz(int128 x, int128 y) public {
+    function testBaseQuantoPerUSDInt128DivDecimalFuzz(int128 x, int128 y)
+        public
+    {
         int256 z;
         int256 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := sdiv(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
         }
         bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
             || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
@@ -437,7 +443,8 @@ contract BaseQuantoPerUSDInt128Test is Test {
             vm.expectRevert();
             BaseQuantoPerUSDInt128.wrap(x).divDecimal(y);
         } else {
-            BaseQuantoPerUSDInt256 result = BaseQuantoPerUSDInt128.wrap(x).divDecimal(y);
+            BaseQuantoPerUSDInt256 result =
+                BaseQuantoPerUSDInt128.wrap(x).divDecimal(y);
             assertEq(result.unwrap(), z);
         }
     }
@@ -449,12 +456,18 @@ contract BaseQuantoPerUSDInt128Test is Test {
         assertEq(result.unwrap(), 25 ether);
     }
 
-    function testBaseQuantoPerUSDInt128DivDecimalInt128Fuzz(int128 x, int128 y) public {
+    function testBaseQuantoPerUSDInt128DivDecimalInt128Fuzz(int128 x, int128 y)
+        public
+    {
         int128 z;
         int128 j;
         assembly {
-            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
-            z := sdiv(j,y)
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
         }
         bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
             || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
@@ -463,7 +476,8 @@ contract BaseQuantoPerUSDInt128Test is Test {
             vm.expectRevert();
             BaseQuantoPerUSDInt128.wrap(x).divDecimalInt128(y);
         } else {
-            BaseQuantoPerUSDInt128 result = BaseQuantoPerUSDInt128.wrap(x).divDecimalInt128(y);
+            BaseQuantoPerUSDInt128 result =
+                BaseQuantoPerUSDInt128.wrap(x).divDecimalInt128(y);
             assertEq(result.unwrap(), z);
         }
     }

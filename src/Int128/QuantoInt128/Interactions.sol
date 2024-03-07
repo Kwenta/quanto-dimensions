@@ -18,18 +18,27 @@ library InteractionsQuantoInt128 {
     using SafeCastI256 for int256;
 
     /// @notice Converts a QuantoInt128 number into QuantoInt256.
-    function to256(QuantoInt128 x) internal pure returns (QuantoInt256 result) {
+    function to256(QuantoInt128 x)
+        internal
+        pure
+        returns (QuantoInt256 result)
+    {
         result = QuantoInt256.wrap(unwrap(x).to256());
     }
 
     /// @notice Converts a QuantoInt128 number into QuantoUint128.
-    function toUint(QuantoInt128 x) internal pure returns (QuantoUint128 result) {
+    function toUint(QuantoInt128 x)
+        internal
+        pure
+        returns (QuantoUint128 result)
+    {
         result = QuantoUint128.wrap(unwrap(x).toUint());
     }
 
     /// @notice Multiplies quanto and usd/quanto to get usd
     function mulDecimalToUSD(QuantoInt128 x, USDPerQuantoInt128 y)
-        internal pure
+        internal
+        pure
         returns (USDInt128 result)
     {
         result = USDInt128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
@@ -37,7 +46,8 @@ library InteractionsQuantoInt128 {
 
     /// @notice Divides quanto and dimensionless to get quanto
     function divDecimal(QuantoInt128 x, int128 y)
-        internal pure
+        internal
+        pure
         returns (QuantoInt256 result)
     {
         result = QuantoInt256.wrap(x.unwrap().divDecimal(y));

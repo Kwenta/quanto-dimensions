@@ -24,7 +24,11 @@ library InteractionsUSDInt128 {
     }
 
     /// @notice Divides USDInt128 and dimensionless to get USDInt128
-    function divDecimal(USDInt128 x, int128 y) internal pure returns (USDInt256 result) {
+    function divDecimal(USDInt128 x, int128 y)
+        internal
+        pure
+        returns (USDInt256 result)
+    {
         result = USDInt256.wrap(x.unwrap().divDecimal(y));
     }
 }

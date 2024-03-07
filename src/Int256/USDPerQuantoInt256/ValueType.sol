@@ -19,9 +19,7 @@ function unwrap(USDPerQuantoInt256 x) pure returns (int256 result) {
     result = USDPerQuantoInt256.unwrap(x);
 }
 
-using {
-    unwrap
-} for USDPerQuantoInt256 global;
+using {unwrap} for USDPerQuantoInt256 global;
 
 /*//////////////////////////////////////////////////////////////
                             HELPERS

@@ -22,7 +22,8 @@ library InteractionsBaseQuantoPerUSDInt256 {
 
     /// @notice Converts a BaseQuantoPerUSDInt256 number into BaseQuantoPerUSDInt128.
     function to128(BaseQuantoPerUSDInt256 x)
-        internal pure
+        internal
+        pure
         returns (BaseQuantoPerUSDInt128 result)
     {
         result = BaseQuantoPerUSDInt128.wrap(unwrap(x).to128());
@@ -30,7 +31,8 @@ library InteractionsBaseQuantoPerUSDInt256 {
 
     /// @notice Converts a BaseQuantoPerUSDInt256 number into BaseQuantoPerUSDUint256.
     function toUint(BaseQuantoPerUSDInt256 x)
-        internal pure
+        internal
+        pure
         returns (BaseQuantoPerUSDUint256 result)
     {
         result = BaseQuantoPerUSDUint256.wrap(unwrap(x).toUint());
@@ -38,7 +40,8 @@ library InteractionsBaseQuantoPerUSDInt256 {
 
     /// @notice Multiplies (base * quanto)/usd and usd/base to get quanto
     function mulDecimalToQuanto(BaseQuantoPerUSDInt256 x, USDPerBaseInt256 y)
-        internal pure
+        internal
+        pure
         returns (QuantoInt256 result)
     {
         result = QuantoInt256.wrap(x.unwrap().mulDecimal(y.unwrap()));
@@ -46,7 +49,8 @@ library InteractionsBaseQuantoPerUSDInt256 {
 
     /// @notice Multiplies (base * quanto)/usd and usd/quanto to get base
     function mulDecimalToBase(BaseQuantoPerUSDInt256 x, USDPerQuantoInt256 y)
-        internal pure
+        internal
+        pure
         returns (BaseInt256 result)
     {
         result = BaseInt256.wrap(x.unwrap().mulDecimal(y.unwrap()));

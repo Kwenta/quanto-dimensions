@@ -32,7 +32,8 @@ library InteractionsBaseUint256 {
 
     /// @notice Multiplies base and usd/base to get usd
     function mulDecimalToUSD(BaseUint256 x, USDPerBaseUint256 y)
-        internal pure
+        internal
+        pure
         returns (USDUint256 result)
     {
         result = USDUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
