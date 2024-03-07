@@ -427,4 +427,15 @@ contract BaseInt128Test is Test {
             assertEq(result.unwrap(), uint128(x));
         }
     }
+
+    function testBaseInt128To256() public {
+        int128 x = type(int128).min;
+        BaseInt256 result = BaseInt128.wrap(x).to256();
+        assertEq(result.unwrap(), int256(x));
+    }
+
+    function testBaseInt128To256Fuzz(int128 x) public {
+        BaseInt256 result = BaseInt128.wrap(x).to256();
+        assertEq(result.unwrap(), int256(x));
+    }
 }

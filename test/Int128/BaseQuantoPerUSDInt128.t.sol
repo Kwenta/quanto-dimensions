@@ -487,4 +487,15 @@ contract BaseQuantoPerUSDInt128Test is Test {
             assertEq(result.unwrap(), uint128(x));
         }
     }
+
+    function testBaseQuantoPerUSDInt128To256() public {
+        int128 x = type(int128).min;
+        BaseQuantoPerUSDInt256 result = BaseQuantoPerUSDInt128.wrap(x).to256();
+        assertEq(result.unwrap(), int256(x));
+    }
+
+    function testBaseQuantoPerUSDInt128To256Fuzz(int128 x) public {
+        BaseQuantoPerUSDInt256 result = BaseQuantoPerUSDInt128.wrap(x).to256();
+        assertEq(result.unwrap(), int256(x));
+    }
 }

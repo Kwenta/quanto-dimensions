@@ -429,4 +429,15 @@ contract QuantoInt128Test is Test {
             assertEq(result.unwrap(), uint128(x));
         }
     }
+
+    function testQuantoInt128To256() public {
+        int128 x = type(int128).min;
+        QuantoInt256 result = QuantoInt128.wrap(x).to256();
+        assertEq(result.unwrap(), int256(x));
+    }
+
+    function testQuantoInt128To256Fuzz(int128 x) public {
+        QuantoInt256 result = QuantoInt128.wrap(x).to256();
+        assertEq(result.unwrap(), int256(x));
+    }
 }

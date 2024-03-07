@@ -396,4 +396,15 @@ contract USDInt128Test is Test {
             assertEq(result.unwrap(), uint128(x));
         }
     }
+
+    function testUSDInt128To256() public {
+        int128 x = type(int128).min;
+        USDInt256 result = USDInt128.wrap(x).to256();
+        assertEq(result.unwrap(), int256(x));
+    }
+
+    function testUSDInt128To256Fuzz(int128 x) public {
+        USDInt256 result = USDInt128.wrap(x).to256();
+        assertEq(result.unwrap(), int256(x));
+    }
 }

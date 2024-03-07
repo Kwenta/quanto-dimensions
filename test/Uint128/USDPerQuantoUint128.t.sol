@@ -473,4 +473,15 @@ contract USDPerQuantoUint128Test is Test {
         bytes32 result = USDPerQuantoUint128.wrap(x).toBytes32();
         assertEq(result, bytes32(uint256(x)));
     }
+
+    function testUSDPerQuantoUint128To256() public {
+        uint128 x = type(uint128).min;
+        USDPerQuantoUint256 result = USDPerQuantoUint128.wrap(x).to256();
+        assertEq(result.unwrap(), uint256(x));
+    }
+
+    function testUSDPerQuantoUint128To256Fuzz(uint128 x) public {
+        USDPerQuantoUint256 result = USDPerQuantoUint128.wrap(x).to256();
+        assertEq(result.unwrap(), uint256(x));
+    }
 }
