@@ -125,11 +125,11 @@ function div(BaseUint128 x, uint128 y) pure returns (BaseUint128 result) {
 }
 
 /// @notice Divides base and dimensionless to get base
-function divDecimal(BaseUint128 x, uint128 y)
+function divDecimalUint128(BaseUint128 x, uint128 y)
     pure
     returns (BaseUint128 result)
 {
-    result = wrap(x.unwrap().divDecimal(y).to128());
+    result = wrap(x.unwrap().divDecimalUint128(y));
 }
 
 using {
@@ -138,7 +138,7 @@ using {
     mul,
     mulDecimal,
     div,
-    divDecimal
+    divDecimalUint128
 } for BaseUint128 global;
 
 /*//////////////////////////////////////////////////////////////////////////

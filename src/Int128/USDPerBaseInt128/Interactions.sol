@@ -4,6 +4,7 @@ pragma solidity >=0.8.19;
 import "./ValueType.sol";
 import {USDPerBaseUint128} from "src/Uint128/USDPerBaseUint128/ValueType.sol";
 import {BaseQuantoPerUSDInt128} from "../BaseQuantoPerUSDInt128/ValueType.sol";
+import {USDPerBaseInt256} from "src/Int256/USDPerBaseInt256/ValueType.sol";
 import {BaseInt128} from "../BaseInt128/ValueType.sol";
 import {QuantoInt128} from "../QuantoInt128/ValueType.sol";
 import {USDInt128} from "../USDInt128/ValueType.sol";
@@ -37,5 +38,13 @@ library InteractionsUSDPerBaseInt128 {
         returns (QuantoInt128 result)
     {
         result = QuantoInt128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
+    }
+
+    /// @notice Divides usd/base and dimensionless to get usd/base
+    function divDecimal(USDPerBaseInt128 x, int128 y)
+        internal pure
+        returns (USDPerBaseInt256 result)
+    {
+        result = USDPerBaseInt256.wrap(x.unwrap().divDecimal(y));
     }
 }

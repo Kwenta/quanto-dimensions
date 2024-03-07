@@ -5,6 +5,7 @@ import {Test, console} from "forge-std/Test.sol";
 import {
     BaseInt128,
     BaseUint128,
+    BaseInt256,
     USDPerBaseInt128,
     USDInt128,
     InteractionsBaseInt128
@@ -352,6 +353,80 @@ contract BaseInt128Test is Test {
             BaseInt128.wrap(x).div(y);
         } else {
             BaseInt128 result = BaseInt128.wrap(x).div(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function logInt(int256 x) public {
+        if (x < 0) {
+            console.log("-", uint256(-x));
+        } else {
+            console.log(uint256(x));
+        }
+    }
+
+    function logInt(string memory str, int256 x) public {
+        if (x < 0) {
+            console.log(str, "-", uint256(-x));
+        } else {
+            console.log(str, uint256(x));
+        }
+    }
+    function testBaseInt128DivDecimal() public {
+        BaseInt128 x = BaseInt128.wrap(500 ether);
+        int128 y = 2 ether;
+        BaseInt256 result = x.divDecimal(y);
+        assertEq(result.unwrap(), 250 ether);
+    }
+
+    function testBaseInt128DivDecimalFuzz(int128 x, int128 y) public {
+        int256 z;
+        int256 j;
+        assembly {
+            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
+            z := sdiv(j,y)
+        }
+        logInt("x :", x);
+        logInt("y :", y);
+        logInt("j :", j);
+        logInt("z :", z);
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        //bool zOverflow = z < type(int128).min || z > type(int128).max;
+        console.log("wrongsign :", wrongSign);
+        console.log("mulOverflow :", mulOverflow);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseInt128.wrap(x).divDecimal(y);
+        } else {
+            BaseInt256 result = BaseInt128.wrap(x).divDecimal(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testBaseInt128DivDecimalInt128Fuzz(int128 x, int128 y) public {
+        int128 z;
+        int128 j;
+        assembly {
+            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
+            z := sdiv(j,y)
+        }
+        logInt("x :", x);
+        logInt("y :", y);
+        logInt("j :", j);
+        logInt("z :", z);
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        //bool zOverflow = z < type(int128).min || z > type(int128).max;
+        console.log("wrongsign :", wrongSign);
+        console.log("mulOverflow :", mulOverflow);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseInt128.wrap(x).divDecimalInt128(y);
+        } else {
+            BaseInt128 result = BaseInt128.wrap(x).divDecimalInt128(y);
             assertEq(result.unwrap(), z);
         }
     }

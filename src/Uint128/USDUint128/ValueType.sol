@@ -122,8 +122,8 @@ function div(USDUint128 x, uint128 y) pure returns (USDUint128 result) {
 }
 
 /// @notice Divides USDUint128 and dimensionless to get USDUint128
-function divDecimal(USDUint128 x, uint128 y) pure returns (USDUint128 result) {
-    result = wrap(x.unwrap().divDecimal(y).to128());
+function divDecimalUint128(USDUint128 x, uint128 y) pure returns (USDUint128 result) {
+    result = wrap(x.unwrap().divDecimalUint128(y));
 }
 
 using {
@@ -132,7 +132,7 @@ using {
     mul,
     mulDecimal,
     div,
-    divDecimal
+    divDecimalUint128
 } for USDUint128 global;
 
 /*//////////////////////////////////////////////////////////////////////////

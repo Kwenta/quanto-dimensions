@@ -5,6 +5,7 @@ import "./ValueType.sol";
 import {BaseInt128} from "src/Int128/BaseInt128/ValueType.sol";
 import {USDPerBaseUint128} from "../USDPerBaseUint128/ValueType.sol";
 import {USDUint128} from "../USDUint128/ValueType.sol";
+import {BaseUint256} from "src/Uint256/BaseUint256/ValueType.sol";
 
 import {DecimalMath} from "src/utils/DecimalMath.sol";
 import {SafeCastU256} from "src/utils/SafeCast.sol";
@@ -32,5 +33,13 @@ library InteractionsBaseUint128 {
         returns (USDUint128 result)
     {
         result = USDUint128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
+    }
+
+    /// @notice Divides base and dimensionless to get base
+    function divDecimal(BaseUint128 x, uint128 y)
+        internal pure
+        returns (BaseUint256 result)
+    {
+        result = BaseUint256.wrap(x.unwrap().divDecimal(y));
     }
 }

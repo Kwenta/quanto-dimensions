@@ -8,6 +8,7 @@ import {USDPerBaseUint128} from "../USDPerBaseUint128/ValueType.sol";
 import {BaseUint128} from "../BaseUint128/ValueType.sol";
 import {QuantoUint128} from "../QuantoUint128/ValueType.sol";
 import {USDUint128} from "../USDUint128/ValueType.sol";
+import {USDPerQuantoUint256} from "src/Uint256/USDPerQuantoUint256/ValueType.sol";
 
 import {DecimalMath} from "src/utils/DecimalMath.sol";
 import {SafeCastU256} from "src/utils/SafeCast.sol";
@@ -46,5 +47,13 @@ library InteractionsUSDPerQuantoUint128 {
         returns (BaseUint128 result)
     {
         result = BaseUint128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
+    }
+
+    /// @notice Divides usd/quanto and dimensionless to get usd/quanto
+    function divDecimal(USDPerQuantoUint128 x, uint128 y)
+        internal pure
+        returns (USDPerQuantoUint256 result)
+    {
+        result = USDPerQuantoUint256.wrap(x.unwrap().divDecimal(y));
     }
 }

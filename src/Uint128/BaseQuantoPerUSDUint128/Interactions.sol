@@ -6,6 +6,7 @@ import {BaseQuantoPerUSDInt128} from
     "src/Int128/BaseQuantoPerUSDInt128/ValueType.sol";
     import {USDPerBaseUint128} from "../USDPerBaseUint128/ValueType.sol";
 import {USDPerQuantoUint128} from "../USDPerQuantoUint128/ValueType.sol";
+import {BaseQuantoPerUSDUint256} from "src/Uint256/BaseQuantoPerUSDUint256/ValueType.sol";
 import {BaseUint128} from "../BaseUint128/ValueType.sol";
 import {QuantoUint128} from "../QuantoUint128/ValueType.sol";
 import {USDUint128} from "../USDUint128/ValueType.sol";
@@ -47,5 +48,13 @@ library InteractionsBaseQuantoPerUSDUint128 {
         returns (BaseUint128 result)
     {
         result = BaseUint128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
+    }
+
+    /// @notice Divides (base * quanto)/usd and dimensionless to get (base * quanto)/usd
+    function divDecimal(BaseQuantoPerUSDUint128 x, uint128 y)
+        internal pure
+        returns (BaseQuantoPerUSDUint256 result)
+    {
+        result = BaseQuantoPerUSDUint256.wrap(x.unwrap().divDecimal(y));
     }
 }

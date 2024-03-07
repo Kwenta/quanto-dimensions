@@ -4,6 +4,7 @@ pragma solidity >=0.8.19;
 import "./ValueType.sol";
 import {QuantoUint128} from "src/Uint128/QuantoUint128/ValueType.sol";
 import {USDPerQuantoInt128} from "../USDPerQuantoInt128/ValueType.sol";
+import {QuantoInt256} from "src/Int256/QuantoInt256/ValueType.sol";
 import {USDInt128} from "../USDInt128/ValueType.sol";
 
 import {DecimalMath} from "src/utils/DecimalMath.sol";
@@ -27,5 +28,13 @@ library InteractionsQuantoInt128 {
         returns (USDInt128 result)
     {
         result = USDInt128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
+    }
+
+    /// @notice Divides quanto and dimensionless to get quanto
+    function divDecimal(QuantoInt128 x, int128 y)
+        internal pure
+        returns (QuantoInt256 result)
+    {
+        result = QuantoInt256.wrap(x.unwrap().divDecimal(y));
     }
 }

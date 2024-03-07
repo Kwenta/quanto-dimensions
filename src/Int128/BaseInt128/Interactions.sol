@@ -35,4 +35,9 @@ library InteractionsBaseInt128 {
     {
         result = USDInt128.wrap(x.unwrap().mulDecimal(y.unwrap()).to128());
     }
+
+    /// @notice Divides base and dimensionless to get base
+    function divDecimal(BaseInt128 x, int128 y) internal pure returns (BaseInt256 result) {
+        result = BaseInt256.wrap(x.unwrap().divDecimal(y));
+    }
 }
