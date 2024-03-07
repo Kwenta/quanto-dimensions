@@ -21,6 +21,11 @@ library InteractionsUSDPerQuantoInt128 {
     using DecimalMath for int128;
     using SafeCastI256 for int256;
 
+    /// @notice Converts a USDPerQuantoInt128 number into USDPerQuantoInt256.
+    function to256(USDPerQuantoInt128 x) internal pure returns (USDPerQuantoInt256 result) {
+        result = USDPerQuantoInt256.wrap(unwrap(x).to256());
+    }
+
     /// @notice Converts a USDPerQuantoInt128 number into USDPerQuantoUint128.
     function toUint(USDPerQuantoInt128 x)
         internal pure

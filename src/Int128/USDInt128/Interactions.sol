@@ -13,6 +13,11 @@ library InteractionsUSDInt128 {
     using SafeCastI128 for int128;
     using DecimalMath for int128;
 
+    /// @notice Converts a USDInt128 number into USDInt256.
+    function to256(USDInt128 x) internal pure returns (USDInt256 result) {
+        result = USDInt256.wrap(unwrap(x).to256());
+    }
+
     /// @notice Converts a USDInt128 number into USDUint128.
     function toUint(USDInt128 x) internal pure returns (USDUint128 result) {
         result = USDUint128.wrap(unwrap(x).toUint());

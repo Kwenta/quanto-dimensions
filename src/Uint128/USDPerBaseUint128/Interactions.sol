@@ -19,6 +19,11 @@ library InteractionsUSDPerBaseUint128 {
     using DecimalMath for uint128;
     using SafeCastU256 for uint256;
 
+    /// @notice Converts a USDPerBaseUint128 number into USDPerBaseUint256.
+    function to256(USDPerBaseUint128 x) internal pure returns (USDPerBaseUint256 result) {
+        result = USDPerBaseUint256.wrap(unwrap(x).to256());
+    }
+
     /// @notice Converts a USDPerBaseUint128 number into USDPerBaseInt128.
     function toInt(USDPerBaseUint128 x) internal pure returns (USDPerBaseInt128 result) {
         result = USDPerBaseInt128.wrap(unwrap(x).toInt());

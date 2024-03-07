@@ -17,6 +17,11 @@ library InteractionsBaseUint128 {
     using DecimalMath for uint128;
     using SafeCastU256 for uint256;
 
+    /// @notice Converts a BaseUint128 number into BaseUint256.
+    function to256(BaseUint128 x) internal pure returns (BaseUint256 result) {
+        result = BaseUint256.wrap(unwrap(x).to256());
+    }
+
     /// @notice Converts a BaseUint128 number into BaseInt128.
     function toInt(BaseUint128 x) internal pure returns (BaseInt128 result) {
         result = BaseInt128.wrap(unwrap(x).toInt());

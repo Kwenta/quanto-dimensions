@@ -19,6 +19,11 @@ library InteractionsQuantoUint128 {
     using DecimalMath for uint128;
     using SafeCastU256 for uint256;
 
+    /// @notice Converts a QuantoUint128 number into QuantoUint256.
+    function to256(QuantoUint128 x) internal pure returns (QuantoUint256 result) {
+        result = QuantoUint256.wrap(unwrap(x).to256());
+    }
+
     /// @notice Converts a QuantoUint128 number into QuantoInt128.
     function toInt(QuantoUint128 x) internal pure returns (QuantoInt128 result) {
         result = QuantoInt128.wrap(unwrap(x).toInt());

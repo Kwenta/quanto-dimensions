@@ -21,6 +21,11 @@ library InteractionsBaseQuantoPerUSDInt128 {
     using DecimalMath for int128;
     using SafeCastI256 for int256;
 
+    /// @notice Converts a BaseQuantoPerUSDInt128 number into BaseQuantoPerUSDInt256.
+    function to256(BaseQuantoPerUSDInt128 x) internal pure returns (BaseQuantoPerUSDInt256 result) {
+        result = BaseQuantoPerUSDInt256.wrap(unwrap(x).to256());
+    }
+
     /// @notice Converts a BaseQuantoPerUSDInt128 number into BaseQuantoPerUSDUint128.
     function toUint(BaseQuantoPerUSDInt128 x)
         internal pure
