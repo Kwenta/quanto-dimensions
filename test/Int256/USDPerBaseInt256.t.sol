@@ -402,6 +402,32 @@ contract USDPerBaseInt256Test is Test {
         }
     }
 
+    function testUSDPerBaseInt256DivDecimal() public {
+        USDPerBaseInt256 x = USDPerBaseInt256.wrap(500 ether);
+        int256 y = 2 ether;
+        USDPerBaseInt256 result = x.divDecimal(y);
+        assertEq(result.unwrap(), 250 ether);
+    }
+
+    function testUSDPerBaseInt256DivDecimalFuzz(int256 x, int256 y) public {
+        int256 z;
+        int256 j;
+        assembly {
+            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
+            z := sdiv(j,y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            USDPerBaseInt256.wrap(x).divDecimal(y);
+        } else {
+            USDPerBaseInt256 result = USDPerBaseInt256.wrap(x).divDecimal(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
     function testUSDPerBaseInt256To128() public {
         int256 x = type(int256).max;
         vm.expectRevert();

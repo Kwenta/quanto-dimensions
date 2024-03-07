@@ -408,6 +408,30 @@ contract BaseQuantoPerUSDUint256Test is Test {
         }
     }
 
+    function testBaseQuantoPerUSDUint256DivDecimal() public {
+        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(500 ether);
+        uint256 y = 2 ether;
+        BaseQuantoPerUSDUint256 result = x.divDecimal(y);
+        assertEq(result.unwrap(), 250 ether);
+    }
+
+    function testBaseQuantoPerUSDUint256DivDecimalFuzz(uint256 x, uint256 y) public {
+        uint256 z;
+        uint256 j;
+        assembly {
+            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
+            z := div(j,y)
+        }
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseQuantoPerUSDUint256.wrap(x).divDecimal(y);
+        } else {
+            BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDUint256.wrap(x).divDecimal(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
     function testBaseQuantoPerUSDUint256To128() public {
         uint256 x = type(uint256).max;
         vm.expectRevert();

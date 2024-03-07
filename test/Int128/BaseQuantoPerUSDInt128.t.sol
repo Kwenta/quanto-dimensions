@@ -5,6 +5,7 @@ import {Test, console} from "forge-std/Test.sol";
 import {
     BaseQuantoPerUSDInt128,
     BaseQuantoPerUSDUint128,
+    BaseQuantoPerUSDInt256,
     BaseInt128,
     QuantoInt128,
     USDPerBaseInt128,
@@ -411,6 +412,58 @@ contract BaseQuantoPerUSDInt128Test is Test {
         } else {
             BaseQuantoPerUSDInt128 result =
                 BaseQuantoPerUSDInt128.wrap(x).div(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testBaseQuantoPerUSDInt128DivDecimal() public {
+        BaseQuantoPerUSDInt128 x = BaseQuantoPerUSDInt128.wrap(500 ether);
+        int128 y = 2 ether;
+        BaseQuantoPerUSDInt256 result = x.divDecimal(y);
+        assertEq(result.unwrap(), 250 ether);
+    }
+
+    function testBaseQuantoPerUSDInt128DivDecimalFuzz(int128 x, int128 y) public {
+        int256 z;
+        int256 j;
+        assembly {
+            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
+            z := sdiv(j,y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseQuantoPerUSDInt128.wrap(x).divDecimal(y);
+        } else {
+            BaseQuantoPerUSDInt256 result = BaseQuantoPerUSDInt128.wrap(x).divDecimal(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testBaseQuantoPerUSDInt128DivDecimalInt128() public {
+        BaseQuantoPerUSDInt128 x = BaseQuantoPerUSDInt128.wrap(50 ether);
+        int128 y = 2 ether;
+        BaseQuantoPerUSDInt128 result = x.divDecimalInt128(y);
+        assertEq(result.unwrap(), 25 ether);
+    }
+
+    function testBaseQuantoPerUSDInt128DivDecimalInt128Fuzz(int128 x, int128 y) public {
+        int128 z;
+        int128 j;
+        assembly {
+            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
+            z := sdiv(j,y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseQuantoPerUSDInt128.wrap(x).divDecimalInt128(y);
+        } else {
+            BaseQuantoPerUSDInt128 result = BaseQuantoPerUSDInt128.wrap(x).divDecimalInt128(y);
             assertEq(result.unwrap(), z);
         }
     }

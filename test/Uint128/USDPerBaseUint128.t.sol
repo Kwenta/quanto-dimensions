@@ -8,6 +8,7 @@ import {
     QuantoUint128,
     USDPerBaseUint128,
     USDPerBaseInt128,
+    USDPerBaseUint256,
     USDPerQuantoUint128,
     USDUint128,
     InteractionsUSDPerBaseUint128
@@ -388,6 +389,54 @@ contract USDPerBaseUint128Test is Test {
             USDPerBaseUint128.wrap(x).div(y);
         } else {
             USDPerBaseUint128 result = USDPerBaseUint128.wrap(x).div(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testUSDPerBaseUint128DivDecimal() public {
+        USDPerBaseUint128 x = USDPerBaseUint128.wrap(500 ether);
+        uint128 y = 2 ether;
+        USDPerBaseUint256 result = x.divDecimal(y);
+        assertEq(result.unwrap(), 250 ether);
+    }
+
+    function testUSDPerBaseUint128DivDecimalFuzz(uint128 x, uint128 y) public {
+        uint256 z;
+        uint256 j;
+        assembly {
+            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
+            z := div(j,y)
+        }
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (mulOverflow || y == 0) {
+            vm.expectRevert();
+            USDPerBaseUint128.wrap(x).divDecimal(y);
+        } else {
+            USDPerBaseUint256 result = USDPerBaseUint128.wrap(x).divDecimal(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testUSDPerBaseUint128DivDecimalUint128() public {
+        USDPerBaseUint128 x = USDPerBaseUint128.wrap(50 ether);
+        uint128 y = 2 ether;
+        USDPerBaseUint128 result = x.divDecimalUint128(y);
+        assertEq(result.unwrap(), 25 ether);
+    }
+
+    function testUSDPerBaseUint128DivDecimalUint128Fuzz(uint128 x, uint128 y) public {
+        uint128 z;
+        uint128 j;
+        assembly {
+            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
+            z := div(j,y)
+        }
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (mulOverflow || y == 0) {
+            vm.expectRevert();
+            USDPerBaseUint128.wrap(x).divDecimalUint128(y);
+        } else {
+            USDPerBaseUint128 result = USDPerBaseUint128.wrap(x).divDecimalUint128(y);
             assertEq(result.unwrap(), z);
         }
     }

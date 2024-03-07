@@ -5,6 +5,7 @@ import {Test, console} from "forge-std/Test.sol";
 import {
     USDInt128,
     USDUint128,
+    USDInt256,
     InteractionsUSDInt128
 } from "src/UnitTypes.sol";
 
@@ -321,6 +322,58 @@ contract USDInt128Test is Test {
             USDInt128.wrap(x).div(y);
         } else {
             USDInt128 result = USDInt128.wrap(x).div(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testUSDInt128DivDecimal() public {
+        USDInt128 x = USDInt128.wrap(500 ether);
+        int128 y = 2 ether;
+        USDInt256 result = x.divDecimal(y);
+        assertEq(result.unwrap(), 250 ether);
+    }
+
+    function testUSDInt128DivDecimalFuzz(int128 x, int128 y) public {
+        int256 z;
+        int256 j;
+        assembly {
+            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
+            z := sdiv(j,y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            USDInt128.wrap(x).divDecimal(y);
+        } else {
+            USDInt256 result = USDInt128.wrap(x).divDecimal(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testUSDInt128DivDecimalInt128() public {
+        USDInt128 x = USDInt128.wrap(50 ether);
+        int128 y = 2 ether;
+        USDInt128 result = x.divDecimalInt128(y);
+        assertEq(result.unwrap(), 25 ether);
+    }
+
+    function testUSDInt128DivDecimalInt128Fuzz(int128 x, int128 y) public {
+        int128 z;
+        int128 j;
+        assembly {
+            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
+            z := sdiv(j,y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            USDInt128.wrap(x).divDecimalInt128(y);
+        } else {
+            USDInt128 result = USDInt128.wrap(x).divDecimalInt128(y);
             assertEq(result.unwrap(), z);
         }
     }

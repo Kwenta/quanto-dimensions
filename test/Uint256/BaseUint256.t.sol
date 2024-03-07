@@ -353,6 +353,30 @@ contract BaseUint256Test is Test {
         }
     }
 
+    function testBaseUint256DivDecimal() public {
+        BaseUint256 x = BaseUint256.wrap(500 ether);
+        uint256 y = 2 ether;
+        BaseUint256 result = x.divDecimal(y);
+        assertEq(result.unwrap(), 250 ether);
+    }
+
+    function testBaseUint256DivDecimalFuzz(uint256 x, uint256 y) public {
+        uint256 z;
+        uint256 j;
+        assembly {
+            j := mul(x, 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000)
+            z := div(j,y)
+        }
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseUint256.wrap(x).divDecimal(y);
+        } else {
+            BaseUint256 result = BaseUint256.wrap(x).divDecimal(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
     function testBaseUint256To128() public {
         uint256 x = type(uint256).max;
         vm.expectRevert();
