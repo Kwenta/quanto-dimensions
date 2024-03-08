@@ -4,11 +4,16 @@ pragma solidity >=0.8.19;
 import {Test, console} from "forge-std/Test.sol";
 import {
     BaseInt128,
+    BaseUint128,
+    BaseInt256,
     USDPerBaseInt128,
-    USDInt128
-} from "../../src/UnitTypes.sol";
+    USDInt128,
+    InteractionsBaseInt128
+} from "src/UnitTypes.sol";
 
 contract BaseInt128Test is Test {
+    using InteractionsBaseInt128 for BaseInt128;
+
     function setUp() public {}
 
     function testBaseInt128Add() public {
@@ -301,7 +306,7 @@ contract BaseInt128Test is Test {
     function testBaseInt128MulDecimalToUSD() public {
         BaseInt128 x = BaseInt128.wrap(100 ether);
         USDPerBaseInt128 y = USDPerBaseInt128.wrap(200 ether);
-        USDInt128 result = x.mulDecimalToUSD(y);
+        USDInt128 result = InteractionsBaseInt128.mulDecimalToUSD(x, y);
         assertEq(result.unwrap(), 20_000 ether);
     }
 
@@ -350,5 +355,95 @@ contract BaseInt128Test is Test {
             BaseInt128 result = BaseInt128.wrap(x).div(y);
             assertEq(result.unwrap(), z);
         }
+    }
+
+    function testBaseInt128DivDecimal() public {
+        BaseInt128 x = BaseInt128.wrap(500 ether);
+        int128 y = 2 ether;
+        BaseInt256 result = x.divDecimal(y);
+        assertEq(result.unwrap(), 250 ether);
+    }
+
+    function testBaseInt128DivDecimalFuzz(int128 x, int128 y) public {
+        int256 z;
+        int256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseInt128.wrap(x).divDecimal(y);
+        } else {
+            BaseInt256 result = BaseInt128.wrap(x).divDecimal(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testBaseInt128DivDecimalInt128() public {
+        BaseInt128 x = BaseInt128.wrap(50 ether);
+        int128 y = 2 ether;
+        BaseInt128 result = x.divDecimalInt128(y);
+        assertEq(result.unwrap(), 25 ether);
+    }
+
+    function testBaseInt128DivDecimalInt128Fuzz(int128 x, int128 y) public {
+        int128 z;
+        int128 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseInt128.wrap(x).divDecimalInt128(y);
+        } else {
+            BaseInt128 result = BaseInt128.wrap(x).divDecimalInt128(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testBaseInt128ToUint() public {
+        int128 x = type(int128).min;
+        vm.expectRevert();
+        BaseInt128.wrap(x).toUint();
+        x = 1;
+        BaseUint128 result = BaseInt128.wrap(x).toUint();
+        assertEq(result.unwrap(), uint128(x));
+    }
+
+    function testBaseInt128ToUintFuzz(int128 x) public {
+        if (x < 0) {
+            vm.expectRevert();
+            BaseInt128.wrap(x).toUint();
+        } else {
+            BaseUint128 result = BaseInt128.wrap(x).toUint();
+            assertEq(result.unwrap(), uint128(x));
+        }
+    }
+
+    function testBaseInt128To256() public {
+        int128 x = type(int128).min;
+        BaseInt256 result = BaseInt128.wrap(x).to256();
+        assertEq(result.unwrap(), int256(x));
+    }
+
+    function testBaseInt128To256Fuzz(int128 x) public {
+        BaseInt256 result = BaseInt128.wrap(x).to256();
+        assertEq(result.unwrap(), int256(x));
     }
 }

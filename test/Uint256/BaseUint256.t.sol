@@ -5,13 +5,18 @@ import {Test, console} from "forge-std/Test.sol";
 import {
     BaseQuantoPerUSDUint256,
     BaseUint256,
+    BaseInt256,
+    BaseUint128,
     QuantoUint256,
     USDPerBaseUint256,
     USDPerQuantoUint256,
-    USDUint256
-} from "../../src/UnitTypes.sol";
+    USDUint256,
+    InteractionsBaseUint256
+} from "src/UnitTypes.sol";
 
 contract BaseUint256Test is Test {
+    using InteractionsBaseUint256 for BaseUint256;
+
     function setUp() public {}
 
     function testBaseUint256Add() public {
@@ -346,5 +351,82 @@ contract BaseUint256Test is Test {
             BaseUint256 result = BaseUint256.wrap(x).div(y);
             assertEq(result.unwrap(), z);
         }
+    }
+
+    function testBaseUint256DivDecimal() public {
+        BaseUint256 x = BaseUint256.wrap(500 ether);
+        uint256 y = 2 ether;
+        BaseUint256 result = x.divDecimal(y);
+        assertEq(result.unwrap(), 250 ether);
+    }
+
+    function testBaseUint256DivDecimalFuzz(uint256 x, uint256 y) public {
+        uint256 z;
+        uint256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
+        }
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseUint256.wrap(x).divDecimal(y);
+        } else {
+            BaseUint256 result = BaseUint256.wrap(x).divDecimal(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testBaseUint256To128() public {
+        uint256 x = type(uint256).max;
+        vm.expectRevert();
+        BaseUint256.wrap(x).to128();
+        x = 1;
+        BaseUint128 result = BaseUint256.wrap(x).to128();
+        assertEq(result.unwrap(), uint128(x));
+    }
+
+    function testBaseUint256To128Fuzz(uint256 x) public {
+        if (x > uint256(type(uint128).max)) {
+            vm.expectRevert();
+            BaseUint256.wrap(x).to128();
+        } else {
+            BaseUint128 result = BaseUint256.wrap(x).to128();
+            assertEq(result.unwrap(), uint128(x));
+        }
+    }
+
+    function testBaseUint256ToInt() public {
+        uint256 x = type(uint256).max;
+        vm.expectRevert();
+        BaseUint256.wrap(x).toInt();
+        x = 1;
+        BaseInt256 result = BaseUint256.wrap(x).toInt();
+        assertEq(result.unwrap(), int256(x));
+    }
+
+    function testBaseUint256ToIntFuzz(uint256 x) public {
+        if (x > uint256(type(int256).max)) {
+            vm.expectRevert();
+            BaseUint256.wrap(x).toInt();
+        } else {
+            BaseInt256 result = BaseUint256.wrap(x).toInt();
+            assertEq(result.unwrap(), int256(x));
+        }
+    }
+
+    function testBaseUint256ToBytes32() public {
+        uint256 x = type(uint256).max;
+        bytes32 result = BaseUint256.wrap(x).toBytes32();
+        assertEq(result, bytes32(x));
+    }
+
+    function testBaseUint256ToBytes32Fuzz(uint256 x) public {
+        bytes32 result = BaseUint256.wrap(x).toBytes32();
+        assertEq(result, bytes32(x));
     }
 }

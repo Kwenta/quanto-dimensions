@@ -6,12 +6,17 @@ import {
     BaseQuantoPerUSDInt256,
     BaseInt256,
     QuantoInt256,
+    QuantoInt128,
+    QuantoUint256,
     USDPerBaseInt256,
     USDPerQuantoInt256,
-    USDInt256
-} from "../../src/UnitTypes.sol";
+    USDInt256,
+    InteractionsQuantoInt256
+} from "src/UnitTypes.sol";
 
 contract QuantoInt256Test is Test {
+    using InteractionsQuantoInt256 for QuantoInt256;
+
     function setUp() public {}
 
     function testQuantoInt256Add() public {
@@ -354,6 +359,74 @@ contract QuantoInt256Test is Test {
         } else {
             QuantoInt256 result = QuantoInt256.wrap(x).div(y);
             assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testQuantoInt256DivDecimal() public {
+        QuantoInt256 x = QuantoInt256.wrap(500 ether);
+        int256 y = 2 ether;
+        QuantoInt256 result = x.divDecimal(y);
+        assertEq(result.unwrap(), 250 ether);
+    }
+
+    function testQuantoInt256DivDecimalFuzz(int256 x, int256 y) public {
+        int256 z;
+        int256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            QuantoInt256.wrap(x).divDecimal(y);
+        } else {
+            QuantoInt256 result = QuantoInt256.wrap(x).divDecimal(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testQuantoInt256To128() public {
+        int256 x = type(int256).max;
+        vm.expectRevert();
+        QuantoInt256.wrap(x).to128();
+        x = 1;
+        QuantoInt128 result = QuantoInt256.wrap(x).to128();
+        assertEq(result.unwrap(), int256(x));
+    }
+
+    function testQuantoInt256To128Fuzz(int256 x) public {
+        if (x > int256(type(int128).max) || x < int256(type(int128).min)) {
+            vm.expectRevert();
+            QuantoInt256.wrap(x).to128();
+        } else {
+            QuantoInt128 result = QuantoInt256.wrap(x).to128();
+            assertEq(result.unwrap(), int128(x));
+        }
+    }
+
+    function testQuantoInt256ToUint() public {
+        int256 x = type(int256).min;
+        vm.expectRevert();
+        QuantoInt256.wrap(x).toUint();
+        x = 1;
+        QuantoUint256 result = QuantoInt256.wrap(x).toUint();
+        assertEq(result.unwrap(), uint256(x));
+    }
+
+    function testQuantoInt256ToUintFuzz(int256 x) public {
+        if (x < 0) {
+            vm.expectRevert();
+            QuantoInt256.wrap(x).toUint();
+        } else {
+            QuantoUint256 result = QuantoInt256.wrap(x).toUint();
+            assertEq(result.unwrap(), uint256(x));
         }
     }
 }

@@ -6,12 +6,17 @@ import {
     BaseQuantoPerUSDUint128,
     BaseUint128,
     QuantoUint128,
+    QuantoInt128,
+    QuantoUint256,
     USDPerBaseUint128,
     USDPerQuantoUint128,
-    USDUint128
-} from "../../src/UnitTypes.sol";
+    USDUint128,
+    InteractionsQuantoUint128
+} from "src/UnitTypes.sol";
 
 contract QuantoUint128Test is Test {
+    using InteractionsQuantoUint128 for QuantoUint128;
+
     function setUp() public {}
 
     function testQuantoUint128Add() public {
@@ -347,5 +352,104 @@ contract QuantoUint128Test is Test {
             QuantoUint128 result = QuantoUint128.wrap(x).div(y);
             assertEq(result.unwrap(), z);
         }
+    }
+
+    function testQuantoUint128DivDecimal() public {
+        QuantoUint128 x = QuantoUint128.wrap(500 ether);
+        uint128 y = 2 ether;
+        QuantoUint256 result = x.divDecimal(y);
+        assertEq(result.unwrap(), 250 ether);
+    }
+
+    function testQuantoUint128DivDecimalFuzz(uint128 x, uint128 y) public {
+        uint256 z;
+        uint256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
+        }
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (mulOverflow || y == 0) {
+            vm.expectRevert();
+            QuantoUint128.wrap(x).divDecimal(y);
+        } else {
+            QuantoUint256 result = QuantoUint128.wrap(x).divDecimal(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testQuantoUint128DivDecimalUint128() public {
+        QuantoUint128 x = QuantoUint128.wrap(50 ether);
+        uint128 y = 2 ether;
+        QuantoUint128 result = x.divDecimalUint128(y);
+        assertEq(result.unwrap(), 25 ether);
+    }
+
+    function testQuantoUint128DivDecimalUint128Fuzz(uint128 x, uint128 y)
+        public
+    {
+        uint128 z;
+        uint128 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
+        }
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (mulOverflow || y == 0) {
+            vm.expectRevert();
+            QuantoUint128.wrap(x).divDecimalUint128(y);
+        } else {
+            QuantoUint128 result = QuantoUint128.wrap(x).divDecimalUint128(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testQuantoUint128ToInt() public {
+        uint128 x = type(uint128).max;
+        vm.expectRevert();
+        QuantoUint128.wrap(x).toInt();
+        x = 1;
+        QuantoInt128 result = QuantoUint128.wrap(x).toInt();
+        assertEq(result.unwrap(), int128(x));
+    }
+
+    function testQuantoUint128ToIntFuzz(uint128 x) public {
+        if (x > uint128(type(int128).max)) {
+            vm.expectRevert();
+            QuantoUint128.wrap(x).toInt();
+        } else {
+            QuantoInt128 result = QuantoUint128.wrap(x).toInt();
+            assertEq(result.unwrap(), int128(x));
+        }
+    }
+
+    function testQuantoUint128ToBytes32() public {
+        uint128 x = type(uint128).max;
+        bytes32 result = QuantoUint128.wrap(x).toBytes32();
+        assertEq(result, bytes32(uint256(x)));
+    }
+
+    function testQuantoUint128ToBytes32Fuzz(uint128 x) public {
+        bytes32 result = QuantoUint128.wrap(x).toBytes32();
+        assertEq(result, bytes32(uint256(x)));
+    }
+
+    function testQuantoUint128To256() public {
+        uint128 x = type(uint128).min;
+        QuantoUint256 result = QuantoUint128.wrap(x).to256();
+        assertEq(result.unwrap(), uint256(x));
+    }
+
+    function testQuantoUint128To256Fuzz(uint128 x) public {
+        QuantoUint256 result = QuantoUint128.wrap(x).to256();
+        assertEq(result.unwrap(), uint256(x));
     }
 }

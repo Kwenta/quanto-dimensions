@@ -4,14 +4,19 @@ pragma solidity >=0.8.19;
 import {Test, console} from "forge-std/Test.sol";
 import {
     BaseQuantoPerUSDInt256,
+    BaseQuantoPerUSDInt128,
+    BaseQuantoPerUSDUint256,
     BaseInt256,
     QuantoInt256,
     USDPerBaseInt256,
     USDPerQuantoInt256,
-    USDInt256
-} from "../../src/UnitTypes.sol";
+    USDInt256,
+    InteractionsBaseQuantoPerUSDInt256
+} from "src/UnitTypes.sol";
 
 contract BaseQuantoPerUSDInt256Test is Test {
+    using InteractionsBaseQuantoPerUSDInt256 for BaseQuantoPerUSDInt256;
+
     function setUp() public {}
 
     function testBaseQuantoPerUSDInt256Add() public {
@@ -409,6 +414,79 @@ contract BaseQuantoPerUSDInt256Test is Test {
             BaseQuantoPerUSDInt256 result =
                 BaseQuantoPerUSDInt256.wrap(x).div(y);
             assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testBaseQuantoPerUSDInt256DivDecimal() public {
+        BaseQuantoPerUSDInt256 x = BaseQuantoPerUSDInt256.wrap(500 ether);
+        int256 y = 2 ether;
+        BaseQuantoPerUSDInt256 result = x.divDecimal(y);
+        assertEq(result.unwrap(), 250 ether);
+    }
+
+    function testBaseQuantoPerUSDInt256DivDecimalFuzz(int256 x, int256 y)
+        public
+    {
+        int256 z;
+        int256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseQuantoPerUSDInt256.wrap(x).divDecimal(y);
+        } else {
+            BaseQuantoPerUSDInt256 result =
+                BaseQuantoPerUSDInt256.wrap(x).divDecimal(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testBaseQuantoPerUSDInt256To128() public {
+        int256 x = type(int256).max;
+        vm.expectRevert();
+        BaseQuantoPerUSDInt256.wrap(x).to128();
+        x = 1;
+        BaseQuantoPerUSDInt128 result = BaseQuantoPerUSDInt256.wrap(x).to128();
+        assertEq(result.unwrap(), int256(x));
+    }
+
+    function testBaseQuantoPerUSDInt256To128Fuzz(int256 x) public {
+        if (x > int256(type(int128).max) || x < int256(type(int128).min)) {
+            vm.expectRevert();
+            BaseQuantoPerUSDInt256.wrap(x).to128();
+        } else {
+            BaseQuantoPerUSDInt128 result =
+                BaseQuantoPerUSDInt256.wrap(x).to128();
+            assertEq(result.unwrap(), int128(x));
+        }
+    }
+
+    function testBaseQuantoPerUSDInt256ToUint() public {
+        int256 x = type(int256).min;
+        vm.expectRevert();
+        BaseQuantoPerUSDInt256.wrap(x).toUint();
+        x = 1;
+        BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDInt256.wrap(x).toUint();
+        assertEq(result.unwrap(), uint256(x));
+    }
+
+    function testBaseQuantoPerUSDInt256ToUintFuzz(int256 x) public {
+        if (x < 0) {
+            vm.expectRevert();
+            BaseQuantoPerUSDInt256.wrap(x).toUint();
+        } else {
+            BaseQuantoPerUSDUint256 result =
+                BaseQuantoPerUSDInt256.wrap(x).toUint();
+            assertEq(result.unwrap(), uint256(x));
         }
     }
 }

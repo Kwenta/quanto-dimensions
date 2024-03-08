@@ -7,11 +7,16 @@ import {
     BaseUint128,
     QuantoUint128,
     USDPerBaseUint128,
+    USDPerBaseInt128,
+    USDPerBaseUint256,
     USDPerQuantoUint128,
-    USDUint128
-} from "../../src/UnitTypes.sol";
+    USDUint128,
+    InteractionsUSDPerBaseUint128
+} from "src/UnitTypes.sol";
 
 contract USDPerBaseUint128Test is Test {
+    using InteractionsUSDPerBaseUint128 for USDPerBaseUint128;
+
     function setUp() public {}
 
     function testUSDPerBaseUint128Add() public {
@@ -386,5 +391,105 @@ contract USDPerBaseUint128Test is Test {
             USDPerBaseUint128 result = USDPerBaseUint128.wrap(x).div(y);
             assertEq(result.unwrap(), z);
         }
+    }
+
+    function testUSDPerBaseUint128DivDecimal() public {
+        USDPerBaseUint128 x = USDPerBaseUint128.wrap(500 ether);
+        uint128 y = 2 ether;
+        USDPerBaseUint256 result = x.divDecimal(y);
+        assertEq(result.unwrap(), 250 ether);
+    }
+
+    function testUSDPerBaseUint128DivDecimalFuzz(uint128 x, uint128 y) public {
+        uint256 z;
+        uint256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
+        }
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (mulOverflow || y == 0) {
+            vm.expectRevert();
+            USDPerBaseUint128.wrap(x).divDecimal(y);
+        } else {
+            USDPerBaseUint256 result = USDPerBaseUint128.wrap(x).divDecimal(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testUSDPerBaseUint128DivDecimalUint128() public {
+        USDPerBaseUint128 x = USDPerBaseUint128.wrap(50 ether);
+        uint128 y = 2 ether;
+        USDPerBaseUint128 result = x.divDecimalUint128(y);
+        assertEq(result.unwrap(), 25 ether);
+    }
+
+    function testUSDPerBaseUint128DivDecimalUint128Fuzz(uint128 x, uint128 y)
+        public
+    {
+        uint128 z;
+        uint128 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
+        }
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (mulOverflow || y == 0) {
+            vm.expectRevert();
+            USDPerBaseUint128.wrap(x).divDecimalUint128(y);
+        } else {
+            USDPerBaseUint128 result =
+                USDPerBaseUint128.wrap(x).divDecimalUint128(y);
+            assertEq(result.unwrap(), z);
+        }
+    }
+
+    function testUSDPerBaseUint128ToInt() public {
+        uint128 x = type(uint128).max;
+        vm.expectRevert();
+        USDPerBaseUint128.wrap(x).toInt();
+        x = 1;
+        USDPerBaseInt128 result = USDPerBaseUint128.wrap(x).toInt();
+        assertEq(result.unwrap(), int128(x));
+    }
+
+    function testUSDPerBaseUint128ToIntFuzz(uint128 x) public {
+        if (x > uint128(type(int128).max)) {
+            vm.expectRevert();
+            USDPerBaseUint128.wrap(x).toInt();
+        } else {
+            USDPerBaseInt128 result = USDPerBaseUint128.wrap(x).toInt();
+            assertEq(result.unwrap(), int128(x));
+        }
+    }
+
+    function testUSDPerBaseUint128ToBytes32() public {
+        uint128 x = type(uint128).max;
+        bytes32 result = USDPerBaseUint128.wrap(x).toBytes32();
+        assertEq(result, bytes32(uint256(x)));
+    }
+
+    function testUSDPerBaseUint128ToBytes32Fuzz(uint128 x) public {
+        bytes32 result = USDPerBaseUint128.wrap(x).toBytes32();
+        assertEq(result, bytes32(uint256(x)));
+    }
+
+    function testUSDPerBaseUint128To256() public {
+        uint128 x = type(uint128).min;
+        USDPerBaseUint256 result = USDPerBaseUint128.wrap(x).to256();
+        assertEq(result.unwrap(), uint256(x));
+    }
+
+    function testUSDPerBaseUint128To256Fuzz(uint128 x) public {
+        USDPerBaseUint256 result = USDPerBaseUint128.wrap(x).to256();
+        assertEq(result.unwrap(), uint256(x));
     }
 }
