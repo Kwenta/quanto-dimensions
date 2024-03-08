@@ -2,11 +2,11 @@
 pragma solidity >=0.8.19;
 
 import "./ValueType.sol";
-import {USDUint128} from "src/Uint128/USDUint128/ValueType.sol";
-import {USDInt256} from "src/Int256/USDInt256/ValueType.sol";
+import {USDUint128} from "../../Uint128/USDUint128/ValueType.sol";
+import {USDInt256} from "../../Int256/USDInt256/ValueType.sol";
 
-import {DecimalMath} from "src/utils/DecimalMath.sol";
-import {SafeCastI128} from "src/utils/SafeCast.sol";
+import {DecimalMath} from "../../utils/DecimalMath.sol";
+import {SafeCastI128} from "../../utils/SafeCast.sol";
 
 /// @notice External Casting utilities for USDInt128.
 library InteractionsUSDInt128 {

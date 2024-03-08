@@ -2,15 +2,15 @@
 pragma solidity >=0.8.19;
 
 import "./ValueType.sol";
-import {QuantoUint128} from "src/Uint128/QuantoUint128/ValueType.sol";
-import {QuantoInt256} from "src/Int256/QuantoInt256/ValueType.sol";
+import {QuantoUint128} from "../../Uint128/QuantoUint128/ValueType.sol";
+import {QuantoInt256} from "../../Int256/QuantoInt256/ValueType.sol";
 import {BaseUint256} from "../BaseUint256/ValueType.sol";
 import {USDPerBaseUint256} from "../USDPerBaseUint256/ValueType.sol";
 import {USDPerQuantoUint256} from "../USDPerQuantoUint256/ValueType.sol";
 import {USDUint256} from "../USDUint256/ValueType.sol";
 
-import {DecimalMath} from "src/utils/DecimalMath.sol";
-import {SafeCastU256} from "src/utils/SafeCast.sol";
+import {DecimalMath} from "../../utils/DecimalMath.sol";
+import {SafeCastU256} from "../../utils/SafeCast.sol";
 
 /// @notice External Casting utilities for QuantoUint256.
 library InteractionsQuantoUint256 {

@@ -2,13 +2,13 @@
 pragma solidity >=0.8.19;
 
 import "./ValueType.sol";
-import {BaseInt128} from "src/Int128/BaseInt128/ValueType.sol";
-import {BaseUint256} from "src/Uint256/BaseUint256/ValueType.sol";
+import {BaseInt128} from "../../Int128/BaseInt128/ValueType.sol";
+import {BaseUint256} from "../../Uint256/BaseUint256/ValueType.sol";
 import {USDPerBaseInt256} from "../USDPerBaseInt256/ValueType.sol";
 import {USDInt256} from "../USDInt256/ValueType.sol";
 
-import {DecimalMath} from "src/utils/DecimalMath.sol";
-import {SafeCastI256} from "src/utils/SafeCast.sol";
+import {DecimalMath} from "../../utils/DecimalMath.sol";
+import {SafeCastI256} from "../../utils/SafeCast.sol";
 
 /// @notice External Casting utilities for BaseInt256.
 library InteractionsBaseInt256 {

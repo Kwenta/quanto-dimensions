@@ -11,7 +11,7 @@ import {
     USDPerBaseInt256,
     USDInt128,
     InteractionsUSDPerBaseInt128
-} from "src/UnitTypes.sol";
+} from "../../src/UnitTypes.sol";
 
 contract USDPerBaseInt128Test is Test {
     using InteractionsUSDPerBaseInt128 for USDPerBaseInt128;

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.19;
 
-import {DecimalMath} from "src/utils/DecimalMath.sol";
+import {DecimalMath} from "../../utils/DecimalMath.sol";
 
 type USDPerQuantoInt256 is int256;
 

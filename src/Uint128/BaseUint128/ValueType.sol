@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.19;
 
-import {DecimalMath} from "src/utils/DecimalMath.sol";
-import {SafeCastU256} from "src/utils/SafeCast.sol";
+import {DecimalMath} from "../../utils/DecimalMath.sol";
+import {SafeCastU256} from "../../utils/SafeCast.sol";
 
 type BaseUint128 is uint128;
 

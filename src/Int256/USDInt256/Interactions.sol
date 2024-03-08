@@ -2,10 +2,10 @@
 pragma solidity >=0.8.19;
 
 import "./ValueType.sol";
-import {USDInt128} from "src/Int128/USDInt128/ValueType.sol";
-import {USDUint256} from "src/Uint256/USDUint256/ValueType.sol";
+import {USDInt128} from "../../Int128/USDInt128/ValueType.sol";
+import {USDUint256} from "../../Uint256/USDUint256/ValueType.sol";
 
-import {SafeCastI256} from "src/utils/SafeCast.sol";
+import {SafeCastI256} from "../../utils/SafeCast.sol";
 
 /// @notice External Casting utilities for USDInt256.
 library InteractionsUSDInt256 {
