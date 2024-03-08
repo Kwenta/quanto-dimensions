@@ -10,7 +10,6 @@ import {BaseQuantoPerUSDUint256} from
     "../../Uint256/BaseQuantoPerUSDUint256/ValueType.sol";
 import {BaseUint128} from "../BaseUint128/ValueType.sol";
 import {QuantoUint128} from "../QuantoUint128/ValueType.sol";
-import {USDUint128} from "../USDUint128/ValueType.sol";
 
 import {DecimalMath} from "../../utils/DecimalMath.sol";
 import {SafeCastU256} from "../../utils/SafeCast.sol";
