@@ -4,8 +4,8 @@
 [![Foundry][foundry-badge]][foundry] 
 [![License: GPL-3.0][license-badge]][license]
 
-[gha]: https://github.com/Kwenta/foundry-scaffold/actions
-[gha-badge]: https://github.com/Kwenta/foundry-scaffold/actions/workflows/test.yml/badge.svg
+[gha]: https://github.com/Kwenta/quanto-dimensions/actions
+[gha-badge]: https://github.com/Kwenta/quanto-dimensions/actions/workflows/test.yml/badge.svg
 [foundry]: https://getfoundry.sh/
 [foundry-badge]: https://img.shields.io/badge/Built%20with-Foundry-FFDB1C.svg
 [license]: https://opensource.org/license/GPL-3.0/
@@ -18,34 +18,100 @@ This library is designed to provide units/dimension user defined types for quant
 ```
 src
 ├── Int128
-│   ├── BaseInt128
-│   ├── BaseQuantoPerUSDInt128
-│   ├── QuantoInt128
-│   ├── USDInt128
-│   ├── USDPerBaseInt128
-│   └── USDPerQuantoInt128
+│   ├── BaseInt128
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── BaseQuantoPerUSDInt128
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── QuantoInt128
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── USDInt128
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── USDPerBaseInt128
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   └── USDPerQuantoInt128
+│       ├── Interactions.sol
+│       └── ValueType.sol
 ├── Int256
-│   ├── BaseInt256
-│   ├── BaseQuantoPerUSDInt256
-│   ├── QuantoInt256
-│   ├── USDInt256
-│   ├── USDPerBaseInt256
-│   └── USDPerQuantoInt256
+│   ├── BaseInt256
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── BaseQuantoPerUSDInt256
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── QuantoInt256
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── USDInt256
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── USDPerBaseInt256
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   └── USDPerQuantoInt256
+│       ├── Interactions.sol
+│       └── ValueType.sol
 ├── Uint128
-│   ├── BaseQuantoPerUSDUint128
-│   ├── BaseUint128
-│   ├── QuantoUint128
-│   ├── USDPerBaseUint128
-│   ├── USDPerQuantoUint128
-│   └── USDUint128
+│   ├── BaseQuantoPerUSDUint128
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── BaseUint128
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── QuantoUint128
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── USDPerBaseUint128
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── USDPerQuantoUint128
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   └── USDUint128
+│       ├── Interactions.sol
+│       └── ValueType.sol
 ├── Uint256
-│   ├── BaseQuantoPerUSDUint256
-│   ├── BaseUint256
-│   ├── QuantoUint256
-│   ├── USDPerBaseUint256
-│   ├── USDPerQuantoUint256
-│   └── USDUint256
-└── UnitTypes.sol
+│   ├── BaseQuantoPerUSDUint256
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── BaseUint256
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── QuantoUint256
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── USDPerBaseUint256
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   ├── USDPerQuantoUint256
+│   │   ├── Interactions.sol
+│   │   └── ValueType.sol
+│   └── USDUint256
+│       ├── Interactions.sol
+│       └── ValueType.sol
+├── UnitTypes.sol
+└── utils
+    ├── DecimalMath.sol
+    ├── SafeCast
+    │   ├── SafeCastAddress.sol
+    │   ├── SafeCastBytes32.sol
+    │   ├── SafeCastI128.sol
+    │   ├── SafeCastI24.sol
+    │   ├── SafeCastI256.sol
+    │   ├── SafeCastI32.sol
+    │   ├── SafeCastI56.sol
+    │   ├── SafeCastI64.sol
+    │   ├── SafeCastU128.sol
+    │   ├── SafeCastU160.sol
+    │   ├── SafeCastU256.sol
+    │   ├── SafeCastU32.sol
+    │   ├── SafeCastU56.sol
+    │   └── SafeCastU64.sol
+    └── SafeCast.sol
 ```
 
 ## Tests
