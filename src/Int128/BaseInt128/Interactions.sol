@@ -5,6 +5,8 @@ import "./ValueType.sol";
 import {BaseInt128} from "./ValueType.sol";
 import {BaseInt256} from "../../Int256/BaseInt256/ValueType.sol";
 import {BaseUint128} from "../../Uint128/BaseUint128/ValueType.sol";
+import {BaseUint256} from "../../Uint256/BaseUint256/ValueType.sol";
+import {InteractionsBaseInt256} from "../../Int256/BaseInt256/Interactions.sol";
 import {USDPerBaseInt128} from "../USDPerBaseInt128/ValueType.sol";
 import {USDInt128} from "../USDInt128/ValueType.sol";
 
@@ -17,6 +19,7 @@ library InteractionsBaseInt128 {
     using DecimalMath for int128;
     using SafeCastI128 for int128;
     using SafeCastI256 for int256;
+    using InteractionsBaseInt256 for BaseInt256;
 
     /// @notice Converts a BaseInt128 number into BaseInt256.
     function to256(BaseInt128 x) internal pure returns (BaseInt256 result) {
@@ -44,5 +47,17 @@ library InteractionsBaseInt128 {
         returns (BaseInt256 result)
     {
         result = BaseInt256.wrap(x.unwrap().divDecimal(y));
+    }
+
+    /// @notice Returns the absolute value in BaseUint256.
+    function abs(BaseInt128 x) internal pure returns (BaseUint256) {
+        return x.unwrap() >= 0
+            ? to256(x).toUint()
+            : (BaseInt256.wrap(0) - to256(x)).toUint();
+    }
+
+    /// @notice Returns the absolute value in BaseUint128.
+    function abs128(BaseInt128 x) internal pure returns (BaseUint128) {
+        return x.unwrap() >= 0 ? toUint(x) : toUint(BaseInt128.wrap(0) - x);
     }
 }

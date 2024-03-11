@@ -6,6 +6,10 @@ import {USDPerQuantoUint128} from
     "../../Uint128/USDPerQuantoUint128/ValueType.sol";
 import {BaseQuantoPerUSDInt128} from "../BaseQuantoPerUSDInt128/ValueType.sol";
 import {USDPerQuantoInt256} from "../../Int256/USDPerQuantoInt256/ValueType.sol";
+import {InteractionsUSDPerQuantoInt256} from
+    "../../Int256/USDPerQuantoInt256/Interactions.sol";
+import {USDPerQuantoUint256} from
+    "../../Uint256/USDPerQuantoUint256/ValueType.sol";
 import {USDPerBaseInt128} from "../USDPerBaseInt128/ValueType.sol";
 import {BaseInt128} from "../BaseInt128/ValueType.sol";
 import {QuantoInt128} from "../QuantoInt128/ValueType.sol";
@@ -20,6 +24,7 @@ library InteractionsUSDPerQuantoInt128 {
     using SafeCastI128 for int128;
     using DecimalMath for int128;
     using SafeCastI256 for int256;
+    using InteractionsUSDPerQuantoInt256 for USDPerQuantoInt256;
 
     /// @notice Converts a USDPerQuantoInt128 number into USDPerQuantoInt256.
     function to256(USDPerQuantoInt128 x)
@@ -64,5 +69,26 @@ library InteractionsUSDPerQuantoInt128 {
         returns (USDPerQuantoInt256 result)
     {
         result = USDPerQuantoInt256.wrap(x.unwrap().divDecimal(y));
+    }
+
+    /// @notice Returns the absolute value in USDPerQuantoUint256.
+    function abs(USDPerQuantoInt128 x)
+        internal
+        pure
+        returns (USDPerQuantoUint256)
+    {
+        return x.unwrap() >= 0
+            ? to256(x).toUint()
+            : (USDPerQuantoInt256.wrap(0) - to256(x)).toUint();
+    }
+
+    /// @notice Returns the absolute value in USDPerQuantoUint128.
+    function abs128(USDPerQuantoInt128 x)
+        internal
+        pure
+        returns (USDPerQuantoUint128)
+    {
+        return
+            x.unwrap() >= 0 ? toUint(x) : toUint(USDPerQuantoInt128.wrap(0) - x);
     }
 }

@@ -489,4 +489,22 @@ contract BaseQuantoPerUSDInt256Test is Test {
             assertEq(result.unwrap(), uint256(x));
         }
     }
+
+    function testBaseQuantoPerUSDInt256Abs() public {
+        BaseQuantoPerUSDInt256 x = BaseQuantoPerUSDInt256.wrap(-100);
+        BaseQuantoPerUSDUint256 result = x.abs();
+        assertEq(result.unwrap(), uint256(100));
+        result = BaseQuantoPerUSDInt256.wrap(100).abs();
+        assertEq(result.unwrap(), uint256(100));
+    }
+
+    function testBaseQuantoPerUSDInt256AbsFuzz(int256 x) public {
+        if (x == type(int256).min) {
+            vm.expectRevert();
+            BaseQuantoPerUSDInt256.wrap(x).abs();
+        } else {
+            BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDInt256.wrap(x).abs();
+            assertEq(result.unwrap(), uint256(x < 0 ? -x : x));
+        }
+    }
 }

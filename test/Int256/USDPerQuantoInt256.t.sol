@@ -469,4 +469,22 @@ contract USDPerQuantoInt256Test is Test {
             assertEq(result.unwrap(), uint256(x));
         }
     }
+
+    function testUSDPerQuantoInt256Abs() public {
+        USDPerQuantoInt256 x = USDPerQuantoInt256.wrap(-100);
+        USDPerQuantoUint256 result = x.abs();
+        assertEq(result.unwrap(), uint256(100));
+        result = USDPerQuantoInt256.wrap(100).abs();
+        assertEq(result.unwrap(), uint256(100));
+    }
+
+    function testUSDPerQuantoInt256AbsFuzz(int256 x) public {
+        if (x == type(int256).min) {
+            vm.expectRevert();
+            USDPerQuantoInt256.wrap(x).abs();
+        } else {
+            USDPerQuantoUint256 result = USDPerQuantoInt256.wrap(x).abs();
+            assertEq(result.unwrap(), uint256(x < 0 ? -x : x));
+        }
+    }
 }

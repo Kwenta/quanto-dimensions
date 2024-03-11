@@ -427,4 +427,22 @@ contract BaseInt256Test is Test {
             assertEq(result.unwrap(), uint256(x));
         }
     }
+
+    function testBaseInt256Abs() public {
+        BaseInt256 x = BaseInt256.wrap(-100);
+        BaseUint256 result = x.abs();
+        assertEq(result.unwrap(), uint256(100));
+        result = BaseInt256.wrap(100).abs();
+        assertEq(result.unwrap(), uint256(100));
+    }
+
+    function testBaseInt256AbsFuzz(int256 x) public {
+        if (x == type(int256).min) {
+            vm.expectRevert();
+            BaseInt256.wrap(x).abs();
+        } else {
+            BaseUint256 result = BaseInt256.wrap(x).abs();
+            assertEq(result.unwrap(), uint256(x < 0 ? -x : x));
+        }
+    }
 }

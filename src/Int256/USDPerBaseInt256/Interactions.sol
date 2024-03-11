@@ -52,4 +52,9 @@ library InteractionsUSDPerBaseInt256 {
     {
         result = QuantoInt256.wrap(x.unwrap().mulDecimal(y.unwrap()));
     }
+
+    /// @notice Returns the absolute value in BaseUint256
+    function abs(USDPerBaseInt256 x) internal pure returns (USDPerBaseUint256) {
+        return x.unwrap() >= 0 ? toUint(x) : toUint((USDPerBaseInt256.wrap(0) - x));
+    }
 }

@@ -6,6 +6,7 @@ import {
     QuantoInt128,
     QuantoUint128,
     QuantoInt256,
+    QuantoUint256,
     USDPerQuantoInt128,
     USDInt128,
     InteractionsQuantoInt128
@@ -447,5 +448,37 @@ contract QuantoInt128Test is Test {
     function testQuantoInt128To256Fuzz(int128 x) public {
         QuantoInt256 result = QuantoInt128.wrap(x).to256();
         assertEq(result.unwrap(), int256(x));
+    }
+
+    function testQuantoInt128Abs() public {
+        QuantoInt128 x = QuantoInt128.wrap(-100);
+        QuantoUint256 result = x.abs();
+        assertEq(result.unwrap(), uint256(100));
+        result = QuantoInt128.wrap(100).abs();
+        assertEq(result.unwrap(), uint256(100));
+    }
+
+    function testQuantoInt128AbsFuzz(int128 x) public {
+        QuantoUint256 result = QuantoInt128.wrap(x).abs();
+        int256 _x = x;
+        assertEq(result.unwrap(), uint256(x < 0 ? -_x : _x));
+    }
+
+    function testQuantoInt128Abs128() public {
+        QuantoInt128 x = QuantoInt128.wrap(-100);
+        QuantoUint128 result = x.abs128();
+        assertEq(result.unwrap(), uint128(100));
+        result = QuantoInt128.wrap(100).abs128();
+        assertEq(result.unwrap(), uint128(100));
+    }
+
+    function testQuantoInt128Abs128Fuzz(int128 x) public {
+        if (x == type(int128).min) {
+            vm.expectRevert();
+            QuantoInt128.wrap(x).abs128();
+        } else {
+            QuantoUint128 result = QuantoInt128.wrap(x).abs128();
+            assertEq(result.unwrap(), uint128(x < 0 ? -x : x));
+        }
     }
 }

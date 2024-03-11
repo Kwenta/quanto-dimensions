@@ -20,4 +20,9 @@ library InteractionsUSDInt256 {
     function toUint(USDInt256 x) internal pure returns (USDUint256 result) {
         result = USDUint256.wrap(unwrap(x).toUint());
     }
+
+    /// @notice Returns the absolute value in BaseUint256
+    function abs(USDInt256 x) internal pure returns (USDUint256) {
+        return x.unwrap() >= 0 ? toUint(x) : toUint((USDInt256.wrap(0) - x));
+    }
 }

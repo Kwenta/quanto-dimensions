@@ -5,6 +5,7 @@ import {Test, console} from "forge-std/Test.sol";
 import {
     BaseQuantoPerUSDInt128,
     BaseQuantoPerUSDUint128,
+    BaseQuantoPerUSDUint256,
     BaseQuantoPerUSDInt256,
     BaseInt128,
     QuantoInt128,
@@ -511,5 +512,38 @@ contract BaseQuantoPerUSDInt128Test is Test {
     function testBaseQuantoPerUSDInt128To256Fuzz(int128 x) public {
         BaseQuantoPerUSDInt256 result = BaseQuantoPerUSDInt128.wrap(x).to256();
         assertEq(result.unwrap(), int256(x));
+    }
+
+    function testBaseQuantoPerUSDInt128Abs() public {
+        BaseQuantoPerUSDInt128 x = BaseQuantoPerUSDInt128.wrap(-100);
+        BaseQuantoPerUSDUint256 result = x.abs();
+        assertEq(result.unwrap(), uint256(100));
+        result = BaseQuantoPerUSDInt128.wrap(100).abs();
+        assertEq(result.unwrap(), uint256(100));
+    }
+
+    function testBaseQuantoPerUSDInt128AbsFuzz(int128 x) public {
+        BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDInt128.wrap(x).abs();
+        int256 _x = x;
+        assertEq(result.unwrap(), uint256(x < 0 ? -_x : _x));
+    }
+
+    function testBaseQuantoPerUSDInt128Abs128() public {
+        BaseQuantoPerUSDInt128 x = BaseQuantoPerUSDInt128.wrap(-100);
+        BaseQuantoPerUSDUint128 result = x.abs128();
+        assertEq(result.unwrap(), uint128(100));
+        result = BaseQuantoPerUSDInt128.wrap(100).abs128();
+        assertEq(result.unwrap(), uint128(100));
+    }
+
+    function testBaseQuantoPerUSDInt128Abs128Fuzz(int128 x) public {
+        if (x == type(int128).min) {
+            vm.expectRevert();
+            BaseQuantoPerUSDInt128.wrap(x).abs128();
+        } else {
+            BaseQuantoPerUSDUint128 result =
+                BaseQuantoPerUSDInt128.wrap(x).abs128();
+            assertEq(result.unwrap(), uint128(x < 0 ? -x : x));
+        }
     }
 }
