@@ -4,7 +4,6 @@ pragma solidity >=0.8.19;
 import "./ValueType.sol";
 import {USDPerQuantoInt128} from "../../Int128/USDPerQuantoInt128/ValueType.sol";
 import {BaseQuantoPerUSDUint128} from "../BaseQuantoPerUSDUint128/ValueType.sol";
-import {USDPerBaseUint128} from "../USDPerBaseUint128/ValueType.sol";
 import {BaseUint128} from "../BaseUint128/ValueType.sol";
 import {QuantoUint128} from "../QuantoUint128/ValueType.sol";
 import {USDUint128} from "../USDUint128/ValueType.sol";
