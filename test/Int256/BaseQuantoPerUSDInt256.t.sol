@@ -503,7 +503,8 @@ contract BaseQuantoPerUSDInt256Test is Test {
             vm.expectRevert();
             BaseQuantoPerUSDInt256.wrap(x).abs();
         } else {
-            BaseQuantoPerUSDUint256 result = BaseQuantoPerUSDInt256.wrap(x).abs();
+            BaseQuantoPerUSDUint256 result =
+                BaseQuantoPerUSDInt256.wrap(x).abs();
             assertEq(result.unwrap(), uint256(x < 0 ? -x : x));
         }
     }

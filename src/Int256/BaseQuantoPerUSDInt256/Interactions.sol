@@ -57,7 +57,13 @@ library InteractionsBaseQuantoPerUSDInt256 {
     }
 
     /// @notice Returns the absolute value in BaseQuantoPerUSDInt256
-    function abs(BaseQuantoPerUSDInt256 x) internal pure returns (BaseQuantoPerUSDUint256) {
-        return x.unwrap() >= 0 ? toUint(x) : toUint((BaseQuantoPerUSDInt256.wrap(0) - x));
+    function abs(BaseQuantoPerUSDInt256 x)
+        internal
+        pure
+        returns (BaseQuantoPerUSDUint256)
+    {
+        return x.unwrap() >= 0
+            ? toUint(x)
+            : toUint((BaseQuantoPerUSDInt256.wrap(0) - x));
     }
 }
