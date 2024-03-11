@@ -10,7 +10,6 @@ import {USDPerBaseInt256} from "../USDPerBaseInt256/ValueType.sol";
 import {USDPerQuantoInt256} from "../USDPerQuantoInt256/ValueType.sol";
 import {BaseInt256} from "../BaseInt256/ValueType.sol";
 import {QuantoInt256} from "../QuantoInt256/ValueType.sol";
-import {USDInt256} from "../USDInt256/ValueType.sol";
 
 import {DecimalMath} from "../../utils/DecimalMath.sol";
 import {SafeCastI256} from "../../utils/SafeCast.sol";

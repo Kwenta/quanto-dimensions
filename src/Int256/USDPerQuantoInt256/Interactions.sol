@@ -6,7 +6,6 @@ import {USDPerQuantoInt128} from "../../Int128/USDPerQuantoInt128/ValueType.sol"
 import {USDPerQuantoUint256} from
     "../../Uint256/USDPerQuantoUint256/ValueType.sol";
 import {BaseQuantoPerUSDInt256} from "../BaseQuantoPerUSDInt256/ValueType.sol";
-import {USDPerBaseInt256} from "../USDPerBaseInt256/ValueType.sol";
 import {BaseInt256} from "../BaseInt256/ValueType.sol";
 import {QuantoInt256} from "../QuantoInt256/ValueType.sol";
 import {USDInt256} from "../USDInt256/ValueType.sol";
