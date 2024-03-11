@@ -33,4 +33,9 @@ library InteractionsBaseInt256 {
     {
         result = USDInt256.wrap(x.unwrap().mulDecimal(y.unwrap()));
     }
+
+    /// @notice Returns the absolute value in BaseUint256
+    function abs(BaseInt256 x) internal pure returns (BaseUint256) {
+        return x.unwrap() >= 0 ? toUint(x) : toUint((BaseInt256.wrap(0) - x));
+    }
 }

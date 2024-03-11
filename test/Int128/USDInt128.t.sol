@@ -6,6 +6,7 @@ import {
     USDInt128,
     USDUint128,
     USDInt256,
+    USDUint256,
     InteractionsUSDInt128
 } from "../../src/UnitTypes.sol";
 
@@ -414,5 +415,37 @@ contract USDInt128Test is Test {
     function testUSDInt128To256Fuzz(int128 x) public {
         USDInt256 result = USDInt128.wrap(x).to256();
         assertEq(result.unwrap(), int256(x));
+    }
+
+    function testUSDInt128Abs() public {
+        USDInt128 x = USDInt128.wrap(-100);
+        USDUint256 result = x.abs();
+        assertEq(result.unwrap(), uint256(100));
+        result = USDInt128.wrap(100).abs();
+        assertEq(result.unwrap(), uint256(100));
+    }
+
+    function testUSDInt128AbsFuzz(int128 x) public {
+        USDUint256 result = USDInt128.wrap(x).abs();
+        int256 _x = x;
+        assertEq(result.unwrap(), uint256(x < 0 ? -_x : _x));
+    }
+
+    function testUSDInt128Abs128() public {
+        USDInt128 x = USDInt128.wrap(-100);
+        USDUint128 result = x.abs128();
+        assertEq(result.unwrap(), uint128(100));
+        result = USDInt128.wrap(100).abs128();
+        assertEq(result.unwrap(), uint128(100));
+    }
+
+    function testUSDInt128Abs128Fuzz(int128 x) public {
+        if (x == type(int128).min) {
+            vm.expectRevert();
+            USDInt128.wrap(x).abs128();
+        } else {
+            USDUint128 result = USDInt128.wrap(x).abs128();
+            assertEq(result.unwrap(), uint128(x < 0 ? -x : x));
+        }
     }
 }

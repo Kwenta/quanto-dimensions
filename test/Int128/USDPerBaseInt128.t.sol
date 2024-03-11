@@ -8,6 +8,7 @@ import {
     QuantoInt128,
     USDPerBaseInt128,
     USDPerBaseUint128,
+    USDPerBaseUint256,
     USDPerBaseInt256,
     USDInt128,
     InteractionsUSDPerBaseInt128
@@ -492,5 +493,37 @@ contract USDPerBaseInt128Test is Test {
     function testUSDPerBaseInt128To256Fuzz(int128 x) public {
         USDPerBaseInt256 result = USDPerBaseInt128.wrap(x).to256();
         assertEq(result.unwrap(), int256(x));
+    }
+
+    function testUSDPerBaseInt128Abs() public {
+        USDPerBaseInt128 x = USDPerBaseInt128.wrap(-100);
+        USDPerBaseUint256 result = x.abs();
+        assertEq(result.unwrap(), uint256(100));
+        result = USDPerBaseInt128.wrap(100).abs();
+        assertEq(result.unwrap(), uint256(100));
+    }
+
+    function testUSDPerBaseInt128AbsFuzz(int128 x) public {
+        USDPerBaseUint256 result = USDPerBaseInt128.wrap(x).abs();
+        int256 _x = x;
+        assertEq(result.unwrap(), uint256(x < 0 ? -_x : _x));
+    }
+
+    function testUSDPerBaseInt128Abs128() public {
+        USDPerBaseInt128 x = USDPerBaseInt128.wrap(-100);
+        USDPerBaseUint128 result = x.abs128();
+        assertEq(result.unwrap(), uint128(100));
+        result = USDPerBaseInt128.wrap(100).abs128();
+        assertEq(result.unwrap(), uint128(100));
+    }
+
+    function testUSDPerBaseInt128Abs128Fuzz(int128 x) public {
+        if (x == type(int128).min) {
+            vm.expectRevert();
+            USDPerBaseInt128.wrap(x).abs128();
+        } else {
+            USDPerBaseUint128 result = USDPerBaseInt128.wrap(x).abs128();
+            assertEq(result.unwrap(), uint128(x < 0 ? -x : x));
+        }
     }
 }

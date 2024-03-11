@@ -429,4 +429,22 @@ contract QuantoInt256Test is Test {
             assertEq(result.unwrap(), uint256(x));
         }
     }
+
+    function testQuantoInt256Abs() public {
+        QuantoInt256 x = QuantoInt256.wrap(-100);
+        QuantoUint256 result = x.abs();
+        assertEq(result.unwrap(), uint256(100));
+        result = QuantoInt256.wrap(100).abs();
+        assertEq(result.unwrap(), uint256(100));
+    }
+
+    function testQuantoInt256AbsFuzz(int256 x) public {
+        if (x == type(int256).min) {
+            vm.expectRevert();
+            QuantoInt256.wrap(x).abs();
+        } else {
+            QuantoUint256 result = QuantoInt256.wrap(x).abs();
+            assertEq(result.unwrap(), uint256(x < 0 ? -x : x));
+        }
+    }
 }

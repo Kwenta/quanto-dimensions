@@ -3,8 +3,11 @@ pragma solidity >=0.8.19;
 
 import "./ValueType.sol";
 import {QuantoUint128} from "../../Uint128/QuantoUint128/ValueType.sol";
+import {QuantoUint256} from "../../Uint256/QuantoUint256/ValueType.sol";
 import {USDPerQuantoInt128} from "../USDPerQuantoInt128/ValueType.sol";
 import {QuantoInt256} from "../../Int256/QuantoInt256/ValueType.sol";
+import {InteractionsQuantoInt256} from
+    "../../Int256/QuantoInt256/Interactions.sol";
 import {USDInt128} from "../USDInt128/ValueType.sol";
 
 import {DecimalMath} from "../../utils/DecimalMath.sol";
@@ -16,6 +19,7 @@ library InteractionsQuantoInt128 {
     using SafeCastI128 for int128;
     using DecimalMath for int128;
     using SafeCastI256 for int256;
+    using InteractionsQuantoInt256 for QuantoInt256;
 
     /// @notice Converts a QuantoInt128 number into QuantoInt256.
     function to256(QuantoInt128 x)
@@ -51,5 +55,17 @@ library InteractionsQuantoInt128 {
         returns (QuantoInt256 result)
     {
         result = QuantoInt256.wrap(x.unwrap().divDecimal(y));
+    }
+
+    /// @notice Returns the absolute value in QuantoUint256.
+    function abs(QuantoInt128 x) internal pure returns (QuantoUint256) {
+        return x.unwrap() >= 0
+            ? to256(x).toUint()
+            : (QuantoInt256.wrap(0) - to256(x)).toUint();
+    }
+
+    /// @notice Returns the absolute value in QuantoUint128.
+    function abs128(QuantoInt128 x) internal pure returns (QuantoUint128) {
+        return x.unwrap() >= 0 ? toUint(x) : toUint(QuantoInt128.wrap(0) - x);
     }
 }

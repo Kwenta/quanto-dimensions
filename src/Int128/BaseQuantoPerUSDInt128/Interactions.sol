@@ -5,9 +5,13 @@ import "./ValueType.sol";
 import {BaseQuantoPerUSDInt128} from "./ValueType.sol";
 import {BaseQuantoPerUSDUint128} from
     "../../Uint128/BaseQuantoPerUSDUint128/ValueType.sol";
+import {BaseQuantoPerUSDUint256} from
+    "../../Uint256/BaseQuantoPerUSDUint256/ValueType.sol";
 import {USDPerBaseInt128} from "../USDPerBaseInt128/ValueType.sol";
 import {BaseQuantoPerUSDInt256} from
     "../../Int256/BaseQuantoPerUSDInt256/ValueType.sol";
+import {InteractionsBaseQuantoPerUSDInt256} from
+    "../../Int256/BaseQuantoPerUSDInt256/Interactions.sol";
 import {USDPerQuantoInt128} from "../USDPerQuantoInt128/ValueType.sol";
 import {BaseInt128} from "../BaseInt128/ValueType.sol";
 import {QuantoInt128} from "../QuantoInt128/ValueType.sol";
@@ -21,6 +25,7 @@ library InteractionsBaseQuantoPerUSDInt128 {
     using SafeCastI128 for int128;
     using DecimalMath for int128;
     using SafeCastI256 for int256;
+    using InteractionsBaseQuantoPerUSDInt256 for BaseQuantoPerUSDInt256;
 
     /// @notice Converts a BaseQuantoPerUSDInt128 number into BaseQuantoPerUSDInt256.
     function to256(BaseQuantoPerUSDInt128 x)
@@ -65,5 +70,27 @@ library InteractionsBaseQuantoPerUSDInt128 {
         returns (BaseQuantoPerUSDInt256 result)
     {
         result = BaseQuantoPerUSDInt256.wrap(x.unwrap().divDecimal(y));
+    }
+
+    /// @notice Returns the absolute value in BaseQuantoPerUSDUint256.
+    function abs(BaseQuantoPerUSDInt128 x)
+        internal
+        pure
+        returns (BaseQuantoPerUSDUint256)
+    {
+        return x.unwrap() >= 0
+            ? to256(x).toUint()
+            : (BaseQuantoPerUSDInt256.wrap(0) - to256(x)).toUint();
+    }
+
+    /// @notice Returns the absolute value in BaseQuantoPerUSDUint128.
+    function abs128(BaseQuantoPerUSDInt128 x)
+        internal
+        pure
+        returns (BaseQuantoPerUSDUint128)
+    {
+        return x.unwrap() >= 0
+            ? toUint(x)
+            : toUint(BaseQuantoPerUSDInt128.wrap(0) - x);
     }
 }
