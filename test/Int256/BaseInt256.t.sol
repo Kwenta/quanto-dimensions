@@ -445,4 +445,45 @@ contract BaseInt256Test is Test {
             assertEq(result.unwrap(), uint256(x < 0 ? -x : x));
         }
     }
+
+    function testBaseInt256Max() public {
+        BaseInt256 x = BaseInt256.wrap(-100);
+        BaseInt256 y = BaseInt256.wrap(200);
+        BaseInt256 result = x.max(y);
+        assertEq(result.unwrap(), y.unwrap());
+    }
+
+    function testBaseInt256MaxFuzz(int256 x, int256 y) public {
+        int256 z = x < y ? y : x;
+        BaseInt256 result = BaseInt256.wrap(x).max(BaseInt256.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
+
+    function testBaseInt256Min() public {
+        BaseInt256 x = BaseInt256.wrap(-100);
+        BaseInt256 y = BaseInt256.wrap(200);
+        BaseInt256 result = x.min(y);
+        assertEq(result.unwrap(), x.unwrap());
+    }
+
+    function testBaseInt256MinFuzz(int256 x, int256 y) public {
+        int256 z = x < y ? x : y;
+        BaseInt256 result = BaseInt256.wrap(x).min(BaseInt256.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
+
+    function testBaseInt256SameSide() public {
+        BaseInt256 x = BaseInt256.wrap(200);
+        BaseInt256 y = BaseInt256.wrap(100);
+        bool result = x.sameSide(y);
+        assertTrue(result);
+        result = x.sameSide(BaseInt256.wrap(-100));
+        assertFalse(result);
+    }
+
+    function testBaseInt256SameSideFuzz(int256 x, int256 y) public {
+        bool z = (x == 0) || (y == 0) || (x > 0) == (y > 0);
+        bool result = BaseInt256.wrap(x).sameSide(BaseInt256.wrap(y));
+        assertEq(result, z);
+    }
 }

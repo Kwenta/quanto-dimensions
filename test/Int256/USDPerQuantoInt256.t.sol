@@ -487,4 +487,45 @@ contract USDPerQuantoInt256Test is Test {
             assertEq(result.unwrap(), uint256(x < 0 ? -x : x));
         }
     }
+
+    function testUSDPerQuantoInt256Max() public {
+        USDPerQuantoInt256 x = USDPerQuantoInt256.wrap(-100);
+        USDPerQuantoInt256 y = USDPerQuantoInt256.wrap(200);
+        USDPerQuantoInt256 result = x.max(y);
+        assertEq(result.unwrap(), y.unwrap());
+    }
+
+    function testUSDPerQuantoInt256MaxFuzz(int256 x, int256 y) public {
+        int256 z = x < y ? y : x;
+        USDPerQuantoInt256 result = USDPerQuantoInt256.wrap(x).max(USDPerQuantoInt256.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
+
+    function testUSDPerQuantoInt256Min() public {
+        USDPerQuantoInt256 x = USDPerQuantoInt256.wrap(-100);
+        USDPerQuantoInt256 y = USDPerQuantoInt256.wrap(200);
+        USDPerQuantoInt256 result = x.min(y);
+        assertEq(result.unwrap(), x.unwrap());
+    }
+
+    function testUSDPerQuantoInt256MinFuzz(int256 x, int256 y) public {
+        int256 z = x < y ? x : y;
+        USDPerQuantoInt256 result = USDPerQuantoInt256.wrap(x).min(USDPerQuantoInt256.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
+
+    function testUSDPerQuantoInt256SameSide() public {
+        USDPerQuantoInt256 x = USDPerQuantoInt256.wrap(200);
+        USDPerQuantoInt256 y = USDPerQuantoInt256.wrap(100);
+        bool result = x.sameSide(y);
+        assertTrue(result);
+        result = x.sameSide(USDPerQuantoInt256.wrap(-100));
+        assertFalse(result);
+    }
+
+    function testUSDPerQuantoInt256SameSideFuzz(int256 x, int256 y) public {
+        bool z = (x == 0) || (y == 0) || (x > 0) == (y > 0);
+        bool result = USDPerQuantoInt256.wrap(x).sameSide(USDPerQuantoInt256.wrap(y));
+        assertEq(result, z);
+    }
 }

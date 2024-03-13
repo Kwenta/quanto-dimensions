@@ -499,4 +499,30 @@ contract USDPerQuantoUint128Test is Test {
         USDPerQuantoUint256 result = USDPerQuantoUint128.wrap(x).to256();
         assertEq(result.unwrap(), uint256(x));
     }
+
+    function testUSDPerQuantoUint128Max128() public {
+        USDPerQuantoUint128 x = USDPerQuantoUint128.wrap(100);
+        USDPerQuantoUint128 y = USDPerQuantoUint128.wrap(200);
+        USDPerQuantoUint128 result = x.max128(y);
+        assertEq(result.unwrap(), y.unwrap());
+    }
+
+    function testUSDPerQuantoUint128Max128Fuzz(uint128 x, uint128 y) public {
+        uint128 z = x < y ? y : x;
+        USDPerQuantoUint128 result = USDPerQuantoUint128.wrap(x).max128(USDPerQuantoUint128.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
+
+    function testUSDPerQuantoUint128Min128() public {
+        USDPerQuantoUint128 x = USDPerQuantoUint128.wrap(100);
+        USDPerQuantoUint128 y = USDPerQuantoUint128.wrap(200);
+        USDPerQuantoUint128 result = x.min128(y);
+        assertEq(result.unwrap(), x.unwrap());
+    }
+
+    function testUSDPerQuantoUint128Min128Fuzz(uint128 x, uint128 y) public {
+        uint128 z = x < y ? x : y;
+        USDPerQuantoUint128 result = USDPerQuantoUint128.wrap(x).min128(USDPerQuantoUint128.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
 }

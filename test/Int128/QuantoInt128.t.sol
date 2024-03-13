@@ -481,4 +481,45 @@ contract QuantoInt128Test is Test {
             assertEq(result.unwrap(), uint128(x < 0 ? -x : x));
         }
     }
+
+    function testQuantoInt128Max128() public {
+        QuantoInt128 x = QuantoInt128.wrap(-100);
+        QuantoInt128 y = QuantoInt128.wrap(200);
+        QuantoInt128 result = x.max128(y);
+        assertEq(result.unwrap(), y.unwrap());
+    }
+
+    function testQuantoInt128Max128Fuzz(int128 x, int128 y) public {
+        int128 z = x < y ? y : x;
+        QuantoInt128 result = QuantoInt128.wrap(x).max128(QuantoInt128.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
+
+    function testQuantoInt128Min128() public {
+        QuantoInt128 x = QuantoInt128.wrap(-100);
+        QuantoInt128 y = QuantoInt128.wrap(200);
+        QuantoInt128 result = x.min128(y);
+        assertEq(result.unwrap(), x.unwrap());
+    }
+
+    function testQuantoInt128Min128Fuzz(int128 x, int128 y) public {
+        int128 z = x < y ? x : y;
+        QuantoInt128 result = QuantoInt128.wrap(x).min128(QuantoInt128.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
+
+    function testQuantoInt128SameSide() public {
+        QuantoInt128 x = QuantoInt128.wrap(200);
+        QuantoInt128 y = QuantoInt128.wrap(100);
+        bool result = x.sameSide(y);
+        assertTrue(result);
+        result = x.sameSide(QuantoInt128.wrap(-100));
+        assertFalse(result);
+    }
+
+    function testQuantoInt128SameSideFuzz(int128 x, int128 y) public {
+        bool z = (x == 0) || (y == 0) || (x > 0) == (y > 0);
+        bool result = QuantoInt128.wrap(x).sameSide(QuantoInt128.wrap(y));
+        assertEq(result, z);
+    }
 }

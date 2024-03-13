@@ -476,4 +476,30 @@ contract USDPerQuantoUint256Test is Test {
         bytes32 result = USDPerQuantoUint256.wrap(x).toBytes32();
         assertEq(result, bytes32(x));
     }
+
+    function testUSDPerQuantoUint256Max() public {
+        USDPerQuantoUint256 x = USDPerQuantoUint256.wrap(100);
+        USDPerQuantoUint256 y = USDPerQuantoUint256.wrap(200);
+        USDPerQuantoUint256 result = x.max(y);
+        assertEq(result.unwrap(), y.unwrap());
+    }
+
+    function testUSDPerQuantoUint256MaxFuzz(uint256 x, uint256 y) public {
+        uint256 z = x < y ? y : x;
+        USDPerQuantoUint256 result = USDPerQuantoUint256.wrap(x).max(USDPerQuantoUint256.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
+
+    function testUSDPerQuantoUint256Min() public {
+        USDPerQuantoUint256 x = USDPerQuantoUint256.wrap(100);
+        USDPerQuantoUint256 y = USDPerQuantoUint256.wrap(200);
+        USDPerQuantoUint256 result = x.min(y);
+        assertEq(result.unwrap(), x.unwrap());
+    }
+
+    function testUSDPerQuantoUint256MinFuzz(uint256 x, uint256 y) public {
+        uint256 z = x < y ? x : y;
+        USDPerQuantoUint256 result = USDPerQuantoUint256.wrap(x).min(USDPerQuantoUint256.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
 }

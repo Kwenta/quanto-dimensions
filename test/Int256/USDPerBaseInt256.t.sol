@@ -487,4 +487,45 @@ contract USDPerBaseInt256Test is Test {
             assertEq(result.unwrap(), uint256(x < 0 ? -x : x));
         }
     }
+
+    function testUSDPerBaseInt256Max() public {
+        USDPerBaseInt256 x = USDPerBaseInt256.wrap(-100);
+        USDPerBaseInt256 y = USDPerBaseInt256.wrap(200);
+        USDPerBaseInt256 result = x.max(y);
+        assertEq(result.unwrap(), y.unwrap());
+    }
+
+    function testUSDPerBaseInt256MaxFuzz(int256 x, int256 y) public {
+        int256 z = x < y ? y : x;
+        USDPerBaseInt256 result = USDPerBaseInt256.wrap(x).max(USDPerBaseInt256.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
+
+    function testUSDPerBaseInt256Min() public {
+        USDPerBaseInt256 x = USDPerBaseInt256.wrap(-100);
+        USDPerBaseInt256 y = USDPerBaseInt256.wrap(200);
+        USDPerBaseInt256 result = x.min(y);
+        assertEq(result.unwrap(), x.unwrap());
+    }
+
+    function testUSDPerBaseInt256MinFuzz(int256 x, int256 y) public {
+        int256 z = x < y ? x : y;
+        USDPerBaseInt256 result = USDPerBaseInt256.wrap(x).min(USDPerBaseInt256.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
+
+    function testUSDPerBaseInt256SameSide() public {
+        USDPerBaseInt256 x = USDPerBaseInt256.wrap(200);
+        USDPerBaseInt256 y = USDPerBaseInt256.wrap(100);
+        bool result = x.sameSide(y);
+        assertTrue(result);
+        result = x.sameSide(USDPerBaseInt256.wrap(-100));
+        assertFalse(result);
+    }
+
+    function testBaseInt256SameSideFuzz(int256 x, int256 y) public {
+        bool z = (x == 0) || (y == 0) || (x > 0) == (y > 0);
+        bool result = BaseInt256.wrap(x).sameSide(BaseInt256.wrap(y));
+        assertEq(result, z);
+    }
 }
