@@ -72,4 +72,22 @@ library InteractionsUSDPerBaseUint128 {
     {
         result = USDPerBaseUint256.wrap(x.unwrap().divDecimal(y));
     }
+
+    /// @notice Returns the maximum in USDPerBaseUint256.
+    function max(USDPerBaseUint128 x, USDPerBaseUint128 y)
+        internal
+        pure
+        returns (USDPerBaseUint256)
+    {
+        return x < y ? to256(y) : to256(x);
+    }
+
+    /// @notice Returns the minimum in USDPerBaseUint256.
+    function min(USDPerBaseUint128 x, USDPerBaseUint128 y)
+        internal
+        pure
+        returns (USDPerBaseUint256)
+    {
+        return x < y ? to256(x) : to256(y);
+    }
 }

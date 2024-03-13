@@ -90,4 +90,22 @@ library InteractionsUSDPerQuantoInt128 {
         return
             x.unwrap() >= 0 ? toUint(x) : toUint(USDPerQuantoInt128.wrap(0) - x);
     }
+
+    /// @notice Returns the maximum in USDPerQuantoInt256.
+    function max(USDPerQuantoInt128 x, USDPerQuantoInt128 y)
+        internal
+        pure
+        returns (USDPerQuantoInt256)
+    {
+        return x < y ? to256(y) : to256(x);
+    }
+
+    /// @notice Returns the minimum in USDPerQuantoInt256.
+    function min(USDPerQuantoInt128 x, USDPerQuantoInt128 y)
+        internal
+        pure
+        returns (USDPerQuantoInt256)
+    {
+        return x < y ? to256(x) : to256(y);
+    }
 }

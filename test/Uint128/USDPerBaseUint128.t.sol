@@ -520,4 +520,32 @@ contract USDPerBaseUint128Test is Test {
             USDPerBaseUint128.wrap(x).min128(USDPerBaseUint128.wrap(y));
         assertEq(result.unwrap(), z);
     }
+
+    function testUSDPerBaseUint128Max() public {
+        USDPerBaseUint128 x = USDPerBaseUint128.wrap(100);
+        USDPerBaseUint128 y = USDPerBaseUint128.wrap(200);
+        USDPerBaseUint256 result = x.max(y);
+        assertEq(result.unwrap(), uint256(y.unwrap()));
+    }
+
+    function testUSDPerBaseUint128MaxFuzz(uint128 x, uint128 y) public {
+        uint128 z = x < y ? y : x;
+        USDPerBaseUint256 result =
+            USDPerBaseUint128.wrap(x).max(USDPerBaseUint128.wrap(y));
+        assertEq(result.unwrap(), uint256(z));
+    }
+
+    function testUSDPerBaseUint128Min() public {
+        USDPerBaseUint128 x = USDPerBaseUint128.wrap(100);
+        USDPerBaseUint128 y = USDPerBaseUint128.wrap(200);
+        USDPerBaseUint256 result = x.min(y);
+        assertEq(result.unwrap(), uint256(x.unwrap()));
+    }
+
+    function testUSDPerBaseUint128MinFuzz(uint128 x, uint128 y) public {
+        uint128 z = x < y ? x : y;
+        USDPerBaseUint256 result =
+            USDPerBaseUint128.wrap(x).min(USDPerBaseUint128.wrap(y));
+        assertEq(result.unwrap(), uint256(z));
+    }
 }

@@ -506,6 +506,32 @@ contract BaseInt128Test is Test {
         assertEq(result.unwrap(), z);
     }
 
+    function testBaseInt128Max() public {
+        BaseInt128 x = BaseInt128.wrap(-100);
+        BaseInt128 y = BaseInt128.wrap(200);
+        BaseInt256 result = x.max(y);
+        assertEq(result.unwrap(), int256(y.unwrap()));
+    }
+
+    function testBaseInt128MaxFuzz(int128 x, int128 y) public {
+        int128 z = x < y ? y : x;
+        BaseInt256 result = BaseInt128.wrap(x).max(BaseInt128.wrap(y));
+        assertEq(result.unwrap(), int256(z));
+    }
+
+    function testBaseInt128Min() public {
+        BaseInt128 x = BaseInt128.wrap(-100);
+        BaseInt128 y = BaseInt128.wrap(200);
+        BaseInt256 result = x.min(y);
+        assertEq(result.unwrap(), int256(x.unwrap()));
+    }
+
+    function testBaseInt128MinFuzz(int128 x, int128 y) public {
+        int128 z = x < y ? x : y;
+        BaseInt256 result = BaseInt128.wrap(x).min(BaseInt128.wrap(y));
+        assertEq(result.unwrap(), int256(z));
+    }
+
     function testBaseInt128SameSide() public {
         BaseInt128 x = BaseInt128.wrap(200);
         BaseInt128 y = BaseInt128.wrap(100);

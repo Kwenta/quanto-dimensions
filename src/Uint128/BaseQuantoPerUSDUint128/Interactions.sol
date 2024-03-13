@@ -74,4 +74,22 @@ library InteractionsBaseQuantoPerUSDUint128 {
     {
         result = BaseQuantoPerUSDUint256.wrap(x.unwrap().divDecimal(y));
     }
+
+    /// @notice Returns the maximum in BaseQuantoPerUSDUint256.
+    function max(BaseQuantoPerUSDUint128 x, BaseQuantoPerUSDUint128 y)
+        internal
+        pure
+        returns (BaseQuantoPerUSDUint256)
+    {
+        return x < y ? to256(y) : to256(x);
+    }
+
+    /// @notice Returns the minimum in BaseQuantoPerUSDUint256.
+    function min(BaseQuantoPerUSDUint128 x, BaseQuantoPerUSDUint128 y)
+        internal
+        pure
+        returns (BaseQuantoPerUSDUint256)
+    {
+        return x < y ? to256(x) : to256(y);
+    }
 }

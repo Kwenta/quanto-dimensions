@@ -508,6 +508,32 @@ contract QuantoInt128Test is Test {
         assertEq(result.unwrap(), z);
     }
 
+    function testQuantoInt128Max() public {
+        QuantoInt128 x = QuantoInt128.wrap(-100);
+        QuantoInt128 y = QuantoInt128.wrap(200);
+        QuantoInt256 result = x.max(y);
+        assertEq(result.unwrap(), int256(y.unwrap()));
+    }
+
+    function testQuantoInt128MaxFuzz(int128 x, int128 y) public {
+        int128 z = x < y ? y : x;
+        QuantoInt256 result = QuantoInt128.wrap(x).max(QuantoInt128.wrap(y));
+        assertEq(result.unwrap(), int256(z));
+    }
+
+    function testQuantoInt128Min() public {
+        QuantoInt128 x = QuantoInt128.wrap(-100);
+        QuantoInt128 y = QuantoInt128.wrap(200);
+        QuantoInt256 result = x.min(y);
+        assertEq(result.unwrap(), int256(x.unwrap()));
+    }
+
+    function testQuantoInt128MinFuzz(int128 x, int128 y) public {
+        int128 z = x < y ? x : y;
+        QuantoInt256 result = QuantoInt128.wrap(x).min(QuantoInt128.wrap(y));
+        assertEq(result.unwrap(), int256(z));
+    }
+
     function testQuantoInt128SameSide() public {
         QuantoInt128 x = QuantoInt128.wrap(200);
         QuantoInt128 y = QuantoInt128.wrap(100);
