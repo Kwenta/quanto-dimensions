@@ -158,7 +158,8 @@ function min(QuantoInt256 x, QuantoInt256 y) pure returns (QuantoInt256) {
 
 /// @notice Returns same side Boolean for the QuantoInt256 type.
 function sameSide(QuantoInt256 a, QuantoInt256 b) pure returns (bool) {
-    return (a.unwrap() == 0) || (b.unwrap() == 0) || (a.unwrap() > 0) == (b.unwrap() > 0);
+    return (a.unwrap() == 0) || (b.unwrap() == 0)
+        || (a.unwrap() > 0) == (b.unwrap() > 0);
 }
 
 using {

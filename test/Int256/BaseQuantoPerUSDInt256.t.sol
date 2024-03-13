@@ -518,7 +518,8 @@ contract BaseQuantoPerUSDInt256Test is Test {
 
     function testBaseQuantoPerUSDInt256MaxFuzz(int256 x, int256 y) public {
         int256 z = x < y ? y : x;
-        BaseQuantoPerUSDInt256 result = BaseQuantoPerUSDInt256.wrap(x).max(BaseQuantoPerUSDInt256.wrap(y));
+        BaseQuantoPerUSDInt256 result =
+            BaseQuantoPerUSDInt256.wrap(x).max(BaseQuantoPerUSDInt256.wrap(y));
         assertEq(result.unwrap(), z);
     }
 
@@ -531,7 +532,8 @@ contract BaseQuantoPerUSDInt256Test is Test {
 
     function testBaseQuantoPerUSDInt256MinFuzz(int256 x, int256 y) public {
         int256 z = x < y ? x : y;
-        BaseQuantoPerUSDInt256 result = BaseQuantoPerUSDInt256.wrap(x).min(BaseQuantoPerUSDInt256.wrap(y));
+        BaseQuantoPerUSDInt256 result =
+            BaseQuantoPerUSDInt256.wrap(x).min(BaseQuantoPerUSDInt256.wrap(y));
         assertEq(result.unwrap(), z);
     }
 
@@ -544,9 +546,13 @@ contract BaseQuantoPerUSDInt256Test is Test {
         assertFalse(result);
     }
 
-    function testBaseQuantoPerUSDInt256SameSideFuzz(int256 x, int256 y) public {
+    function testBaseQuantoPerUSDInt256SameSideFuzz(int256 x, int256 y)
+        public
+    {
         bool z = (x == 0) || (y == 0) || (x > 0) == (y > 0);
-        bool result = BaseQuantoPerUSDInt256.wrap(x).sameSide(BaseQuantoPerUSDInt256.wrap(y));
+        bool result = BaseQuantoPerUSDInt256.wrap(x).sameSide(
+            BaseQuantoPerUSDInt256.wrap(y)
+        );
         assertEq(result, z);
     }
 }

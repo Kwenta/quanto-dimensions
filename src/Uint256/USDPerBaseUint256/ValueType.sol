@@ -159,12 +159,18 @@ function divDecimal(USDPerBaseUint256 x, uint256 y)
 }
 
 /// @notice Implements the maximum operation in the USDPerBaseUint256 type.
-function max(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (USDPerBaseUint256) {
+function max(USDPerBaseUint256 x, USDPerBaseUint256 y)
+    pure
+    returns (USDPerBaseUint256)
+{
     return x < y ? y : x;
 }
 
 /// @notice Implements the minimum operation (/) in the USDPerBaseUint256 type.
-function min(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (USDPerBaseUint256) {
+function min(USDPerBaseUint256 x, USDPerBaseUint256 y)
+    pure
+    returns (USDPerBaseUint256)
+{
     return x < y ? x : y;
 }
 

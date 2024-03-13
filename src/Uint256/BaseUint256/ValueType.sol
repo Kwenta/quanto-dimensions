@@ -139,7 +139,14 @@ function min(BaseUint256 x, BaseUint256 y) pure returns (BaseUint256) {
 }
 
 using {
-    and, increment, mul, mulDecimal, div, divDecimal, max, min
+    and,
+    increment,
+    mul,
+    mulDecimal,
+    div,
+    divDecimal,
+    max,
+    min
 } for BaseUint256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

@@ -486,7 +486,8 @@ contract USDPerQuantoUint256Test is Test {
 
     function testUSDPerQuantoUint256MaxFuzz(uint256 x, uint256 y) public {
         uint256 z = x < y ? y : x;
-        USDPerQuantoUint256 result = USDPerQuantoUint256.wrap(x).max(USDPerQuantoUint256.wrap(y));
+        USDPerQuantoUint256 result =
+            USDPerQuantoUint256.wrap(x).max(USDPerQuantoUint256.wrap(y));
         assertEq(result.unwrap(), z);
     }
 
@@ -499,7 +500,8 @@ contract USDPerQuantoUint256Test is Test {
 
     function testUSDPerQuantoUint256MinFuzz(uint256 x, uint256 y) public {
         uint256 z = x < y ? x : y;
-        USDPerQuantoUint256 result = USDPerQuantoUint256.wrap(x).min(USDPerQuantoUint256.wrap(y));
+        USDPerQuantoUint256 result =
+            USDPerQuantoUint256.wrap(x).min(USDPerQuantoUint256.wrap(y));
         assertEq(result.unwrap(), z);
     }
 }

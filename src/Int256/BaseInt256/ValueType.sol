@@ -134,11 +134,20 @@ function min(BaseInt256 x, BaseInt256 y) pure returns (BaseInt256) {
 
 /// @notice Returns same side Boolean for the BaseInt256 type.
 function sameSide(BaseInt256 a, BaseInt256 b) pure returns (bool) {
-    return (a.unwrap() == 0) || (b.unwrap() == 0) || (a.unwrap() > 0) == (b.unwrap() > 0);
+    return (a.unwrap() == 0) || (b.unwrap() == 0)
+        || (a.unwrap() > 0) == (b.unwrap() > 0);
 }
 
 using {
-    and, increment, mul, mulDecimal, div, divDecimal, max, min, sameSide
+    and,
+    increment,
+    mul,
+    mulDecimal,
+    div,
+    divDecimal,
+    max,
+    min,
+    sameSide
 } for BaseInt256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

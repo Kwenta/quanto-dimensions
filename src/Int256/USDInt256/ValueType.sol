@@ -134,11 +134,20 @@ function min(USDInt256 x, USDInt256 y) pure returns (USDInt256) {
 
 /// @notice Returns same side Boolean for the USDInt256 type.
 function sameSide(USDInt256 a, USDInt256 b) pure returns (bool) {
-    return (a.unwrap() == 0) || (b.unwrap() == 0) || (a.unwrap() > 0) == (b.unwrap() > 0);
+    return (a.unwrap() == 0) || (b.unwrap() == 0)
+        || (a.unwrap() > 0) == (b.unwrap() > 0);
 }
 
 using {
-    and, increment, mul, mulDecimal, div, divDecimal, max, min, sameSide
+    and,
+    increment,
+    mul,
+    mulDecimal,
+    div,
+    divDecimal,
+    max,
+    min,
+    sameSide
 } for USDInt256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

@@ -182,12 +182,18 @@ function divDecimalUint128(BaseQuantoPerUSDUint128 x, uint128 y)
 }
 
 /// @notice Implements the maximum operation in the BaseQuantoPerUSDUint128 type.
-function max128(BaseQuantoPerUSDUint128 x, BaseQuantoPerUSDUint128 y) pure returns (BaseQuantoPerUSDUint128) {
+function max128(BaseQuantoPerUSDUint128 x, BaseQuantoPerUSDUint128 y)
+    pure
+    returns (BaseQuantoPerUSDUint128)
+{
     return x < y ? y : x;
 }
 
 /// @notice Implements the minimum operation (/) in the BaseQuantoPerUSDUint128 type.
-function min128(BaseQuantoPerUSDUint128 x, BaseQuantoPerUSDUint128 y) pure returns (BaseQuantoPerUSDUint128) {
+function min128(BaseQuantoPerUSDUint128 x, BaseQuantoPerUSDUint128 y)
+    pure
+    returns (BaseQuantoPerUSDUint128)
+{
     return x < y ? x : y;
 }
 

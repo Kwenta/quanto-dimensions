@@ -180,18 +180,28 @@ function divDecimal(BaseQuantoPerUSDInt256 x, int256 y)
 }
 
 /// @notice Implements the maximum operation in the BaseQuantoPerUSDInt256 type.
-function max(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y) pure returns (BaseQuantoPerUSDInt256) {
+function max(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (BaseQuantoPerUSDInt256)
+{
     return x < y ? y : x;
 }
 
 /// @notice Implements the minimum operation (/) in the BaseQuantoPerUSDInt256 type.
-function min(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y) pure returns (BaseQuantoPerUSDInt256) {
+function min(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
+    pure
+    returns (BaseQuantoPerUSDInt256)
+{
     return x < y ? x : y;
 }
 
 /// @notice Returns same side Boolean for the BaseQuantoPerUSDInt256 type.
-function sameSide(BaseQuantoPerUSDInt256 a, BaseQuantoPerUSDInt256 b) pure returns (bool) {
-    return (a.unwrap() == 0) || (b.unwrap() == 0) || (a.unwrap() > 0) == (b.unwrap() > 0);
+function sameSide(BaseQuantoPerUSDInt256 a, BaseQuantoPerUSDInt256 b)
+    pure
+    returns (bool)
+{
+    return (a.unwrap() == 0) || (b.unwrap() == 0)
+        || (a.unwrap() > 0) == (b.unwrap() > 0);
 }
 
 using {

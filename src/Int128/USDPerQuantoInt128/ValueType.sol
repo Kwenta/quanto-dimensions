@@ -161,18 +161,28 @@ function divDecimalInt128(USDPerQuantoInt128 x, int128 y)
 }
 
 /// @notice Implements the maximum operation in the USDPerQuantoInt128 type.
-function max128(USDPerQuantoInt128 x, USDPerQuantoInt128 y) pure returns (USDPerQuantoInt128) {
+function max128(USDPerQuantoInt128 x, USDPerQuantoInt128 y)
+    pure
+    returns (USDPerQuantoInt128)
+{
     return x < y ? y : x;
 }
 
 /// @notice Implements the minimum operation (/) in the USDPerQuantoInt128 type.
-function min128(USDPerQuantoInt128 x, USDPerQuantoInt128 y) pure returns (USDPerQuantoInt128) {
+function min128(USDPerQuantoInt128 x, USDPerQuantoInt128 y)
+    pure
+    returns (USDPerQuantoInt128)
+{
     return x < y ? x : y;
 }
 
 /// @notice Returns same side Boolean for the USDPerQuantoInt128 type.
-function sameSide(USDPerQuantoInt128 a, USDPerQuantoInt128 b) pure returns (bool) {
-    return (a.unwrap() == 0) || (b.unwrap() == 0) || (a.unwrap() > 0) == (b.unwrap() > 0);
+function sameSide(USDPerQuantoInt128 a, USDPerQuantoInt128 b)
+    pure
+    returns (bool)
+{
+    return (a.unwrap() == 0) || (b.unwrap() == 0)
+        || (a.unwrap() > 0) == (b.unwrap() > 0);
 }
 
 using {

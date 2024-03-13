@@ -133,7 +133,14 @@ function min(USDUint256 x, USDUint256 y) pure returns (USDUint256) {
 }
 
 using {
-    and, increment, mul, mulDecimal, div, divDecimal, max, min
+    and,
+    increment,
+    mul,
+    mulDecimal,
+    div,
+    divDecimal,
+    max,
+    min
 } for USDUint256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

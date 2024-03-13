@@ -462,7 +462,8 @@ contract QuantoUint128Test is Test {
 
     function testQuantoUint128Max128Fuzz(uint128 x, uint128 y) public {
         uint128 z = x < y ? y : x;
-        QuantoUint128 result = QuantoUint128.wrap(x).max128(QuantoUint128.wrap(y));
+        QuantoUint128 result =
+            QuantoUint128.wrap(x).max128(QuantoUint128.wrap(y));
         assertEq(result.unwrap(), z);
     }
 
@@ -475,7 +476,8 @@ contract QuantoUint128Test is Test {
 
     function testQuantoUint128Min128Fuzz(uint128 x, uint128 y) public {
         uint128 z = x < y ? x : y;
-        QuantoUint128 result = QuantoUint128.wrap(x).min128(QuantoUint128.wrap(y));
+        QuantoUint128 result =
+            QuantoUint128.wrap(x).min128(QuantoUint128.wrap(y));
         assertEq(result.unwrap(), z);
     }
 }

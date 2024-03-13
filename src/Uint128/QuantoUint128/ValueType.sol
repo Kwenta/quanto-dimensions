@@ -152,12 +152,18 @@ function divDecimalUint128(QuantoUint128 x, uint128 y)
 }
 
 /// @notice Implements the maximum operation in the QuantoUint128 type.
-function max128(QuantoUint128 x, QuantoUint128 y) pure returns (QuantoUint128) {
+function max128(QuantoUint128 x, QuantoUint128 y)
+    pure
+    returns (QuantoUint128)
+{
     return x < y ? y : x;
 }
 
 /// @notice Implements the minimum operation (/) in the QuantoUint128 type.
-function min128(QuantoUint128 x, QuantoUint128 y) pure returns (QuantoUint128) {
+function min128(QuantoUint128 x, QuantoUint128 y)
+    pure
+    returns (QuantoUint128)
+{
     return x < y ? x : y;
 }
 

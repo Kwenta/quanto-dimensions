@@ -170,12 +170,18 @@ function divDecimalUint128(USDPerQuantoUint128 x, uint128 y)
 }
 
 /// @notice Implements the maximum operation in the USDPerQuantoUint128 type.
-function max128(USDPerQuantoUint128 x, USDPerQuantoUint128 y) pure returns (USDPerQuantoUint128) {
+function max128(USDPerQuantoUint128 x, USDPerQuantoUint128 y)
+    pure
+    returns (USDPerQuantoUint128)
+{
     return x < y ? y : x;
 }
 
 /// @notice Implements the minimum operation (/) in the USDPerQuantoUint128 type.
-function min128(USDPerQuantoUint128 x, USDPerQuantoUint128 y) pure returns (USDPerQuantoUint128) {
+function min128(USDPerQuantoUint128 x, USDPerQuantoUint128 y)
+    pure
+    returns (USDPerQuantoUint128)
+{
     return x < y ? x : y;
 }
 

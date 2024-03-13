@@ -139,7 +139,8 @@ function min128(BaseInt128 x, BaseInt128 y) pure returns (BaseInt128) {
 
 /// @notice Returns same side Boolean for the BaseInt128 type.
 function sameSide(BaseInt128 a, BaseInt128 b) pure returns (bool) {
-    return (a.unwrap() == 0) || (b.unwrap() == 0) || (a.unwrap() > 0) == (b.unwrap() > 0);
+    return (a.unwrap() == 0) || (b.unwrap() == 0)
+        || (a.unwrap() > 0) == (b.unwrap() > 0);
 }
 
 using {
