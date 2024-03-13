@@ -174,9 +174,9 @@ function min128(USDPerBaseInt128 x, USDPerBaseInt128 y)
 }
 
 /// @notice Returns same side Boolean for the USDPerBaseInt128 type.
-function sameSide(USDPerBaseInt128 a, USDPerBaseInt128 b) pure returns (bool) {
-    return (a.unwrap() == 0) || (b.unwrap() == 0)
-        || (a.unwrap() > 0) == (b.unwrap() > 0);
+function sameSide(USDPerBaseInt128 x, USDPerBaseInt128 y) pure returns (bool) {
+    return (x.unwrap() == 0) || (y.unwrap() == 0)
+        || (x.unwrap() > 0) == (y.unwrap() > 0);
 }
 
 using {

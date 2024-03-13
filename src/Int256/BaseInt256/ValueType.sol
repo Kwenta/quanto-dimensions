@@ -133,9 +133,9 @@ function min(BaseInt256 x, BaseInt256 y) pure returns (BaseInt256) {
 }
 
 /// @notice Returns same side Boolean for the BaseInt256 type.
-function sameSide(BaseInt256 a, BaseInt256 b) pure returns (bool) {
-    return (a.unwrap() == 0) || (b.unwrap() == 0)
-        || (a.unwrap() > 0) == (b.unwrap() > 0);
+function sameSide(BaseInt256 x, BaseInt256 y) pure returns (bool) {
+    return (x.unwrap() == 0) || (y.unwrap() == 0)
+        || (x.unwrap() > 0) == (y.unwrap() > 0);
 }
 
 using {

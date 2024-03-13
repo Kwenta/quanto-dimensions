@@ -196,12 +196,12 @@ function min(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
 }
 
 /// @notice Returns same side Boolean for the BaseQuantoPerUSDInt256 type.
-function sameSide(BaseQuantoPerUSDInt256 a, BaseQuantoPerUSDInt256 b)
+function sameSide(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
     pure
     returns (bool)
 {
-    return (a.unwrap() == 0) || (b.unwrap() == 0)
-        || (a.unwrap() > 0) == (b.unwrap() > 0);
+    return (x.unwrap() == 0) || (y.unwrap() == 0)
+        || (x.unwrap() > 0) == (y.unwrap() > 0);
 }
 
 using {

@@ -177,12 +177,12 @@ function min128(USDPerQuantoInt128 x, USDPerQuantoInt128 y)
 }
 
 /// @notice Returns same side Boolean for the USDPerQuantoInt128 type.
-function sameSide(USDPerQuantoInt128 a, USDPerQuantoInt128 b)
+function sameSide(USDPerQuantoInt128 x, USDPerQuantoInt128 y)
     pure
     returns (bool)
 {
-    return (a.unwrap() == 0) || (b.unwrap() == 0)
-        || (a.unwrap() > 0) == (b.unwrap() > 0);
+    return (x.unwrap() == 0) || (y.unwrap() == 0)
+        || (x.unwrap() > 0) == (y.unwrap() > 0);
 }
 
 using {

@@ -138,9 +138,9 @@ function min128(USDInt128 x, USDInt128 y) pure returns (USDInt128) {
 }
 
 /// @notice Returns same side Boolean for the USDInt128 type.
-function sameSide(USDInt128 a, USDInt128 b) pure returns (bool) {
-    return (a.unwrap() == 0) || (b.unwrap() == 0)
-        || (a.unwrap() > 0) == (b.unwrap() > 0);
+function sameSide(USDInt128 x, USDInt128 y) pure returns (bool) {
+    return (x.unwrap() == 0) || (y.unwrap() == 0)
+        || (x.unwrap() > 0) == (y.unwrap() > 0);
 }
 
 using {

@@ -172,9 +172,9 @@ function min(USDPerBaseInt256 x, USDPerBaseInt256 y)
 }
 
 /// @notice Returns same side Boolean for the USDPerBaseInt256 type.
-function sameSide(USDPerBaseInt256 a, USDPerBaseInt256 b) pure returns (bool) {
-    return (a.unwrap() == 0) || (b.unwrap() == 0)
-        || (a.unwrap() > 0) == (b.unwrap() > 0);
+function sameSide(USDPerBaseInt256 x, USDPerBaseInt256 y) pure returns (bool) {
+    return (x.unwrap() == 0) || (y.unwrap() == 0)
+        || (x.unwrap() > 0) == (y.unwrap() > 0);
 }
 
 using {
