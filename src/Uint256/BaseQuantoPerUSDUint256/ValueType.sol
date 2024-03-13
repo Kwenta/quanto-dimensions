@@ -179,13 +179,25 @@ function divDecimal(BaseQuantoPerUSDUint256 x, uint256 y)
     result = wrap(x.unwrap().divDecimal(y));
 }
 
+/// @notice Implements the maximum operation in the BaseQuantoPerUSDUint256 type.
+function max(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns (BaseQuantoPerUSDUint256) {
+    return x < y ? y : x;
+}
+
+/// @notice Implements the minimum operation (/) in the BaseQuantoPerUSDUint256 type.
+function min(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns (BaseQuantoPerUSDUint256) {
+    return x < y ? x : y;
+}
+
 using {
     and,
     increment,
     mul,
     mulDecimal,
     div,
-    divDecimal
+    divDecimal,
+    max,
+    min
 } for BaseQuantoPerUSDUint256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

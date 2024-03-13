@@ -122,8 +122,23 @@ function divDecimal(USDInt256 x, int256 y) pure returns (USDInt256 result) {
     result = wrap(x.unwrap().divDecimal(y));
 }
 
+/// @notice Implements the maximum operation in the USDInt256 type.
+function max(USDInt256 x, USDInt256 y) pure returns (USDInt256) {
+    return x < y ? y : x;
+}
+
+/// @notice Implements the minimum operation (/) in the USDInt256 type.
+function min(USDInt256 x, USDInt256 y) pure returns (USDInt256) {
+    return x < y ? x : y;
+}
+
+/// @notice Returns same side Boolean for the USDInt256 type.
+function sameSide(USDInt256 a, USDInt256 b) pure returns (bool) {
+    return (a.unwrap() == 0) || (b.unwrap() == 0) || (a.unwrap() > 0) == (b.unwrap() > 0);
+}
+
 using {
-    and, increment, mul, mulDecimal, div, divDecimal
+    and, increment, mul, mulDecimal, div, divDecimal, max, min, sameSide
 } for USDInt256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

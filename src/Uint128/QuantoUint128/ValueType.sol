@@ -151,13 +151,25 @@ function divDecimalUint128(QuantoUint128 x, uint128 y)
     result = wrap(x.unwrap().divDecimalUint128(y));
 }
 
+/// @notice Implements the maximum operation in the QuantoUint128 type.
+function max128(QuantoUint128 x, QuantoUint128 y) pure returns (QuantoUint128) {
+    return x < y ? y : x;
+}
+
+/// @notice Implements the minimum operation (/) in the QuantoUint128 type.
+function min128(QuantoUint128 x, QuantoUint128 y) pure returns (QuantoUint128) {
+    return x < y ? x : y;
+}
+
 using {
     and,
     increment,
     mul,
     mulDecimal,
     div,
-    divDecimalUint128
+    divDecimalUint128,
+    max128,
+    min128
 } for QuantoUint128 global;
 
 /*//////////////////////////////////////////////////////////////////////////

@@ -127,13 +127,25 @@ function divDecimalUint128(USDUint128 x, uint128 y)
     result = wrap(x.unwrap().divDecimalUint128(y));
 }
 
+/// @notice Implements the maximum operation in the USDUint128 type.
+function max128(USDUint128 x, USDUint128 y) pure returns (USDUint128) {
+    return x.unwrap() < y.unwrap() ? y : x;
+}
+
+/// @notice Implements the minimum operation (/) in the USDUint128 type.
+function min128(USDUint128 x, USDUint128 y) pure returns (USDUint128) {
+    return x < y ? x : y;
+}
+
 using {
     and,
     increment,
     mul,
     mulDecimal,
     div,
-    divDecimalUint128
+    divDecimalUint128,
+    max128,
+    min128
 } for USDUint128 global;
 
 /*//////////////////////////////////////////////////////////////////////////
