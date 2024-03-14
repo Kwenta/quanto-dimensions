@@ -60,4 +60,22 @@ library InteractionsBaseInt128 {
     function abs128(BaseInt128 x) internal pure returns (BaseUint128) {
         return x.unwrap() >= 0 ? toUint(x) : toUint(BaseInt128.wrap(0) - x);
     }
+
+    /// @notice Returns the maximum in BaseInt256.
+    function max(BaseInt128 x, BaseInt128 y)
+        internal
+        pure
+        returns (BaseInt256)
+    {
+        return x < y ? to256(y) : to256(x);
+    }
+
+    /// @notice Returns the minimum in BaseInt256.
+    function min(BaseInt128 x, BaseInt128 y)
+        internal
+        pure
+        returns (BaseInt256)
+    {
+        return x < y ? to256(x) : to256(y);
+    }
 }

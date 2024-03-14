@@ -36,4 +36,22 @@ library InteractionsUSDUint128 {
     {
         result = USDUint256.wrap(x.unwrap().divDecimal(y));
     }
+
+    /// @notice Returns the maximum in USDUint256.
+    function max(USDUint128 x, USDUint128 y)
+        internal
+        pure
+        returns (USDUint256)
+    {
+        return x < y ? to256(y) : to256(x);
+    }
+
+    /// @notice Returns the minimum in USDUint256.
+    function min(USDUint128 x, USDUint128 y)
+        internal
+        pure
+        returns (USDUint256)
+    {
+        return x < y ? to256(x) : to256(y);
+    }
 }

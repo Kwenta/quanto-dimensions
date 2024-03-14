@@ -49,4 +49,22 @@ library InteractionsBaseUint128 {
     {
         result = BaseUint256.wrap(x.unwrap().divDecimal(y));
     }
+
+    /// @notice Returns the maximum in BaseUint256.
+    function max(BaseUint128 x, BaseUint128 y)
+        internal
+        pure
+        returns (BaseUint256)
+    {
+        return x < y ? to256(y) : to256(x);
+    }
+
+    /// @notice Returns the minimum in BaseUint256.
+    function min(BaseUint128 x, BaseUint128 y)
+        internal
+        pure
+        returns (BaseUint256)
+    {
+        return x < y ? to256(x) : to256(y);
+    }
 }

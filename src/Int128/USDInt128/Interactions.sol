@@ -46,4 +46,14 @@ library InteractionsUSDInt128 {
     function abs128(USDInt128 x) internal pure returns (USDUint128) {
         return x.unwrap() >= 0 ? toUint(x) : toUint(USDInt128.wrap(0) - x);
     }
+
+    /// @notice Returns the maximum in USDInt256.
+    function max(USDInt128 x, USDInt128 y) internal pure returns (USDInt256) {
+        return x < y ? to256(y) : to256(x);
+    }
+
+    /// @notice Returns the minimum in USDInt256.
+    function min(USDInt128 x, USDInt128 y) internal pure returns (USDInt256) {
+        return x < y ? to256(x) : to256(y);
+    }
 }

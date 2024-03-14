@@ -61,4 +61,22 @@ library InteractionsQuantoUint128 {
     {
         result = QuantoUint256.wrap(x.unwrap().divDecimal(y));
     }
+
+    /// @notice Returns the maximum in QuantoUint256.
+    function max(QuantoUint128 x, QuantoUint128 y)
+        internal
+        pure
+        returns (QuantoUint256)
+    {
+        return x < y ? to256(y) : to256(x);
+    }
+
+    /// @notice Returns the minimum in QuantoUint256.
+    function min(QuantoUint128 x, QuantoUint128 y)
+        internal
+        pure
+        returns (QuantoUint256)
+    {
+        return x < y ? to256(x) : to256(y);
+    }
 }

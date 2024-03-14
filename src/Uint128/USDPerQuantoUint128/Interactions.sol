@@ -73,4 +73,22 @@ library InteractionsUSDPerQuantoUint128 {
     {
         result = USDPerQuantoUint256.wrap(x.unwrap().divDecimal(y));
     }
+
+    /// @notice Returns the maximum in USDPerQuantoUint256.
+    function max(USDPerQuantoUint128 x, USDPerQuantoUint128 y)
+        internal
+        pure
+        returns (USDPerQuantoUint256)
+    {
+        return x < y ? to256(y) : to256(x);
+    }
+
+    /// @notice Returns the minimum in USDPerQuantoUint256.
+    function min(USDPerQuantoUint128 x, USDPerQuantoUint128 y)
+        internal
+        pure
+        returns (USDPerQuantoUint256)
+    {
+        return x < y ? to256(x) : to256(y);
+    }
 }

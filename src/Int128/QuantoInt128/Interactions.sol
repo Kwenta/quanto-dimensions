@@ -68,4 +68,22 @@ library InteractionsQuantoInt128 {
     function abs128(QuantoInt128 x) internal pure returns (QuantoUint128) {
         return x.unwrap() >= 0 ? toUint(x) : toUint(QuantoInt128.wrap(0) - x);
     }
+
+    /// @notice Returns the maximum in QuantoInt256.
+    function max(QuantoInt128 x, QuantoInt128 y)
+        internal
+        pure
+        returns (QuantoInt256)
+    {
+        return x < y ? to256(y) : to256(x);
+    }
+
+    /// @notice Returns the minimum in QuantoInt256.
+    function min(QuantoInt128 x, QuantoInt128 y)
+        internal
+        pure
+        returns (QuantoInt256)
+    {
+        return x < y ? to256(x) : to256(y);
+    }
 }

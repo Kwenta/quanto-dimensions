@@ -546,4 +546,81 @@ contract BaseQuantoPerUSDInt128Test is Test {
             assertEq(result.unwrap(), uint128(x < 0 ? -x : x));
         }
     }
+
+    function testBaseQuantoPerUSDInt128Max128() public {
+        BaseQuantoPerUSDInt128 x = BaseQuantoPerUSDInt128.wrap(-100);
+        BaseQuantoPerUSDInt128 y = BaseQuantoPerUSDInt128.wrap(200);
+        BaseQuantoPerUSDInt128 result = x.max128(y);
+        assertEq(result.unwrap(), y.unwrap());
+    }
+
+    function testBaseQuantoPerUSDInt128Max128Fuzz(int128 x, int128 y) public {
+        int128 z = x < y ? y : x;
+        BaseQuantoPerUSDInt128 result = BaseQuantoPerUSDInt128.wrap(x).max128(
+            BaseQuantoPerUSDInt128.wrap(y)
+        );
+        assertEq(result.unwrap(), z);
+    }
+
+    function testBaseQuantoPerUSDInt128Min128() public {
+        BaseQuantoPerUSDInt128 x = BaseQuantoPerUSDInt128.wrap(-100);
+        BaseQuantoPerUSDInt128 y = BaseQuantoPerUSDInt128.wrap(200);
+        BaseQuantoPerUSDInt128 result = x.min128(y);
+        assertEq(result.unwrap(), x.unwrap());
+    }
+
+    function testBaseQuantoPerUSDInt128Min128Fuzz(int128 x, int128 y) public {
+        int128 z = x < y ? x : y;
+        BaseQuantoPerUSDInt128 result = BaseQuantoPerUSDInt128.wrap(x).min128(
+            BaseQuantoPerUSDInt128.wrap(y)
+        );
+        assertEq(result.unwrap(), z);
+    }
+
+    function testBaseQuantoPerUSDInt128Max() public {
+        BaseQuantoPerUSDInt128 x = BaseQuantoPerUSDInt128.wrap(-100);
+        BaseQuantoPerUSDInt128 y = BaseQuantoPerUSDInt128.wrap(200);
+        BaseQuantoPerUSDInt256 result = x.max(y);
+        assertEq(result.unwrap(), int256(y.unwrap()));
+    }
+
+    function testBaseQuantoPerUSDInt128MaxFuzz(int128 x, int128 y) public {
+        int128 z = x < y ? y : x;
+        BaseQuantoPerUSDInt256 result =
+            BaseQuantoPerUSDInt128.wrap(x).max(BaseQuantoPerUSDInt128.wrap(y));
+        assertEq(result.unwrap(), int256(z));
+    }
+
+    function testBaseQuantoPerUSDInt128Min() public {
+        BaseQuantoPerUSDInt128 x = BaseQuantoPerUSDInt128.wrap(-100);
+        BaseQuantoPerUSDInt128 y = BaseQuantoPerUSDInt128.wrap(200);
+        BaseQuantoPerUSDInt256 result = x.min(y);
+        assertEq(result.unwrap(), int256(x.unwrap()));
+    }
+
+    function testBaseQuantoPerUSDInt128MinFuzz(int128 x, int128 y) public {
+        int128 z = x < y ? x : y;
+        BaseQuantoPerUSDInt256 result =
+            BaseQuantoPerUSDInt128.wrap(x).min(BaseQuantoPerUSDInt128.wrap(y));
+        assertEq(result.unwrap(), int256(z));
+    }
+
+    function testBaseQuantoPerUSDInt128SameSide() public {
+        BaseQuantoPerUSDInt128 x = BaseQuantoPerUSDInt128.wrap(200);
+        BaseQuantoPerUSDInt128 y = BaseQuantoPerUSDInt128.wrap(100);
+        bool result = x.sameSide(y);
+        assertTrue(result);
+        result = x.sameSide(BaseQuantoPerUSDInt128.wrap(-100));
+        assertFalse(result);
+    }
+
+    function testBaseQuantoPerUSDInt128SameSideFuzz(int128 x, int128 y)
+        public
+    {
+        bool z = (x == 0) || (y == 0) || (x > 0) == (y > 0);
+        bool result = BaseQuantoPerUSDInt128.wrap(x).sameSide(
+            BaseQuantoPerUSDInt128.wrap(y)
+        );
+        assertEq(result, z);
+    }
 }

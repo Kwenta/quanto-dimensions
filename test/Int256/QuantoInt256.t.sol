@@ -447,4 +447,45 @@ contract QuantoInt256Test is Test {
             assertEq(result.unwrap(), uint256(x < 0 ? -x : x));
         }
     }
+
+    function testQuantoInt256Max() public {
+        QuantoInt256 x = QuantoInt256.wrap(-100);
+        QuantoInt256 y = QuantoInt256.wrap(200);
+        QuantoInt256 result = x.max(y);
+        assertEq(result.unwrap(), y.unwrap());
+    }
+
+    function testQuantoInt256MaxFuzz(int256 x, int256 y) public {
+        int256 z = x < y ? y : x;
+        QuantoInt256 result = QuantoInt256.wrap(x).max(QuantoInt256.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
+
+    function testQuantoInt256Min() public {
+        QuantoInt256 x = QuantoInt256.wrap(-100);
+        QuantoInt256 y = QuantoInt256.wrap(200);
+        QuantoInt256 result = x.min(y);
+        assertEq(result.unwrap(), x.unwrap());
+    }
+
+    function testQuantoInt256MinFuzz(int256 x, int256 y) public {
+        int256 z = x < y ? x : y;
+        QuantoInt256 result = QuantoInt256.wrap(x).min(QuantoInt256.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
+
+    function testQuantoInt256SameSide() public {
+        QuantoInt256 x = QuantoInt256.wrap(200);
+        QuantoInt256 y = QuantoInt256.wrap(100);
+        bool result = x.sameSide(y);
+        assertTrue(result);
+        result = x.sameSide(QuantoInt256.wrap(-100));
+        assertFalse(result);
+    }
+
+    function testQuantoInt256SameSideFuzz(int256 x, int256 y) public {
+        bool z = (x == 0) || (y == 0) || (x > 0) == (y > 0);
+        bool result = QuantoInt256.wrap(x).sameSide(QuantoInt256.wrap(y));
+        assertEq(result, z);
+    }
 }

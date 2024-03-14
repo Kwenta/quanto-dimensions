@@ -122,8 +122,32 @@ function divDecimal(BaseInt256 x, int256 y) pure returns (BaseInt256 result) {
     result = wrap(x.unwrap().divDecimal(y));
 }
 
+/// @notice Implements the maximum operation in the BaseInt256 type.
+function max(BaseInt256 x, BaseInt256 y) pure returns (BaseInt256) {
+    return x < y ? y : x;
+}
+
+/// @notice Implements the minimum operation (/) in the BaseInt256 type.
+function min(BaseInt256 x, BaseInt256 y) pure returns (BaseInt256) {
+    return x < y ? x : y;
+}
+
+/// @notice Returns same side Boolean for the BaseInt256 type.
+function sameSide(BaseInt256 x, BaseInt256 y) pure returns (bool) {
+    return (x.unwrap() == 0) || (y.unwrap() == 0)
+        || (x.unwrap() > 0) == (y.unwrap() > 0);
+}
+
 using {
-    and, increment, mul, mulDecimal, div, divDecimal
+    and,
+    increment,
+    mul,
+    mulDecimal,
+    div,
+    divDecimal,
+    max,
+    min,
+    sameSide
 } for BaseInt256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

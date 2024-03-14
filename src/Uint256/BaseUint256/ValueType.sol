@@ -128,8 +128,25 @@ function divDecimal(BaseUint256 x, uint256 y)
     result = wrap(x.unwrap().divDecimal(y));
 }
 
+/// @notice Implements the maximum operation in the BaseUint256 type.
+function max(BaseUint256 x, BaseUint256 y) pure returns (BaseUint256) {
+    return x < y ? y : x;
+}
+
+/// @notice Implements the minimum operation (/) in the BaseUint256 type.
+function min(BaseUint256 x, BaseUint256 y) pure returns (BaseUint256) {
+    return x < y ? x : y;
+}
+
 using {
-    and, increment, mul, mulDecimal, div, divDecimal
+    and,
+    increment,
+    mul,
+    mulDecimal,
+    div,
+    divDecimal,
+    max,
+    min
 } for BaseUint256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

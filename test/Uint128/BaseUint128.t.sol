@@ -451,4 +451,56 @@ contract BaseUint128Test is Test {
         BaseUint256 result = BaseUint128.wrap(x).to256();
         assertEq(result.unwrap(), uint256(x));
     }
+
+    function testBaseUint128Max128() public {
+        BaseUint128 x = BaseUint128.wrap(100);
+        BaseUint128 y = BaseUint128.wrap(200);
+        BaseUint128 result = x.max128(y);
+        assertEq(result.unwrap(), y.unwrap());
+    }
+
+    function testBaseUint128Max128Fuzz(uint128 x, uint128 y) public {
+        uint128 z = x < y ? y : x;
+        BaseUint128 result = BaseUint128.wrap(x).max128(BaseUint128.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
+
+    function testBaseUint128Min128() public {
+        BaseUint128 x = BaseUint128.wrap(100);
+        BaseUint128 y = BaseUint128.wrap(200);
+        BaseUint128 result = x.min128(y);
+        assertEq(result.unwrap(), x.unwrap());
+    }
+
+    function testBaseUint128Min128Fuzz(uint128 x, uint128 y) public {
+        uint128 z = x < y ? x : y;
+        BaseUint128 result = BaseUint128.wrap(x).min128(BaseUint128.wrap(y));
+        assertEq(result.unwrap(), z);
+    }
+
+    function testBaseUint128Max() public {
+        BaseUint128 x = BaseUint128.wrap(100);
+        BaseUint128 y = BaseUint128.wrap(200);
+        BaseUint256 result = x.max(y);
+        assertEq(result.unwrap(), uint256(y.unwrap()));
+    }
+
+    function testBaseUint128MaxFuzz(uint128 x, uint128 y) public {
+        uint128 z = x < y ? y : x;
+        BaseUint256 result = BaseUint128.wrap(x).max(BaseUint128.wrap(y));
+        assertEq(result.unwrap(), uint256(z));
+    }
+
+    function testBaseUint128Min() public {
+        BaseUint128 x = BaseUint128.wrap(100);
+        BaseUint128 y = BaseUint128.wrap(200);
+        BaseUint256 result = x.min(y);
+        assertEq(result.unwrap(), uint256(x.unwrap()));
+    }
+
+    function testBaseUint128MinFuzz(uint128 x, uint128 y) public {
+        uint128 z = x < y ? x : y;
+        BaseUint256 result = BaseUint128.wrap(x).min(BaseUint128.wrap(y));
+        assertEq(result.unwrap(), uint256(z));
+    }
 }

@@ -127,13 +127,32 @@ function divDecimalInt128(BaseInt128 x, int128 y)
     result = wrap(x.unwrap().divDecimalInt128(y));
 }
 
+/// @notice Implements the maximum operation in the BaseInt128 type.
+function max128(BaseInt128 x, BaseInt128 y) pure returns (BaseInt128) {
+    return x < y ? y : x;
+}
+
+/// @notice Implements the minimum operation (/) in the BaseInt128 type.
+function min128(BaseInt128 x, BaseInt128 y) pure returns (BaseInt128) {
+    return x < y ? x : y;
+}
+
+/// @notice Returns same side Boolean for the BaseInt128 type.
+function sameSide(BaseInt128 x, BaseInt128 y) pure returns (bool) {
+    return (x.unwrap() == 0) || (y.unwrap() == 0)
+        || (x.unwrap() > 0) == (y.unwrap() > 0);
+}
+
 using {
     and,
     increment,
     mul,
     mulDecimal,
     div,
-    divDecimalInt128
+    divDecimalInt128,
+    max128,
+    min128,
+    sameSide
 } for BaseInt128 global;
 
 /*//////////////////////////////////////////////////////////////////////////

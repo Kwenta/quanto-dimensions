@@ -149,13 +149,25 @@ function divDecimal(QuantoUint256 x, uint256 y)
     result = wrap(x.unwrap().divDecimal(y));
 }
 
+/// @notice Implements the maximum operation in the QuantoUint256 type.
+function max(QuantoUint256 x, QuantoUint256 y) pure returns (QuantoUint256) {
+    return x < y ? y : x;
+}
+
+/// @notice Implements the minimum operation (/) in the QuantoUint256 type.
+function min(QuantoUint256 x, QuantoUint256 y) pure returns (QuantoUint256) {
+    return x < y ? x : y;
+}
+
 using {
     and,
     increment,
     mul,
     mulDecimal,
     div,
-    divDecimal
+    divDecimal,
+    max,
+    min
 } for QuantoUint256 global;
 
 /*//////////////////////////////////////////////////////////////////////////
