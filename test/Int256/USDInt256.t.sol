@@ -457,4 +457,25 @@ contract USDInt256Test is Test {
         bool result = USDInt256.wrap(x).sameSide(USDInt256.wrap(y));
         assertEq(result, z);
     }
+
+    function testUSDInt256Zero() public {
+        USDInt256 x = InteractionsUSDInt256.zero();
+        assertEq(x.unwrap(), 0);
+    }
+
+    function testUSDInt256isZero() public {
+        USDInt256 x = USDInt256.wrap(0);
+        USDInt256 y = USDInt256.wrap(100);
+        bool result = x.isZero();
+        assertTrue(result);
+        result = y.isZero();
+        assertFalse(result);
+    }
+
+    function testUSDInt256isZeroFuzz(int256 x) public {
+        USDInt256 result = USDInt256.wrap(x);
+        bool y = result.isZero();
+        bool z = (x == 0);
+        assertTrue((y && z) || !(y || z));
+    }
 }

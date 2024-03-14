@@ -506,4 +506,25 @@ contract QuantoUint128Test is Test {
         QuantoUint256 result = QuantoUint128.wrap(x).min(QuantoUint128.wrap(y));
         assertEq(result.unwrap(), uint256(z));
     }
+
+    function testQuantoUint128Zero() public {
+        QuantoUint128 x = InteractionsQuantoUint128.zero();
+        assertEq(x.unwrap(), 0);
+    }
+
+    function testQuantoUint128isZero() public {
+        QuantoUint128 x = QuantoUint128.wrap(0);
+        QuantoUint128 y = QuantoUint128.wrap(100);
+        bool result = x.isZero();
+        assertTrue(result);
+        result = y.isZero();
+        assertFalse(result);
+    }
+
+    function testQuantoUint128isZeroFuzz(uint128 x) public {
+        QuantoUint128 result = QuantoUint128.wrap(x);
+        bool y = result.isZero();
+        bool z = (x == 0);
+        assertTrue((y && z) || !(y || z));
+    }
 }

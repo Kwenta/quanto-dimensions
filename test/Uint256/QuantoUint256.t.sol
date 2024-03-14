@@ -456,4 +456,25 @@ contract QuantoUint256Test is Test {
         QuantoUint256 result = QuantoUint256.wrap(x).min(QuantoUint256.wrap(y));
         assertEq(result.unwrap(), z);
     }
+
+    function testQuantoUint256Zero() public {
+        QuantoUint256 x = InteractionsQuantoUint256.zero();
+        assertEq(x.unwrap(), 0);
+    }
+
+    function testQuantoUint256isZero() public {
+        QuantoUint256 x = QuantoUint256.wrap(0);
+        QuantoUint256 y = QuantoUint256.wrap(100);
+        bool result = x.isZero();
+        assertTrue(result);
+        result = y.isZero();
+        assertFalse(result);
+    }
+
+    function testQuantoUint256isZeroFuzz(uint256 x) public {
+        QuantoUint256 result = QuantoUint256.wrap(x);
+        bool y = result.isZero();
+        bool z = (x == 0);
+        assertTrue((y && z) || !(y || z));
+    }
 }

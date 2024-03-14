@@ -503,4 +503,25 @@ contract BaseUint128Test is Test {
         BaseUint256 result = BaseUint128.wrap(x).min(BaseUint128.wrap(y));
         assertEq(result.unwrap(), uint256(z));
     }
+
+    function testBaseUint128Zero() public {
+        BaseUint128 x = InteractionsBaseUint128.zero();
+        assertEq(x.unwrap(), 0);
+    }
+
+    function testBaseUint128isZero() public {
+        BaseUint128 x = BaseUint128.wrap(0);
+        BaseUint128 y = BaseUint128.wrap(100);
+        bool result = x.isZero();
+        assertTrue(result);
+        result = y.isZero();
+        assertFalse(result);
+    }
+
+    function testBaseUint128isZeroFuzz(uint128 x) public {
+        BaseUint128 result = BaseUint128.wrap(x);
+        bool y = result.isZero();
+        bool z = (x == 0);
+        assertTrue((y && z) || !(y || z));
+    }
 }
