@@ -183,11 +183,6 @@ function min(USDPerQuantoUint256 x, USDPerQuantoUint256 y)
     return x < y ? x : y;
 }
 
-/// @notice Returns zero in the USDPerQuantoUint256 type.
-function zero(USDPerQuantoUint256) pure returns (USDPerQuantoUint256) {
-    return wrap(0);
-}
-
 /// @notice Implements the isZero operation for the USDPerQuantoUint256 type.
 function isZero(USDPerQuantoUint256 x) pure returns (bool) {
     return (x.unwrap() == 0);
@@ -202,7 +197,6 @@ using {
     divDecimal,
     max,
     min,
-    zero,
     isZero
 } for USDPerQuantoUint256 global;
 

@@ -50,4 +50,9 @@ library InteractionsQuantoUint256 {
     {
         result = USDUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
     }
+
+    /// @notice Returns zero in the QuantoUint256 type.
+    function zero() internal pure returns (QuantoUint256) {
+        return QuantoUint256.wrap(0);
+    }
 }

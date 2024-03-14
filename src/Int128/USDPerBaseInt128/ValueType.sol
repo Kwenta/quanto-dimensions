@@ -179,11 +179,6 @@ function sameSide(USDPerBaseInt128 x, USDPerBaseInt128 y) pure returns (bool) {
         || (x.unwrap() > 0) == (y.unwrap() > 0);
 }
 
-/// @notice Returns zero in the USDPerBaseInt128 type.
-function zero(USDPerBaseInt128) pure returns (USDPerBaseInt128) {
-    return wrap(0);
-}
-
 /// @notice Implements the isZero operation for the USDPerBaseInt128 type.
 function isZero(USDPerBaseInt128 x) pure returns (bool) {
     return (x.unwrap() == 0);
@@ -199,7 +194,6 @@ using {
     max128,
     min128,
     sameSide,
-    zero,
     isZero
 } for USDPerBaseInt128 global;
 

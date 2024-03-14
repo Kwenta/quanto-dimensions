@@ -62,4 +62,9 @@ library InteractionsUSDPerBaseInt256 {
         return
             x.unwrap() >= 0 ? toUint(x) : toUint((USDPerBaseInt256.wrap(0) - x));
     }
+
+    /// @notice Returns zero in the USDPerBaseInt256 type.
+    function zero() internal pure returns (USDPerBaseInt256) {
+        return USDPerBaseInt256.wrap(0);
+    }
 }

@@ -195,11 +195,6 @@ function min(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y)
     return x < y ? x : y;
 }
 
-/// @notice Returns zero in the BaseQuantoPerUSDUint256 type.
-function zero(BaseQuantoPerUSDUint256) pure returns (BaseQuantoPerUSDUint256) {
-    return wrap(0);
-}
-
 /// @notice Implements the isZero operation for the BaseQuantoPerUSDUint256 type.
 function isZero(BaseQuantoPerUSDUint256 x) pure returns (bool) {
     return (x.unwrap() == 0);
@@ -214,7 +209,6 @@ using {
     divDecimal,
     max,
     min,
-    zero,
     isZero
 } for BaseQuantoPerUSDUint256 global;
 

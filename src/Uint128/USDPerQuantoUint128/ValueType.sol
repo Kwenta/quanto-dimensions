@@ -185,11 +185,6 @@ function min128(USDPerQuantoUint128 x, USDPerQuantoUint128 y)
     return x < y ? x : y;
 }
 
-/// @notice Returns zero in the USDPerQuantoUint128 type.
-function zero(USDPerQuantoUint128) pure returns (USDPerQuantoUint128) {
-    return wrap(0);
-}
-
 /// @notice Implements the isZero operation for the USDPerQuantoUint128 type.
 function isZero(USDPerQuantoUint128 x) pure returns (bool) {
     return (x.unwrap() == 0);
@@ -204,7 +199,6 @@ using {
     divDecimalUint128,
     max128,
     min128,
-    zero,
     isZero
 } for USDPerQuantoUint128 global;
 

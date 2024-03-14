@@ -38,4 +38,9 @@ library InteractionsBaseUint256 {
     {
         result = USDUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
     }
+
+    /// @notice Returns zero in the BaseUint256 type.
+    function zero() internal pure returns (BaseUint256) {
+        return BaseUint256.wrap(0);
+    }
 }

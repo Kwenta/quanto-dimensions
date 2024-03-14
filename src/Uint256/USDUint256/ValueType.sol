@@ -132,11 +132,6 @@ function min(USDUint256 x, USDUint256 y) pure returns (USDUint256) {
     return x < y ? x : y;
 }
 
-/// @notice Returns zero in the USDUint256 type.
-function zero(USDUint256) pure returns (USDUint256) {
-    return wrap(0);
-}
-
 /// @notice Implements the isZero operation for the USDUint256 type.
 function isZero(USDUint256 x) pure returns (bool) {
     return (x.unwrap() == 0);
@@ -151,7 +146,6 @@ using {
     divDecimal,
     max,
     min,
-    zero,
     isZero
 } for USDUint256 global;
 

@@ -138,11 +138,6 @@ function min(BaseUint256 x, BaseUint256 y) pure returns (BaseUint256) {
     return x < y ? x : y;
 }
 
-/// @notice Returns zero in the BaseUint256 type.
-function zero(BaseUint256) pure returns (BaseUint256) {
-    return wrap(0);
-}
-
 /// @notice Implements the isZero operation for the BaseUint256 type.
 function isZero(BaseUint256 x) pure returns (bool) {
     return (x.unwrap() == 0);
@@ -157,7 +152,6 @@ using {
     divDecimal,
     max,
     min,
-    zero,
     isZero
 } for BaseUint256 global;
 

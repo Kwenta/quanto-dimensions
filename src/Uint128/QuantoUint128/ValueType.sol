@@ -167,11 +167,6 @@ function min128(QuantoUint128 x, QuantoUint128 y)
     return x < y ? x : y;
 }
 
-/// @notice Returns zero in the QuantoUint128 type.
-function zero(QuantoUint128) pure returns (QuantoUint128) {
-    return wrap(0);
-}
-
 /// @notice Implements the isZero operation for the QuantoUint128 type.
 function isZero(QuantoUint128 x) pure returns (bool) {
     return (x.unwrap() == 0);
@@ -186,7 +181,6 @@ using {
     divDecimalUint128,
     max128,
     min128,
-    zero,
     isZero
 } for QuantoUint128 global;
 

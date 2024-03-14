@@ -63,4 +63,9 @@ library InteractionsBaseQuantoPerUSDUint256 {
     {
         result = BaseUint256.wrap(x.unwrap().mulDecimal(y.unwrap()));
     }
+
+    /// @notice Returns zero in the BaseQuantoPerUSDUint256 type.
+    function zero() internal pure returns (BaseQuantoPerUSDUint256) {
+        return BaseQuantoPerUSDUint256.wrap(0);
+    }
 }

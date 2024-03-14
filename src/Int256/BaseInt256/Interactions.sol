@@ -38,4 +38,9 @@ library InteractionsBaseInt256 {
     function abs(BaseInt256 x) internal pure returns (BaseUint256) {
         return x.unwrap() >= 0 ? toUint(x) : toUint((BaseInt256.wrap(0) - x));
     }
+
+    /// @notice Returns zero in the BaseInt256 type.
+    function zero() internal pure returns (BaseInt256) {
+        return BaseInt256.wrap(0);
+    }
 }

@@ -111,4 +111,9 @@ library InteractionsBaseQuantoPerUSDInt128 {
     {
         return x < y ? to256(x) : to256(y);
     }
+
+    /// @notice Returns zero in the BaseQuantoPerUSDInt128 type.
+    function zero() internal pure returns (BaseQuantoPerUSDInt128) {
+        return BaseQuantoPerUSDInt128.wrap(0);
+    }
 }

@@ -143,11 +143,6 @@ function sameSide(BaseInt128 x, BaseInt128 y) pure returns (bool) {
         || (x.unwrap() > 0) == (y.unwrap() > 0);
 }
 
-/// @notice Returns zero in the BaseInt128 type.
-function zero(BaseInt128) pure returns (BaseInt128) {
-    return wrap(0);
-}
-
 /// @notice Implements the isZero operation for the BaseInt128 type.
 function isZero(BaseInt128 x) pure returns (bool) {
     return (x.unwrap() == 0);
@@ -163,7 +158,6 @@ using {
     max128,
     min128,
     sameSide,
-    zero,
     isZero
 } for BaseInt128 global;
 
