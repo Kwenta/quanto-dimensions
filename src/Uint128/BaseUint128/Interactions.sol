@@ -67,4 +67,9 @@ library InteractionsBaseUint128 {
     {
         return x < y ? to256(x) : to256(y);
     }
+
+    /// @notice Returns zero in the BaseUint128 type.
+    function zero() internal pure returns (BaseUint128) {
+        return BaseUint128.wrap(0);
+    }
 }

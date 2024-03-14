@@ -108,4 +108,9 @@ library InteractionsUSDPerQuantoInt128 {
     {
         return x < y ? to256(x) : to256(y);
     }
+
+    /// @notice Returns zero in the USDPerQuantoInt128 type.
+    function zero() internal pure returns (USDPerQuantoInt128) {
+        return USDPerQuantoInt128.wrap(0);
+    }
 }

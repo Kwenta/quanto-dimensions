@@ -548,4 +548,25 @@ contract USDPerBaseUint128Test is Test {
             USDPerBaseUint128.wrap(x).min(USDPerBaseUint128.wrap(y));
         assertEq(result.unwrap(), uint256(z));
     }
+
+    function testUSDPerBaseUint128Zero() public {
+        USDPerBaseUint128 x = InteractionsUSDPerBaseUint128.zero();
+        assertEq(x.unwrap(), 0);
+    }
+
+    function testUSDPerBaseUint128isZero() public {
+        USDPerBaseUint128 x = USDPerBaseUint128.wrap(0);
+        USDPerBaseUint128 y = USDPerBaseUint128.wrap(100);
+        bool result = x.isZero();
+        assertTrue(result);
+        result = y.isZero();
+        assertFalse(result);
+    }
+
+    function testUSDPerBaseUint128isZeroFuzz(uint128 x) public {
+        USDPerBaseUint128 result = USDPerBaseUint128.wrap(x);
+        bool y = result.isZero();
+        bool z = (x == 0);
+        assertTrue((y && z) || !(y || z));
+    }
 }

@@ -183,6 +183,11 @@ function sameSide(USDPerQuantoInt256 x, USDPerQuantoInt256 y)
         || (x.unwrap() > 0) == (y.unwrap() > 0);
 }
 
+/// @notice Implements the isZero operation for the USDPerQuantoInt256 type.
+function isZero(USDPerQuantoInt256 x) pure returns (bool) {
+    return (x.unwrap() == 0);
+}
+
 using {
     and,
     increment,
@@ -192,7 +197,8 @@ using {
     divDecimal,
     max,
     min,
-    sameSide
+    sameSide,
+    isZero
 } for USDPerQuantoInt256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

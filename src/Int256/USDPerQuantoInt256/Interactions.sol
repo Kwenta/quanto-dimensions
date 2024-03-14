@@ -64,4 +64,9 @@ library InteractionsUSDPerQuantoInt256 {
             ? toUint(x)
             : toUint((USDPerQuantoInt256.wrap(0) - x));
     }
+
+    /// @notice Returns zero in the USDPerQuantoInt256 type.
+    function zero() internal pure returns (USDPerQuantoInt256) {
+        return USDPerQuantoInt256.wrap(0);
+    }
 }

@@ -138,6 +138,11 @@ function sameSide(USDInt256 x, USDInt256 y) pure returns (bool) {
         || (x.unwrap() > 0) == (y.unwrap() > 0);
 }
 
+/// @notice Implements the isZero operation for the USDInt256 type.
+function isZero(USDInt256 x) pure returns (bool) {
+    return (x.unwrap() == 0);
+}
+
 using {
     and,
     increment,
@@ -147,7 +152,8 @@ using {
     divDecimal,
     max,
     min,
-    sameSide
+    sameSide,
+    isZero
 } for USDInt256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

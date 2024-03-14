@@ -90,4 +90,9 @@ library InteractionsUSDPerBaseUint128 {
     {
         return x < y ? to256(x) : to256(y);
     }
+
+    /// @notice Returns zero in the USDPerBaseUint128 type.
+    function zero() internal pure returns (USDPerBaseUint128) {
+        return USDPerBaseUint128.wrap(0);
+    }
 }

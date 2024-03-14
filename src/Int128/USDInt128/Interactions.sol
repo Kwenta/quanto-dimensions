@@ -56,4 +56,9 @@ library InteractionsUSDInt128 {
     function min(USDInt128 x, USDInt128 y) internal pure returns (USDInt256) {
         return x < y ? to256(x) : to256(y);
     }
+
+    /// @notice Returns zero in the USDInt128 type.
+    function zero() internal pure returns (USDInt128) {
+        return USDInt128.wrap(0);
+    }
 }

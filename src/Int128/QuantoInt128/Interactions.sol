@@ -86,4 +86,9 @@ library InteractionsQuantoInt128 {
     {
         return x < y ? to256(x) : to256(y);
     }
+
+    /// @notice Returns zero in the QuantoInt128 type.
+    function zero() internal pure returns (QuantoInt128) {
+        return QuantoInt128.wrap(0);
+    }
 }

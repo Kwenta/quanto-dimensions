@@ -555,4 +555,25 @@ contract BaseQuantoPerUSDInt256Test is Test {
         );
         assertEq(result, z);
     }
+
+    function testBaseQuantoPerUSDInt256Zero() public {
+        BaseQuantoPerUSDInt256 x = InteractionsBaseQuantoPerUSDInt256.zero();
+        assertEq(x.unwrap(), 0);
+    }
+
+    function testBaseQuantoPerUSDInt256isZero() public {
+        BaseQuantoPerUSDInt256 x = BaseQuantoPerUSDInt256.wrap(0);
+        BaseQuantoPerUSDInt256 y = BaseQuantoPerUSDInt256.wrap(100);
+        bool result = x.isZero();
+        assertTrue(result);
+        result = y.isZero();
+        assertFalse(result);
+    }
+
+    function testBaseQuantoPerUSDInt256isZeroFuzz(int256 x) public {
+        BaseQuantoPerUSDInt256 result = BaseQuantoPerUSDInt256.wrap(x);
+        bool y = result.isZero();
+        bool z = (x == 0);
+        assertTrue((y && z) || !(y || z));
+    }
 }

@@ -546,4 +546,25 @@ contract BaseInt128Test is Test {
         bool result = BaseInt128.wrap(x).sameSide(BaseInt128.wrap(y));
         assertEq(result, z);
     }
+
+    function testBaseInt128Zero() public {
+        BaseInt128 x = InteractionsBaseInt128.zero();
+        assertEq(x.unwrap(), 0);
+    }
+
+    function testBaseInt128isZero() public {
+        BaseInt128 x = BaseInt128.wrap(0);
+        BaseInt128 y = BaseInt128.wrap(100);
+        bool result = x.isZero();
+        assertTrue(result);
+        result = y.isZero();
+        assertFalse(result);
+    }
+
+    function testBaseInt128isZeroFuzz(int128 x) public {
+        BaseInt128 result = BaseInt128.wrap(x);
+        bool y = result.isZero();
+        bool z = (x == 0);
+        assertTrue((y && z) || !(y || z));
+    }
 }

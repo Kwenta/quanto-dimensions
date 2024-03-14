@@ -486,4 +486,25 @@ contract BaseInt256Test is Test {
         bool result = BaseInt256.wrap(x).sameSide(BaseInt256.wrap(y));
         assertEq(result, z);
     }
+
+    function testBaseInt256Zero() public {
+        BaseInt256 x = InteractionsBaseInt256.zero();
+        assertEq(x.unwrap(), 0);
+    }
+
+    function testBaseInt256isZero() public {
+        BaseInt256 x = BaseInt256.wrap(0);
+        BaseInt256 y = BaseInt256.wrap(100);
+        bool result = x.isZero();
+        assertTrue(result);
+        result = y.isZero();
+        assertFalse(result);
+    }
+
+    function testBaseInt256isZeroFuzz(int256 x) public {
+        BaseInt256 result = BaseInt256.wrap(x);
+        bool y = result.isZero();
+        bool z = (x == 0);
+        assertTrue((y && z) || !(y || z));
+    }
 }

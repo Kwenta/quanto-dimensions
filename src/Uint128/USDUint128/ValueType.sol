@@ -137,6 +137,11 @@ function min128(USDUint128 x, USDUint128 y) pure returns (USDUint128) {
     return x < y ? x : y;
 }
 
+/// @notice Implements the isZero operation for the USDUint128 type.
+function isZero(USDUint128 x) pure returns (bool) {
+    return (x.unwrap() == 0);
+}
+
 using {
     and,
     increment,
@@ -145,7 +150,8 @@ using {
     div,
     divDecimalUint128,
     max128,
-    min128
+    min128,
+    isZero
 } for USDUint128 global;
 
 /*//////////////////////////////////////////////////////////////////////////

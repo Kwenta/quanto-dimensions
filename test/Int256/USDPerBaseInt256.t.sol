@@ -525,9 +525,31 @@ contract USDPerBaseInt256Test is Test {
         assertFalse(result);
     }
 
-    function testBaseInt256SameSideFuzz(int256 x, int256 y) public {
+    function testUSDPerBaseInt256SameSideFuzz(int256 x, int256 y) public {
         bool z = (x == 0) || (y == 0) || (x > 0) == (y > 0);
-        bool result = BaseInt256.wrap(x).sameSide(BaseInt256.wrap(y));
+        bool result =
+            USDPerBaseInt256.wrap(x).sameSide(USDPerBaseInt256.wrap(y));
         assertEq(result, z);
+    }
+
+    function testUSDPerBaseInt256Zero() public {
+        USDPerBaseInt256 x = InteractionsUSDPerBaseInt256.zero();
+        assertEq(x.unwrap(), 0);
+    }
+
+    function testUSDPerBaseInt256isZero() public {
+        USDPerBaseInt256 x = USDPerBaseInt256.wrap(0);
+        USDPerBaseInt256 y = USDPerBaseInt256.wrap(100);
+        bool result = x.isZero();
+        assertTrue(result);
+        result = y.isZero();
+        assertFalse(result);
+    }
+
+    function testUSDPerBaseInt256isZeroFuzz(int256 x) public {
+        USDPerBaseInt256 result = USDPerBaseInt256.wrap(x);
+        bool y = result.isZero();
+        bool z = (x == 0);
+        assertTrue((y && z) || !(y || z));
     }
 }

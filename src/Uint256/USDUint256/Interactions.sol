@@ -25,4 +25,9 @@ library InteractionsUSDUint256 {
     function toBytes32(USDUint256 x) internal pure returns (bytes32 result) {
         result = bytes32(unwrap(x));
     }
+
+    /// @notice Returns zero in the USDUint256 type.
+    function zero() internal pure returns (USDUint256) {
+        return USDUint256.wrap(0);
+    }
 }

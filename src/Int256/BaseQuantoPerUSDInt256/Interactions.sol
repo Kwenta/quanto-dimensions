@@ -65,4 +65,9 @@ library InteractionsBaseQuantoPerUSDInt256 {
             ? toUint(x)
             : toUint((BaseQuantoPerUSDInt256.wrap(0) - x));
     }
+
+    /// @notice Returns zero in the BaseQuantoPerUSDInt256 type.
+    function zero() internal pure returns (BaseQuantoPerUSDInt256) {
+        return BaseQuantoPerUSDInt256.wrap(0);
+    }
 }

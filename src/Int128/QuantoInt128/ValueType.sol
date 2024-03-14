@@ -164,6 +164,11 @@ function sameSide(QuantoInt128 x, QuantoInt128 y) pure returns (bool) {
         || (x.unwrap() > 0) == (y.unwrap() > 0);
 }
 
+/// @notice Implements the isZero operation for the QuantoInt128 type.
+function isZero(QuantoInt128 x) pure returns (bool) {
+    return (x.unwrap() == 0);
+}
+
 using {
     and,
     increment,
@@ -173,7 +178,8 @@ using {
     divDecimalInt128,
     max128,
     min128,
-    sameSide
+    sameSide,
+    isZero
 } for QuantoInt128 global;
 
 /*//////////////////////////////////////////////////////////////////////////

@@ -469,4 +469,25 @@ contract USDUint128Test is Test {
         USDUint256 result = USDUint128.wrap(x).min(USDUint128.wrap(y));
         assertEq(result.unwrap(), uint256(z));
     }
+
+    function testUSDUint128Zero() public {
+        USDUint128 x = InteractionsUSDUint128.zero();
+        assertEq(x.unwrap(), 0);
+    }
+
+    function testUSDUint128isZero() public {
+        USDUint128 x = USDUint128.wrap(0);
+        USDUint128 y = USDUint128.wrap(100);
+        bool result = x.isZero();
+        assertTrue(result);
+        result = y.isZero();
+        assertFalse(result);
+    }
+
+    function testUSDUint128isZeroFuzz(uint128 x) public {
+        USDUint128 result = USDUint128.wrap(x);
+        bool y = result.isZero();
+        bool z = (x == 0);
+        assertTrue((y && z) || !(y || z));
+    }
 }

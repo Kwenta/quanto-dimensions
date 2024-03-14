@@ -46,4 +46,9 @@ library InteractionsQuantoInt256 {
     function abs(QuantoInt256 x) internal pure returns (QuantoUint256) {
         return x.unwrap() >= 0 ? toUint(x) : toUint((QuantoInt256.wrap(0) - x));
     }
+
+    /// @notice Returns zero in the QuantoInt256 type.
+    function zero() internal pure returns (QuantoInt256) {
+        return QuantoInt256.wrap(0);
+    }
 }

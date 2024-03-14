@@ -54,4 +54,9 @@ library InteractionsUSDUint128 {
     {
         return x < y ? to256(x) : to256(y);
     }
+
+    /// @notice Returns zero in the USDUint128 type.
+    function zero() internal pure returns (USDUint128) {
+        return USDUint128.wrap(0);
+    }
 }
