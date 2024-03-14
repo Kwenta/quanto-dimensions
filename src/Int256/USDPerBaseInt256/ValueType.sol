@@ -177,6 +177,16 @@ function sameSide(USDPerBaseInt256 x, USDPerBaseInt256 y) pure returns (bool) {
         || (x.unwrap() > 0) == (y.unwrap() > 0);
 }
 
+/// @notice Returns zero in the USDPerBaseInt256 type.
+function zero(USDPerBaseInt256) pure returns (USDPerBaseInt256) {
+    return wrap(0);
+}
+
+/// @notice Implements the isZero operation for the USDPerBaseInt256 type.
+function isZero(USDPerBaseInt256 x) pure returns (bool) {
+    return (x.unwrap() == 0);
+}
+
 using {
     and,
     increment,
@@ -186,7 +196,9 @@ using {
     divDecimal,
     max,
     min,
-    sameSide
+    sameSide,
+    zero,
+    isZero
 } for USDPerBaseInt256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

@@ -176,6 +176,16 @@ function min128(USDPerBaseUint128 x, USDPerBaseUint128 y)
     return x < y ? x : y;
 }
 
+/// @notice Returns zero in the USDPerBaseUint128 type.
+function zero(USDPerBaseUint128) pure returns (USDPerBaseUint128) {
+    return wrap(0);
+}
+
+/// @notice Implements the isZero operation for the USDPerBaseUint128 type.
+function isZero(USDPerBaseUint128 x) pure returns (bool) {
+    return (x.unwrap() == 0);
+}
+
 using {
     and,
     increment,
@@ -184,7 +194,9 @@ using {
     div,
     divDecimalUint128,
     max128,
-    min128
+    min128,
+    zero,
+    isZero
 } for USDPerBaseUint128 global;
 
 /*//////////////////////////////////////////////////////////////////////////

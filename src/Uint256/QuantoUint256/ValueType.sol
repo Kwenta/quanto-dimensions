@@ -159,6 +159,16 @@ function min(QuantoUint256 x, QuantoUint256 y) pure returns (QuantoUint256) {
     return x < y ? x : y;
 }
 
+/// @notice Returns zero in the QuantoUint256 type.
+function zero(QuantoUint256) pure returns (QuantoUint256) {
+    return wrap(0);
+}
+
+/// @notice Implements the isZero operation for the QuantoUint256 type.
+function isZero(QuantoUint256 x) pure returns (bool) {
+    return (x.unwrap() == 0);
+}
+
 using {
     and,
     increment,
@@ -167,7 +177,9 @@ using {
     div,
     divDecimal,
     max,
-    min
+    min,
+    zero,
+    isZero
 } for QuantoUint256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

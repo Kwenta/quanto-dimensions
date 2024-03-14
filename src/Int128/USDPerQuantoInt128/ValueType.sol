@@ -185,6 +185,16 @@ function sameSide(USDPerQuantoInt128 x, USDPerQuantoInt128 y)
         || (x.unwrap() > 0) == (y.unwrap() > 0);
 }
 
+/// @notice Returns zero in the USDPerQuantoInt128 type.
+function zero(USDPerQuantoInt128) pure returns (USDPerQuantoInt128) {
+    return wrap(0);
+}
+
+/// @notice Implements the isZero operation for the USDPerQuantoInt128 type.
+function isZero(USDPerQuantoInt128 x) pure returns (bool) {
+    return (x.unwrap() == 0);
+}
+
 using {
     and,
     increment,
@@ -194,7 +204,9 @@ using {
     divDecimalInt128,
     max128,
     min128,
-    sameSide
+    sameSide,
+    zero,
+    isZero
 } for USDPerQuantoInt128 global;
 
 /*//////////////////////////////////////////////////////////////////////////

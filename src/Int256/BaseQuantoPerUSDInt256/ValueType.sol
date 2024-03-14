@@ -204,6 +204,16 @@ function sameSide(BaseQuantoPerUSDInt256 x, BaseQuantoPerUSDInt256 y)
         || (x.unwrap() > 0) == (y.unwrap() > 0);
 }
 
+/// @notice Returns zero in the BaseQuantoPerUSDInt256 type.
+function zero(BaseQuantoPerUSDInt256) pure returns (BaseQuantoPerUSDInt256) {
+    return wrap(0);
+}
+
+/// @notice Implements the isZero operation for the BaseQuantoPerUSDInt256 type.
+function isZero(BaseQuantoPerUSDInt256 x) pure returns (bool) {
+    return (x.unwrap() == 0);
+}
+
 using {
     and,
     increment,
@@ -213,7 +223,9 @@ using {
     divDecimal,
     max,
     min,
-    sameSide
+    sameSide,
+    zero,
+    isZero
 } for BaseQuantoPerUSDInt256 global;
 
 /*//////////////////////////////////////////////////////////////////////////
