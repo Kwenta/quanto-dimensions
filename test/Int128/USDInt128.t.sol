@@ -536,4 +536,118 @@ contract USDInt128Test is Test {
         bool z = (x == 0);
         assertTrue((y && z) || !(y || z));
     }
+
+    function testUSDInt128DivToDimensionless() public {
+        USDInt128 x = USDInt128.wrap(500);
+        USDInt128 y = USDInt128.wrap(2);
+        int128 result = x.divToDimensionless(y);
+        assertEq(result, 250);
+    }
+
+    function testUSDInt128DivToDimensionlessFuzz(int128 x, int128 y) public {
+        int128 z;
+        assembly {
+            z := sdiv(x, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+
+        if (wrongSign || y == 0) {
+            vm.expectRevert();
+            USDInt128.wrap(x).divToDimensionless(USDInt128.wrap(y));
+        } else {
+            int128 result =
+                USDInt128.wrap(x).divToDimensionless(USDInt128.wrap(y));
+            assertEq(result, z);
+        }
+    }
+
+    function testUSDInt128CeilDivide() public {
+        USDInt128 x = USDInt128.wrap(10);
+        USDInt128 y = USDInt128.wrap(3);
+        int128 result = x.ceilDivide(y);
+        assertEq(result, 4);
+        result = USDInt128.wrap(-10).ceilDivide(USDInt128.wrap(3));
+        assertEq(result, -3);
+    }
+
+    function testUSDInt128CeilDivideFuzz(int128 x, int128 y) public {
+        int128 z;
+        assembly {
+            z := sdiv(x, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+
+        if (wrongSign || y == 0) {
+            vm.expectRevert();
+            USDInt128.wrap(x).ceilDivide(USDInt128.wrap(y));
+        } else {
+            if (!(((x < 0) != (y < 0)) || (x % y) == 0)) {
+                z = z + 1;
+            }
+            int128 result = USDInt128.wrap(x).ceilDivide(USDInt128.wrap(y));
+            assertEq(result, z);
+        }
+    }
+
+    function testUSDInt128GreaterThanZero() public {
+        USDInt128 x = USDInt128.wrap(100);
+        bool result = x.greaterThanZero();
+        assertTrue(result);
+        x = USDInt128.wrap(-100);
+        result = x.greaterThanZero();
+        assertFalse(result);
+    }
+
+    function testUSDInt128GreaterThanZeroFuzz(int128 x) public {
+        bool z = x > 0;
+        bool result = USDInt128.wrap(x).greaterThanZero();
+        assertEq(result, z);
+    }
+
+    function testUSDInt128LessThanZero() public {
+        USDInt128 x = USDInt128.wrap(100);
+        bool result = x.lessThanZero();
+        assertFalse(result);
+        x = USDInt128.wrap(-100);
+        result = x.lessThanZero();
+        assertTrue(result);
+    }
+
+    function testUSDInt128LessThanZeroFuzz(int128 x) public {
+        bool z = x < 0;
+        bool result = USDInt128.wrap(x).lessThanZero();
+        assertEq(result, z);
+    }
+
+    function testUSDInt128GreaterThanOrEqualToZero() public {
+        USDInt128 x = USDInt128.wrap(0);
+        bool result = x.greaterThanOrEqualToZero();
+        assertTrue(result);
+        x = USDInt128.wrap(-100);
+        result = x.greaterThanOrEqualToZero();
+        assertFalse(result);
+    }
+
+    function testUSDInt128GreaterThanOrEqualToZeroFuzz(int128 x) public {
+        bool z = x >= 0;
+        bool result = USDInt128.wrap(x).greaterThanOrEqualToZero();
+        assertEq(result, z);
+    }
+
+    function testUSDInt128LessThanOrEqualToZero() public {
+        USDInt128 x = USDInt128.wrap(0);
+        bool result = x.lessThanOrEqualToZero();
+        assertTrue(result);
+        x = USDInt128.wrap(100);
+        result = x.lessThanOrEqualToZero();
+        assertFalse(result);
+    }
+
+    function testUSDInt128LessThanOrEqualToZero(int128 x) public {
+        bool z = x <= 0;
+        bool result = USDInt128.wrap(x).lessThanOrEqualToZero();
+        assertEq(result, z);
+    }
 }

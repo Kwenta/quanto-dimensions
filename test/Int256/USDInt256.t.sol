@@ -478,4 +478,118 @@ contract USDInt256Test is Test {
         bool z = (x == 0);
         assertTrue((y && z) || !(y || z));
     }
+
+    function testUSDInt256DivToDimensionless() public {
+        USDInt256 x = USDInt256.wrap(500);
+        USDInt256 y = USDInt256.wrap(2);
+        int256 result = x.divToDimensionless(y);
+        assertEq(result, 250);
+    }
+
+    function testUSDInt256DivToDimensionlessFuzz(int256 x, int256 y) public {
+        int256 z;
+        assembly {
+            z := sdiv(x, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+
+        if (wrongSign || y == 0) {
+            vm.expectRevert();
+            USDInt256.wrap(x).divToDimensionless(USDInt256.wrap(y));
+        } else {
+            int256 result =
+                USDInt256.wrap(x).divToDimensionless(USDInt256.wrap(y));
+            assertEq(result, z);
+        }
+    }
+
+    function testUSDInt256CeilDivide() public {
+        USDInt256 x = USDInt256.wrap(10);
+        USDInt256 y = USDInt256.wrap(3);
+        int256 result = x.ceilDivide(y);
+        assertEq(result, 4);
+        result = USDInt256.wrap(-10).ceilDivide(USDInt256.wrap(3));
+        assertEq(result, -3);
+    }
+
+    function testUSDInt256CeilDivideFuzz(int256 x, int256 y) public {
+        int256 z;
+        assembly {
+            z := sdiv(x, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+
+        if (wrongSign || y == 0) {
+            vm.expectRevert();
+            USDInt256.wrap(x).ceilDivide(USDInt256.wrap(y));
+        } else {
+            if (!(((x < 0) != (y < 0)) || (x % y) == 0)) {
+                z = z + 1;
+            }
+            int256 result = USDInt256.wrap(x).ceilDivide(USDInt256.wrap(y));
+            assertEq(result, z);
+        }
+    }
+
+    function testUSDInt256GreaterThanZero() public {
+        USDInt256 x = USDInt256.wrap(100);
+        bool result = x.greaterThanZero();
+        assertTrue(result);
+        x = USDInt256.wrap(-100);
+        result = x.greaterThanZero();
+        assertFalse(result);
+    }
+
+    function testUSDInt256GreaterThanZeroFuzz(int256 x) public {
+        bool z = x > 0;
+        bool result = USDInt256.wrap(x).greaterThanZero();
+        assertEq(result, z);
+    }
+
+    function testUSDInt256LessThanZero() public {
+        USDInt256 x = USDInt256.wrap(100);
+        bool result = x.lessThanZero();
+        assertFalse(result);
+        x = USDInt256.wrap(-100);
+        result = x.lessThanZero();
+        assertTrue(result);
+    }
+
+    function testUSDInt256LessThanZeroFuzz(int256 x) public {
+        bool z = x < 0;
+        bool result = USDInt256.wrap(x).lessThanZero();
+        assertEq(result, z);
+    }
+
+    function testUSDInt256GreaterThanOrEqualToZero() public {
+        USDInt256 x = USDInt256.wrap(0);
+        bool result = x.greaterThanOrEqualToZero();
+        assertTrue(result);
+        x = USDInt256.wrap(-100);
+        result = x.greaterThanOrEqualToZero();
+        assertFalse(result);
+    }
+
+    function testUSDInt256GreaterThanOrEqualToZeroFuzz(int256 x) public {
+        bool z = x >= 0;
+        bool result = USDInt256.wrap(x).greaterThanOrEqualToZero();
+        assertEq(result, z);
+    }
+
+    function testUSDInt256LessThanOrEqualToZero() public {
+        USDInt256 x = USDInt256.wrap(0);
+        bool result = x.lessThanOrEqualToZero();
+        assertTrue(result);
+        x = USDInt256.wrap(100);
+        result = x.lessThanOrEqualToZero();
+        assertFalse(result);
+    }
+
+    function testUSDInt256LessThanOrEqualToZero(int256 x) public {
+        bool z = x <= 0;
+        bool result = USDInt256.wrap(x).lessThanOrEqualToZero();
+        assertEq(result, z);
+    }
 }

@@ -529,4 +529,77 @@ contract BaseQuantoPerUSDUint256Test is Test {
         bool z = (x == 0);
         assertTrue((y && z) || !(y || z));
     }
+
+    function testBaseQuantoPerUSDUint256DivToDimensionless() public {
+        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(500);
+        BaseQuantoPerUSDUint256 y = BaseQuantoPerUSDUint256.wrap(2);
+        uint256 result = x.divToDimensionless(y);
+        assertEq(result, 250);
+    }
+
+    function testBaseQuantoPerUSDUint256DivToDimensionlessFuzz(
+        uint256 x,
+        uint256 y
+    ) public {
+        uint256 z;
+        assembly {
+            z := div(x, y)
+        }
+        if (y == 0) {
+            vm.expectRevert();
+            BaseQuantoPerUSDUint256.wrap(x).divToDimensionless(
+                BaseQuantoPerUSDUint256.wrap(y)
+            );
+        } else {
+            uint256 result = BaseQuantoPerUSDUint256.wrap(x).divToDimensionless(
+                BaseQuantoPerUSDUint256.wrap(y)
+            );
+            assertEq(result, z);
+        }
+    }
+
+    function testBaseQuantoPerUSDUint256CeilDivide() public {
+        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(10);
+        BaseQuantoPerUSDUint256 y = BaseQuantoPerUSDUint256.wrap(3);
+        uint256 result = x.ceilDivide(y);
+        assertEq(result, 4);
+    }
+
+    function testBaseQuantoPerUSDUint256CeilDivideFuzz(uint256 x, uint256 y)
+        public
+    {
+        uint256 z;
+        assembly {
+            z := div(x, y)
+        }
+        if (y == 0) {
+            vm.expectRevert();
+            BaseQuantoPerUSDUint256.wrap(x).ceilDivide(
+                BaseQuantoPerUSDUint256.wrap(y)
+            );
+        } else {
+            if (!(x % y == 0)) {
+                z = z + 1;
+            }
+            uint256 result = BaseQuantoPerUSDUint256.wrap(x).ceilDivide(
+                BaseQuantoPerUSDUint256.wrap(y)
+            );
+            assertEq(result, z);
+        }
+    }
+
+    function testBaseQuantoPerUSDUint256GreaterThanZero() public {
+        BaseQuantoPerUSDUint256 x = BaseQuantoPerUSDUint256.wrap(100);
+        bool result = x.greaterThanZero();
+        assertTrue(result);
+        x = BaseQuantoPerUSDUint256.wrap(0);
+        result = x.greaterThanZero();
+        assertFalse(result);
+    }
+
+    function testBaseQuantoPerUSDUint256GreaterThanZeroFuzz(uint256 x) public {
+        bool z = x > 0;
+        bool result = BaseQuantoPerUSDUint256.wrap(x).greaterThanZero();
+        assertEq(result, z);
+    }
 }

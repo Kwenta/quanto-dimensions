@@ -619,4 +619,126 @@ contract USDPerBaseInt128Test is Test {
         bool z = (x == 0);
         assertTrue((y && z) || !(y || z));
     }
+
+    function testUSDPerBaseInt128DivToDimensionless() public {
+        USDPerBaseInt128 x = USDPerBaseInt128.wrap(500);
+        USDPerBaseInt128 y = USDPerBaseInt128.wrap(2);
+        int128 result = x.divToDimensionless(y);
+        assertEq(result, 250);
+    }
+
+    function testUSDPerBaseInt128DivToDimensionlessFuzz(int128 x, int128 y)
+        public
+    {
+        int128 z;
+        assembly {
+            z := sdiv(x, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+
+        if (wrongSign || y == 0) {
+            vm.expectRevert();
+            USDPerBaseInt128.wrap(x).divToDimensionless(
+                USDPerBaseInt128.wrap(y)
+            );
+        } else {
+            int128 result = USDPerBaseInt128.wrap(x).divToDimensionless(
+                USDPerBaseInt128.wrap(y)
+            );
+            assertEq(result, z);
+        }
+    }
+
+    function testUSDPerBaseInt128CeilDivide() public {
+        USDPerBaseInt128 x = USDPerBaseInt128.wrap(10);
+        USDPerBaseInt128 y = USDPerBaseInt128.wrap(3);
+        int128 result = x.ceilDivide(y);
+        assertEq(result, 4);
+        result = USDPerBaseInt128.wrap(-10).ceilDivide(USDPerBaseInt128.wrap(3));
+        assertEq(result, -3);
+    }
+
+    function testUSDPerBaseInt128CeilDivideFuzz(int128 x, int128 y) public {
+        int128 z;
+        assembly {
+            z := sdiv(x, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+
+        if (wrongSign || y == 0) {
+            vm.expectRevert();
+            USDPerBaseInt128.wrap(x).ceilDivide(USDPerBaseInt128.wrap(y));
+        } else {
+            if (!(((x < 0) != (y < 0)) || (x % y) == 0)) {
+                z = z + 1;
+            }
+            int128 result =
+                USDPerBaseInt128.wrap(x).ceilDivide(USDPerBaseInt128.wrap(y));
+            assertEq(result, z);
+        }
+    }
+
+    function testUSDPerBaseInt128GreaterThanZero() public {
+        USDPerBaseInt128 x = USDPerBaseInt128.wrap(100);
+        bool result = x.greaterThanZero();
+        assertTrue(result);
+        x = USDPerBaseInt128.wrap(-100);
+        result = x.greaterThanZero();
+        assertFalse(result);
+    }
+
+    function testUSDPerBaseInt128GreaterThanZeroFuzz(int128 x) public {
+        bool z = x > 0;
+        bool result = USDPerBaseInt128.wrap(x).greaterThanZero();
+        assertEq(result, z);
+    }
+
+    function testUSDPerBaseInt128LessThanZero() public {
+        USDPerBaseInt128 x = USDPerBaseInt128.wrap(100);
+        bool result = x.lessThanZero();
+        assertFalse(result);
+        x = USDPerBaseInt128.wrap(-100);
+        result = x.lessThanZero();
+        assertTrue(result);
+    }
+
+    function testUSDPerBaseInt128LessThanZeroFuzz(int128 x) public {
+        bool z = x < 0;
+        bool result = USDPerBaseInt128.wrap(x).lessThanZero();
+        assertEq(result, z);
+    }
+
+    function testUSDPerBaseInt128GreaterThanOrEqualToZero() public {
+        USDPerBaseInt128 x = USDPerBaseInt128.wrap(0);
+        bool result = x.greaterThanOrEqualToZero();
+        assertTrue(result);
+        x = USDPerBaseInt128.wrap(-100);
+        result = x.greaterThanOrEqualToZero();
+        assertFalse(result);
+    }
+
+    function testUSDPerBaseInt128GreaterThanOrEqualToZeroFuzz(int128 x)
+        public
+    {
+        bool z = x >= 0;
+        bool result = USDPerBaseInt128.wrap(x).greaterThanOrEqualToZero();
+        assertEq(result, z);
+    }
+
+    function testUSDPerBaseInt128LessThanOrEqualToZero() public {
+        USDPerBaseInt128 x = USDPerBaseInt128.wrap(0);
+        bool result = x.lessThanOrEqualToZero();
+        assertTrue(result);
+        x = USDPerBaseInt128.wrap(100);
+        result = x.lessThanOrEqualToZero();
+        assertFalse(result);
+    }
+
+    function testUSDPerBaseInt128LessThanOrEqualToZero(int128 x) public {
+        bool z = x <= 0;
+        bool result = USDPerBaseInt128.wrap(x).lessThanOrEqualToZero();
+        assertEq(result, z);
+    }
 }

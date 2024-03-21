@@ -525,4 +525,74 @@ contract USDPerQuantoUint256Test is Test {
         bool z = (x == 0);
         assertTrue((y && z) || !(y || z));
     }
+
+    function testUSDPerQuantoUint256DivToDimensionless() public {
+        USDPerQuantoUint256 x = USDPerQuantoUint256.wrap(500);
+        USDPerQuantoUint256 y = USDPerQuantoUint256.wrap(2);
+        uint256 result = x.divToDimensionless(y);
+        assertEq(result, 250);
+    }
+
+    function testUSDPerQuantoUint256DivToDimensionlessFuzz(uint256 x, uint256 y)
+        public
+    {
+        uint256 z;
+        assembly {
+            z := div(x, y)
+        }
+        if (y == 0) {
+            vm.expectRevert();
+            USDPerQuantoUint256.wrap(x).divToDimensionless(
+                USDPerQuantoUint256.wrap(y)
+            );
+        } else {
+            uint256 result = USDPerQuantoUint256.wrap(x).divToDimensionless(
+                USDPerQuantoUint256.wrap(y)
+            );
+            assertEq(result, z);
+        }
+    }
+
+    function testUSDPerQuantoUint256CeilDivide() public {
+        USDPerQuantoUint256 x = USDPerQuantoUint256.wrap(10);
+        USDPerQuantoUint256 y = USDPerQuantoUint256.wrap(3);
+        uint256 result = x.ceilDivide(y);
+        assertEq(result, 4);
+    }
+
+    function testUSDPerQuantoUint256CeilDivideFuzz(uint256 x, uint256 y)
+        public
+    {
+        uint256 z;
+        assembly {
+            z := div(x, y)
+        }
+        if (y == 0) {
+            vm.expectRevert();
+            USDPerQuantoUint256.wrap(x).ceilDivide(USDPerQuantoUint256.wrap(y));
+        } else {
+            if (!(x % y == 0)) {
+                z = z + 1;
+            }
+            uint256 result = USDPerQuantoUint256.wrap(x).ceilDivide(
+                USDPerQuantoUint256.wrap(y)
+            );
+            assertEq(result, z);
+        }
+    }
+
+    function testUSDPerQuantoUint256GreaterThanZero() public {
+        USDPerQuantoUint256 x = USDPerQuantoUint256.wrap(100);
+        bool result = x.greaterThanZero();
+        assertTrue(result);
+        x = USDPerQuantoUint256.wrap(0);
+        result = x.greaterThanZero();
+        assertFalse(result);
+    }
+
+    function testUSDPerQuantoUint256GreaterThanZeroFuzz(uint256 x) public {
+        bool z = x > 0;
+        bool result = USDPerQuantoUint256.wrap(x).greaterThanZero();
+        assertEq(result, z);
+    }
 }
