@@ -190,6 +190,21 @@ function isZero(USDPerQuantoUint128 x) pure returns (bool) {
     return (x.unwrap() == 0);
 }
 
+/// @notice Implements the division of USDPerQuantoUint128 by USDPerQuantoUint128 to dimensionless.
+function divToDimensionless(USDPerQuantoUint128 x, USDPerQuantoUint128 y) pure returns (uint128 result) {
+    result = x.unwrap() / y.unwrap();
+}
+
+/// @notice Implements the ceiling division of USDPerQuantoUint128 by USDPerQuantoUint128 to dimensionless.
+function ceilDivide(USDPerQuantoUint128 x, USDPerQuantoUint128 y) pure returns (uint128) {
+    return x.unwrap() / y.unwrap() + (x.unwrap() % y.unwrap() == 0 ? uint128(0) : uint128(1));
+}
+
+/// @notice Checks the greater than zero operation (>0) in the USDPerQuantoUint128 type.
+function greaterThanZero(USDPerQuantoUint128 x) pure returns (bool) {
+    return x.unwrap() > 0;
+}
+
 using {
     and,
     increment,
@@ -199,7 +214,10 @@ using {
     divDecimalUint128,
     max128,
     min128,
-    isZero
+    isZero,
+    divToDimensionless,
+    ceilDivide,
+    greaterThanZero
 } for USDPerQuantoUint128 global;
 
 /*//////////////////////////////////////////////////////////////////////////

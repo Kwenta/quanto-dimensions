@@ -188,6 +188,21 @@ function isZero(USDPerQuantoUint256 x) pure returns (bool) {
     return (x.unwrap() == 0);
 }
 
+/// @notice Implements the division of USDPerQuantoUint256 by USDPerQuantoUint256 to dimensionless.
+function divToDimensionless(USDPerQuantoUint256 x, USDPerQuantoUint256 y) pure returns (uint256 result) {
+    result = x.unwrap() / y.unwrap();
+}
+
+/// @notice Implements the ceiling division of USDPerQuantoUint256 by USDPerQuantoUint256 to dimensionless.
+function ceilDivide(USDPerQuantoUint256 x, USDPerQuantoUint256 y) pure returns (uint256) {
+    return x.unwrap() / y.unwrap() + (x.unwrap() % y.unwrap() == 0 ? uint256(0) : uint256(1));
+}
+
+/// @notice Checks the greater than zero operation (>0) in the USDPerQuantoUint256 type.
+function greaterThanZero(USDPerQuantoUint256 x) pure returns (bool) {
+    return x.unwrap() > 0;
+}
+
 using {
     and,
     increment,
@@ -197,7 +212,10 @@ using {
     divDecimal,
     max,
     min,
-    isZero
+    isZero,
+    divToDimensionless,
+    ceilDivide,
+    greaterThanZero
 } for USDPerQuantoUint256 global;
 
 /*//////////////////////////////////////////////////////////////////////////
