@@ -143,13 +143,17 @@ function isZero(USDUint128 x) pure returns (bool) {
 }
 
 /// @notice Implements the division of USDUint128 by USDUint128 to dimensionless.
-function divToDimensionless(USDUint128 x, USDUint128 y) pure returns (uint128 result) {
+function divToDimensionless(USDUint128 x, USDUint128 y)
+    pure
+    returns (uint128 result)
+{
     result = x.unwrap() / y.unwrap();
 }
 
 /// @notice Implements the ceiling division of USDUint128 by USDUint128 to dimensionless.
 function ceilDivide(USDUint128 x, USDUint128 y) pure returns (uint128) {
-    return x.unwrap() / y.unwrap() + (x.unwrap() % y.unwrap() == 0 ? uint128(0) : uint128(1));
+    return x.unwrap() / y.unwrap()
+        + (x.unwrap() % y.unwrap() == 0 ? uint128(0) : uint128(1));
 }
 
 /// @notice Checks the greater than zero operation (>0) in the USDUint128 type.

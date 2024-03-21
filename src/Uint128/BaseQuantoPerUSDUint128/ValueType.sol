@@ -203,13 +203,20 @@ function isZero(BaseQuantoPerUSDUint128 x) pure returns (bool) {
 }
 
 /// @notice Implements the division of BaseQuantoPerUSDUint128 by BaseQuantoPerUSDUint128 to dimensionless.
-function divToDimensionless(BaseQuantoPerUSDUint128 x, BaseQuantoPerUSDUint128 y) pure returns (uint128 result) {
+function divToDimensionless(
+    BaseQuantoPerUSDUint128 x,
+    BaseQuantoPerUSDUint128 y
+) pure returns (uint128 result) {
     result = x.unwrap() / y.unwrap();
 }
 
 /// @notice Implements the ceiling division of BaseQuantoPerUSDUint128 by BaseQuantoPerUSDUint128 to dimensionless.
-function ceilDivide(BaseQuantoPerUSDUint128 x, BaseQuantoPerUSDUint128 y) pure returns (uint128) {
-    return x.unwrap() / y.unwrap() + (x.unwrap() % y.unwrap() == 0 ? uint128(0) : uint128(1));
+function ceilDivide(BaseQuantoPerUSDUint128 x, BaseQuantoPerUSDUint128 y)
+    pure
+    returns (uint128)
+{
+    return x.unwrap() / y.unwrap()
+        + (x.unwrap() % y.unwrap() == 0 ? uint128(0) : uint128(1));
 }
 
 /// @notice Checks the greater than zero operation (>0) in the BaseQuantoPerUSDUint128 type.

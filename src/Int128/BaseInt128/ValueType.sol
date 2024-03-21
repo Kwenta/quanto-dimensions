@@ -149,13 +149,22 @@ function isZero(BaseInt128 x) pure returns (bool) {
 }
 
 /// @notice Implements the division of BaseInt128 by BaseInt128 to dimensionless.
-function divToDimensionless(BaseInt128 x, BaseInt128 y) pure returns (int128 result) {
+function divToDimensionless(BaseInt128 x, BaseInt128 y)
+    pure
+    returns (int128 result)
+{
     result = x.unwrap() / y.unwrap();
 }
 
 /// @notice Implements the ceiling division of BaseInt128 by BaseInt128 to dimensionless.
 function ceilDivide(BaseInt128 x, BaseInt128 y) pure returns (int128) {
-    return x.unwrap() / y.unwrap() + ((((x.unwrap() < 0) != (y.unwrap() < 0)) || (x.unwrap() % y.unwrap()) == 0)? int128(0) : int128(1));
+    return x.unwrap() / y.unwrap()
+        + (
+            (
+                ((x.unwrap() < 0) != (y.unwrap() < 0))
+                    || (x.unwrap() % y.unwrap()) == 0
+            ) ? int128(0) : int128(1)
+        );
 }
 
 /// @notice Checks the greater than zero operation (>0) in the BaseInt128 type.
@@ -177,7 +186,6 @@ function greaterThanOrEqualToZero(BaseInt128 x) pure returns (bool) {
 function lessThanOrEqualToZero(BaseInt128 x) pure returns (bool) {
     return x.unwrap() <= 0;
 }
-
 
 using {
     and,

@@ -180,13 +180,20 @@ function isZero(USDPerBaseUint256 x) pure returns (bool) {
 }
 
 /// @notice Implements the division of USDPerBaseUint256 by USDPerBaseUint256 to dimensionless.
-function divToDimensionless(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (uint256 result) {
+function divToDimensionless(USDPerBaseUint256 x, USDPerBaseUint256 y)
+    pure
+    returns (uint256 result)
+{
     result = x.unwrap() / y.unwrap();
 }
 
 /// @notice Implements the ceiling division of USDPerBaseUint256 by USDPerBaseUint256 to dimensionless.
-function ceilDivide(USDPerBaseUint256 x, USDPerBaseUint256 y) pure returns (uint256) {
-    return x.unwrap() / y.unwrap() + (x.unwrap() % y.unwrap() == 0 ? uint256(0) : uint256(1));
+function ceilDivide(USDPerBaseUint256 x, USDPerBaseUint256 y)
+    pure
+    returns (uint256)
+{
+    return x.unwrap() / y.unwrap()
+        + (x.unwrap() % y.unwrap() == 0 ? uint256(0) : uint256(1));
 }
 
 /// @notice Checks the greater than zero operation (>0) in the USDPerBaseUint256 type.

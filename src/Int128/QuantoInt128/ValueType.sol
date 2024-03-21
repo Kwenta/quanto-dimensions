@@ -170,13 +170,22 @@ function isZero(QuantoInt128 x) pure returns (bool) {
 }
 
 /// @notice Implements the division of QuantoInt128 by QuantoInt128 to dimensionless.
-function divToDimensionless(QuantoInt128 x, QuantoInt128 y) pure returns (int128 result) {
+function divToDimensionless(QuantoInt128 x, QuantoInt128 y)
+    pure
+    returns (int128 result)
+{
     result = x.unwrap() / y.unwrap();
 }
 
 /// @notice Implements the ceiling division of QuantoInt128 by QuantoInt128 to dimensionless.
 function ceilDivide(QuantoInt128 x, QuantoInt128 y) pure returns (int128) {
-    return x.unwrap() / y.unwrap() + ((((x.unwrap() < 0) != (y.unwrap() < 0)) || (x.unwrap() % y.unwrap()) == 0)? int128(0) : int128(1));
+    return x.unwrap() / y.unwrap()
+        + (
+            (
+                ((x.unwrap() < 0) != (y.unwrap() < 0))
+                    || (x.unwrap() % y.unwrap()) == 0
+            ) ? int128(0) : int128(1)
+        );
 }
 
 /// @notice Checks the greater than zero operation (>0) in the QuantoInt128 type.

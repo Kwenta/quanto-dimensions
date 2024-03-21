@@ -201,13 +201,20 @@ function isZero(BaseQuantoPerUSDUint256 x) pure returns (bool) {
 }
 
 /// @notice Implements the division of BaseQuantoPerUSDUint256 by BaseQuantoPerUSDUint256 to dimensionless.
-function divToDimensionless(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns (uint256 result) {
+function divToDimensionless(
+    BaseQuantoPerUSDUint256 x,
+    BaseQuantoPerUSDUint256 y
+) pure returns (uint256 result) {
     result = x.unwrap() / y.unwrap();
 }
 
 /// @notice Implements the ceiling division of BaseQuantoPerUSDUint256 by BaseQuantoPerUSDUint256 to dimensionless.
-function ceilDivide(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y) pure returns (uint256) {
-    return x.unwrap() / y.unwrap() + (x.unwrap() % y.unwrap() == 0 ? uint256(0) : uint256(1));
+function ceilDivide(BaseQuantoPerUSDUint256 x, BaseQuantoPerUSDUint256 y)
+    pure
+    returns (uint256)
+{
+    return x.unwrap() / y.unwrap()
+        + (x.unwrap() % y.unwrap() == 0 ? uint256(0) : uint256(1));
 }
 
 /// @notice Checks the greater than zero operation (>0) in the BaseQuantoPerUSDUint256 type.

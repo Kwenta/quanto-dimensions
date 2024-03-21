@@ -212,13 +212,25 @@ function isZero(BaseQuantoPerUSDInt128 x) pure returns (bool) {
 }
 
 /// @notice Implements the division of BaseQuantoPerUSDInt128 by BaseQuantoPerUSDInt128 to dimensionless.
-function divToDimensionless(BaseQuantoPerUSDInt128 x, BaseQuantoPerUSDInt128 y) pure returns (int128 result) {
+function divToDimensionless(BaseQuantoPerUSDInt128 x, BaseQuantoPerUSDInt128 y)
+    pure
+    returns (int128 result)
+{
     result = x.unwrap() / y.unwrap();
 }
 
 /// @notice Implements the ceiling division of BaseQuantoPerUSDInt128 by BaseQuantoPerUSDInt128 to dimensionless.
-function ceilDivide(BaseQuantoPerUSDInt128 x, BaseQuantoPerUSDInt128 y) pure returns (int128) {
-    return x.unwrap() / y.unwrap() + ((((x.unwrap() < 0) != (y.unwrap() < 0)) || (x.unwrap() % y.unwrap()) == 0)? int128(0) : int128(1));
+function ceilDivide(BaseQuantoPerUSDInt128 x, BaseQuantoPerUSDInt128 y)
+    pure
+    returns (int128)
+{
+    return x.unwrap() / y.unwrap()
+        + (
+            (
+                ((x.unwrap() < 0) != (y.unwrap() < 0))
+                    || (x.unwrap() % y.unwrap()) == 0
+            ) ? int128(0) : int128(1)
+        );
 }
 
 /// @notice Checks the greater than zero operation (>0) in the BaseQuantoPerUSDInt128 type.
@@ -232,7 +244,10 @@ function lessThanZero(BaseQuantoPerUSDInt128 x) pure returns (bool) {
 }
 
 /// @notice Checks the greater than or equal to zero operation (>=0) in the BaseQuantoPerUSDInt128 type.
-function greaterThanOrEqualToZero(BaseQuantoPerUSDInt128 x) pure returns (bool) {
+function greaterThanOrEqualToZero(BaseQuantoPerUSDInt128 x)
+    pure
+    returns (bool)
+{
     return x.unwrap() >= 0;
 }
 
