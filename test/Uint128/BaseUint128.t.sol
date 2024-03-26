@@ -524,4 +524,67 @@ contract BaseUint128Test is Test {
         bool z = (x == 0);
         assertTrue((y && z) || !(y || z));
     }
+
+    function testBaseUint128DivToDimensionless() public {
+        BaseUint128 x = BaseUint128.wrap(500);
+        BaseUint128 y = BaseUint128.wrap(2);
+        uint128 result = x.divToDimensionless(y);
+        assertEq(result, 250);
+    }
+
+    function testBaseUint128DivToDimensionlessFuzz(uint128 x, uint128 y)
+        public
+    {
+        uint128 z;
+        assembly {
+            z := div(x, y)
+        }
+        if (y == 0) {
+            vm.expectRevert();
+            BaseUint128.wrap(x).divToDimensionless(BaseUint128.wrap(y));
+        } else {
+            uint128 result =
+                BaseUint128.wrap(x).divToDimensionless(BaseUint128.wrap(y));
+            assertEq(result, z);
+        }
+    }
+
+    function testBaseUint128CeilDivide() public {
+        BaseUint128 x = BaseUint128.wrap(10);
+        BaseUint128 y = BaseUint128.wrap(3);
+        uint128 result = x.ceilDivide(y);
+        assertEq(result, 4);
+    }
+
+    function testBaseUint128CeilDivideFuzz(uint128 x, uint128 y) public {
+        uint128 z;
+        assembly {
+            z := div(x, y)
+        }
+        if (y == 0) {
+            vm.expectRevert();
+            BaseUint128.wrap(x).ceilDivide(BaseUint128.wrap(y));
+        } else {
+            if (!(x % y == 0)) {
+                z = z + 1;
+            }
+            uint128 result = BaseUint128.wrap(x).ceilDivide(BaseUint128.wrap(y));
+            assertEq(result, z);
+        }
+    }
+
+    function testBaseUint128GreaterThanZero() public {
+        BaseUint128 x = BaseUint128.wrap(100);
+        bool result = x.greaterThanZero();
+        assertTrue(result);
+        x = BaseUint128.wrap(0);
+        result = x.greaterThanZero();
+        assertFalse(result);
+    }
+
+    function testBaseUint128GreaterThanZeroFuzz(uint128 x) public {
+        bool z = x > 0;
+        bool result = BaseUint128.wrap(x).greaterThanZero();
+        assertEq(result, z);
+    }
 }

@@ -145,6 +145,25 @@ function isZero(BaseUint128 x) pure returns (bool) {
     return (x.unwrap() == 0);
 }
 
+/// @notice Implements the division of BaseUint128 by BaseUint128 to dimensionless.
+function divToDimensionless(BaseUint128 x, BaseUint128 y)
+    pure
+    returns (uint128 result)
+{
+    result = x.unwrap() / y.unwrap();
+}
+
+/// @notice Implements the ceiling division of BaseUint128 by BaseUint128 to dimensionless.
+function ceilDivide(BaseUint128 x, BaseUint128 y) pure returns (uint128) {
+    return x.unwrap() / y.unwrap()
+        + (x.unwrap() % y.unwrap() == 0 ? uint128(0) : uint128(1));
+}
+
+/// @notice Checks the greater than zero operation (>0) in the BaseUint128 type.
+function greaterThanZero(BaseUint128 x) pure returns (bool) {
+    return x.unwrap() > 0;
+}
+
 using {
     and,
     increment,
@@ -154,7 +173,10 @@ using {
     divDecimalUint128,
     max128,
     min128,
-    isZero
+    isZero,
+    divToDimensionless,
+    ceilDivide,
+    greaterThanZero
 } for BaseUint128 global;
 
 /*//////////////////////////////////////////////////////////////////////////

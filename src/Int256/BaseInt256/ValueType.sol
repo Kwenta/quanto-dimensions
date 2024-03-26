@@ -143,6 +143,45 @@ function isZero(BaseInt256 x) pure returns (bool) {
     return (x.unwrap() == 0);
 }
 
+/// @notice Implements the division of BaseInt256 by BaseInt256 to dimensionless.
+function divToDimensionless(BaseInt256 x, BaseInt256 y)
+    pure
+    returns (int256 result)
+{
+    result = x.unwrap() / y.unwrap();
+}
+
+/// @notice Implements the ceiling division of BaseInt256 by BaseInt256 to dimensionless.
+function ceilDivide(BaseInt256 x, BaseInt256 y) pure returns (int256) {
+    return x.unwrap() / y.unwrap()
+        + (
+            (
+                ((x.unwrap() < 0) != (y.unwrap() < 0))
+                    || (x.unwrap() % y.unwrap()) == 0
+            ) ? int256(0) : int256(1)
+        );
+}
+
+/// @notice Checks the greater than zero operation (>0) in the BaseInt256 type.
+function greaterThanZero(BaseInt256 x) pure returns (bool) {
+    return x.unwrap() > 0;
+}
+
+/// @notice Checks the less than zero operation (<0) in the BaseInt256 type.
+function lessThanZero(BaseInt256 x) pure returns (bool) {
+    return x.unwrap() < 0;
+}
+
+/// @notice Checks the greater than or equal to zero operation (>=0) in the BaseInt256 type.
+function greaterThanOrEqualToZero(BaseInt256 x) pure returns (bool) {
+    return x.unwrap() >= 0;
+}
+
+/// @notice Checks the less than or equal to zero operation (<=0) in the BaseInt256 type.
+function lessThanOrEqualToZero(BaseInt256 x) pure returns (bool) {
+    return x.unwrap() <= 0;
+}
+
 using {
     and,
     increment,
@@ -153,7 +192,13 @@ using {
     max,
     min,
     sameSide,
-    isZero
+    isZero,
+    divToDimensionless,
+    ceilDivide,
+    greaterThanZero,
+    lessThanZero,
+    greaterThanOrEqualToZero,
+    lessThanOrEqualToZero
 } for BaseInt256 global;
 
 /*//////////////////////////////////////////////////////////////////////////

@@ -490,4 +490,67 @@ contract USDUint128Test is Test {
         bool z = (x == 0);
         assertTrue((y && z) || !(y || z));
     }
+
+    function testUSDUint128DivToDimensionless() public {
+        USDUint128 x = USDUint128.wrap(500);
+        USDUint128 y = USDUint128.wrap(2);
+        uint128 result = x.divToDimensionless(y);
+        assertEq(result, 250);
+    }
+
+    function testUSDUint128DivToDimensionlessFuzz(uint128 x, uint128 y)
+        public
+    {
+        uint128 z;
+        assembly {
+            z := div(x, y)
+        }
+        if (y == 0) {
+            vm.expectRevert();
+            USDUint128.wrap(x).divToDimensionless(USDUint128.wrap(y));
+        } else {
+            uint128 result =
+                USDUint128.wrap(x).divToDimensionless(USDUint128.wrap(y));
+            assertEq(result, z);
+        }
+    }
+
+    function testUSDUint128CeilDivide() public {
+        USDUint128 x = USDUint128.wrap(10);
+        USDUint128 y = USDUint128.wrap(3);
+        uint128 result = x.ceilDivide(y);
+        assertEq(result, 4);
+    }
+
+    function testUSDUint128CeilDivideFuzz(uint128 x, uint128 y) public {
+        uint128 z;
+        assembly {
+            z := div(x, y)
+        }
+        if (y == 0) {
+            vm.expectRevert();
+            USDUint128.wrap(x).ceilDivide(USDUint128.wrap(y));
+        } else {
+            if (!(x % y == 0)) {
+                z = z + 1;
+            }
+            uint128 result = USDUint128.wrap(x).ceilDivide(USDUint128.wrap(y));
+            assertEq(result, z);
+        }
+    }
+
+    function testUSDUint128GreaterThanZero() public {
+        USDUint128 x = USDUint128.wrap(100);
+        bool result = x.greaterThanZero();
+        assertTrue(result);
+        x = USDUint128.wrap(0);
+        result = x.greaterThanZero();
+        assertFalse(result);
+    }
+
+    function testUSDUint128GreaterThanZeroFuzz(uint128 x) public {
+        bool z = x > 0;
+        bool result = USDUint128.wrap(x).greaterThanZero();
+        assertEq(result, z);
+    }
 }

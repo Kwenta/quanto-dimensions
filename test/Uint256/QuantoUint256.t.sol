@@ -477,4 +477,68 @@ contract QuantoUint256Test is Test {
         bool z = (x == 0);
         assertTrue((y && z) || !(y || z));
     }
+
+    function testQuantoUint256DivToDimensionless() public {
+        QuantoUint256 x = QuantoUint256.wrap(500);
+        QuantoUint256 y = QuantoUint256.wrap(2);
+        uint256 result = x.divToDimensionless(y);
+        assertEq(result, 250);
+    }
+
+    function testQuantoUint256DivToDimensionlessFuzz(uint256 x, uint256 y)
+        public
+    {
+        uint256 z;
+        assembly {
+            z := div(x, y)
+        }
+        if (y == 0) {
+            vm.expectRevert();
+            QuantoUint256.wrap(x).divToDimensionless(QuantoUint256.wrap(y));
+        } else {
+            uint256 result =
+                QuantoUint256.wrap(x).divToDimensionless(QuantoUint256.wrap(y));
+            assertEq(result, z);
+        }
+    }
+
+    function testQuantoUint256CeilDivide() public {
+        QuantoUint256 x = QuantoUint256.wrap(10);
+        QuantoUint256 y = QuantoUint256.wrap(3);
+        uint256 result = x.ceilDivide(y);
+        assertEq(result, 4);
+    }
+
+    function testQuantoUint256CeilDivideFuzz(uint256 x, uint256 y) public {
+        uint256 z;
+        assembly {
+            z := div(x, y)
+        }
+        if (y == 0) {
+            vm.expectRevert();
+            QuantoUint256.wrap(x).ceilDivide(QuantoUint256.wrap(y));
+        } else {
+            if (!(x % y == 0)) {
+                z = z + 1;
+            }
+            uint256 result =
+                QuantoUint256.wrap(x).ceilDivide(QuantoUint256.wrap(y));
+            assertEq(result, z);
+        }
+    }
+
+    function testQuantoUint256GreaterThanZero() public {
+        QuantoUint256 x = QuantoUint256.wrap(100);
+        bool result = x.greaterThanZero();
+        assertTrue(result);
+        x = QuantoUint256.wrap(0);
+        result = x.greaterThanZero();
+        assertFalse(result);
+    }
+
+    function testQuantoUint256GreaterThanZeroFuzz(uint256 x) public {
+        bool z = x > 0;
+        bool result = QuantoUint256.wrap(x).greaterThanZero();
+        assertEq(result, z);
+    }
 }

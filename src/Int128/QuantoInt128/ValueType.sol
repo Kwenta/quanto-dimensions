@@ -169,6 +169,45 @@ function isZero(QuantoInt128 x) pure returns (bool) {
     return (x.unwrap() == 0);
 }
 
+/// @notice Implements the division of QuantoInt128 by QuantoInt128 to dimensionless.
+function divToDimensionless(QuantoInt128 x, QuantoInt128 y)
+    pure
+    returns (int128 result)
+{
+    result = x.unwrap() / y.unwrap();
+}
+
+/// @notice Implements the ceiling division of QuantoInt128 by QuantoInt128 to dimensionless.
+function ceilDivide(QuantoInt128 x, QuantoInt128 y) pure returns (int128) {
+    return x.unwrap() / y.unwrap()
+        + (
+            (
+                ((x.unwrap() < 0) != (y.unwrap() < 0))
+                    || (x.unwrap() % y.unwrap()) == 0
+            ) ? int128(0) : int128(1)
+        );
+}
+
+/// @notice Checks the greater than zero operation (>0) in the QuantoInt128 type.
+function greaterThanZero(QuantoInt128 x) pure returns (bool) {
+    return x.unwrap() > 0;
+}
+
+/// @notice Checks the less than zero operation (<0) in the QuantoInt128 type.
+function lessThanZero(QuantoInt128 x) pure returns (bool) {
+    return x.unwrap() < 0;
+}
+
+/// @notice Checks the greater than or equal to zero operation (>=0) in the QuantoInt128 type.
+function greaterThanOrEqualToZero(QuantoInt128 x) pure returns (bool) {
+    return x.unwrap() >= 0;
+}
+
+/// @notice Checks the less than or equal to zero operation (<=0) in the QuantoInt128 type.
+function lessThanOrEqualToZero(QuantoInt128 x) pure returns (bool) {
+    return x.unwrap() <= 0;
+}
+
 using {
     and,
     increment,
@@ -179,7 +218,13 @@ using {
     max128,
     min128,
     sameSide,
-    isZero
+    isZero,
+    divToDimensionless,
+    ceilDivide,
+    greaterThanZero,
+    lessThanZero,
+    greaterThanOrEqualToZero,
+    lessThanOrEqualToZero
 } for QuantoInt128 global;
 
 /*//////////////////////////////////////////////////////////////////////////
