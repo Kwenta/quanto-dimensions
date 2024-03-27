@@ -650,4 +650,31 @@ contract USDInt128Test is Test {
         bool result = USDInt128.wrap(x).lessThanOrEqualToZero();
         assertEq(result, z);
     }
+
+    function testUSDInt128IsSameSideReducing() public {
+        USDInt128 x = USDInt128.wrap(200);
+        USDInt128 y = USDInt128.wrap(100);
+        bool result = x.isSameSideReducing(y);
+        assertTrue(result);
+        result = x.sameSide(USDInt128.wrap(-100));
+        assertFalse(result);
+    }
+
+    function testUSDInt128IsSameSideReducingFuzz(int128 x, int128 y) public {
+        if (
+            ((x == 0) || (y == 0) || (x > 0) == (y > 0))
+                && (x == type(int128).min || y == type(int128).min)
+        ) {
+            vm.expectRevert();
+            USDInt128.wrap(x).isSameSideReducing(USDInt128.wrap(y));
+        } else {
+            bool z = (
+                ((x == 0) || (y == 0) || (x > 0) == (y > 0))
+                    && uint128(y < 0 ? -y : y) < uint128(x < 0 ? -x : x)
+            );
+            bool result =
+                USDInt128.wrap(x).isSameSideReducing(USDInt128.wrap(y));
+            assertEq(result, z);
+        }
+    }
 }

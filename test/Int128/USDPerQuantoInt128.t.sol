@@ -743,4 +743,36 @@ contract USDPerQuantoInt128Test is Test {
         bool result = USDPerQuantoInt128.wrap(x).lessThanOrEqualToZero();
         assertEq(result, z);
     }
+
+    function testUSDPerQuantoInt128IsSameSideReducing() public {
+        USDPerQuantoInt128 x = USDPerQuantoInt128.wrap(200);
+        USDPerQuantoInt128 y = USDPerQuantoInt128.wrap(100);
+        bool result = x.isSameSideReducing(y);
+        assertTrue(result);
+        result = x.sameSide(USDPerQuantoInt128.wrap(-100));
+        assertFalse(result);
+    }
+
+    function testUSDPerQuantoInt128IsSameSideReducingFuzz(int128 x, int128 y)
+        public
+    {
+        if (
+            ((x == 0) || (y == 0) || (x > 0) == (y > 0))
+                && (x == type(int128).min || y == type(int128).min)
+        ) {
+            vm.expectRevert();
+            USDPerQuantoInt128.wrap(x).isSameSideReducing(
+                USDPerQuantoInt128.wrap(y)
+            );
+        } else {
+            bool z = (
+                ((x == 0) || (y == 0) || (x > 0) == (y > 0))
+                    && uint128(y < 0 ? -y : y) < uint128(x < 0 ? -x : x)
+            );
+            bool result = USDPerQuantoInt128.wrap(x).isSameSideReducing(
+                USDPerQuantoInt128.wrap(y)
+            );
+            assertEq(result, z);
+        }
+    }
 }

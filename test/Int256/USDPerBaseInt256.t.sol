@@ -674,4 +674,36 @@ contract USDPerBaseInt256Test is Test {
         bool result = USDPerBaseInt256.wrap(x).lessThanOrEqualToZero();
         assertEq(result, z);
     }
+
+    function testUSDPerBaseInt256IsSameSideReducing() public {
+        USDPerBaseInt256 x = USDPerBaseInt256.wrap(200);
+        USDPerBaseInt256 y = USDPerBaseInt256.wrap(100);
+        bool result = x.isSameSideReducing(y);
+        assertTrue(result);
+        result = x.sameSide(USDPerBaseInt256.wrap(-100));
+        assertFalse(result);
+    }
+
+    function testUSDPerBaseInt256IsSameSideReducingFuzz(int256 x, int256 y)
+        public
+    {
+        if (
+            ((x == 0) || (y == 0) || (x > 0) == (y > 0))
+                && (x == type(int256).min || y == type(int256).min)
+        ) {
+            vm.expectRevert();
+            USDPerBaseInt256.wrap(x).isSameSideReducing(
+                USDPerBaseInt256.wrap(y)
+            );
+        } else {
+            bool z = (
+                ((x == 0) || (y == 0) || (x > 0) == (y > 0))
+                    && uint256(y < 0 ? -y : y) < uint256(x < 0 ? -x : x)
+            );
+            bool result = USDPerBaseInt256.wrap(x).isSameSideReducing(
+                USDPerBaseInt256.wrap(y)
+            );
+            assertEq(result, z);
+        }
+    }
 }

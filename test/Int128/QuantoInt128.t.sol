@@ -686,4 +686,33 @@ contract QuantoInt128Test is Test {
         bool result = QuantoInt128.wrap(x).lessThanOrEqualToZero();
         assertEq(result, z);
     }
+
+    function testQuantoInt128IsSameSideReducing() public {
+        QuantoInt128 x = QuantoInt128.wrap(200);
+        QuantoInt128 y = QuantoInt128.wrap(100);
+        bool result = x.isSameSideReducing(y);
+        assertTrue(result);
+        result = x.sameSide(QuantoInt128.wrap(-100));
+        assertFalse(result);
+    }
+
+    function testQuantoInt128IsSameSideReducingFuzz(int128 x, int128 y)
+        public
+    {
+        if (
+            ((x == 0) || (y == 0) || (x > 0) == (y > 0))
+                && (x == type(int128).min || y == type(int128).min)
+        ) {
+            vm.expectRevert();
+            QuantoInt128.wrap(x).isSameSideReducing(QuantoInt128.wrap(y));
+        } else {
+            bool z = (
+                ((x == 0) || (y == 0) || (x > 0) == (y > 0))
+                    && uint128(y < 0 ? -y : y) < uint128(x < 0 ? -x : x)
+            );
+            bool result =
+                QuantoInt128.wrap(x).isSameSideReducing(QuantoInt128.wrap(y));
+            assertEq(result, z);
+        }
+    }
 }
