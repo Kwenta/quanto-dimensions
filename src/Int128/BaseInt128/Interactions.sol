@@ -83,4 +83,13 @@ library InteractionsBaseInt128 {
     function zero() internal pure returns (BaseInt128) {
         return BaseInt128.wrap(0);
     }
+
+    /// @notice Returns is same side reducing Boolean for the BaseInt128 type.
+    function isSameSideReducing(BaseInt128 x, BaseInt128 y)
+        internal
+        pure
+        returns (bool)
+    {
+        return sameSide(x, y) && abs128(y) < abs128(x);
+    }
 }

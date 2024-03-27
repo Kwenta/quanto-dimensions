@@ -153,6 +153,14 @@ function divToDimensionless(BaseUint128 x, BaseUint128 y)
     result = x.unwrap() / y.unwrap();
 }
 
+/// @notice Divides BaseUint128 and BaseUint128 to dimensionless
+function divDecimalToDimensionless(BaseUint128 x, BaseUint128 y)
+    pure
+    returns (uint256 result)
+{
+    result = x.unwrap().divDecimal(y.unwrap());
+}
+
 /// @notice Implements the ceiling division of BaseUint128 by BaseUint128 to dimensionless.
 function ceilDivide(BaseUint128 x, BaseUint128 y) pure returns (uint128) {
     return x.unwrap() / y.unwrap()
@@ -175,6 +183,7 @@ using {
     min128,
     isZero,
     divToDimensionless,
+    divDecimalToDimensionless,
     ceilDivide,
     greaterThanZero
 } for BaseUint128 global;

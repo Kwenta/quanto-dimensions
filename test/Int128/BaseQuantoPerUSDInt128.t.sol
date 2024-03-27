@@ -676,6 +676,42 @@ contract BaseQuantoPerUSDInt128Test is Test {
         }
     }
 
+    function testBaseQuantoPerUSDInt128DivDecimalToDimensionless() public {
+        BaseQuantoPerUSDInt128 x = BaseQuantoPerUSDInt128.wrap(500 ether);
+        BaseQuantoPerUSDInt128 y = BaseQuantoPerUSDInt128.wrap(2 ether);
+        int256 result = x.divDecimalToDimensionless(y);
+        assertEq(result, 250 ether);
+    }
+
+    function testBaseQuantoPerUSDInt128DivDecimalToDimensionlessFuzz(
+        int128 x,
+        int128 y
+    ) public {
+        int256 z;
+        int256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseQuantoPerUSDInt128.wrap(x).divDecimalToDimensionless(
+                BaseQuantoPerUSDInt128.wrap(y)
+            );
+        } else {
+            int256 result = BaseQuantoPerUSDInt128.wrap(x)
+                .divDecimalToDimensionless(BaseQuantoPerUSDInt128.wrap(y));
+            assertEq(result, z);
+        }
+    }
+
     function testBaseQuantoPerUSDInt128CeilDivide() public {
         BaseQuantoPerUSDInt128 x = BaseQuantoPerUSDInt128.wrap(10);
         BaseQuantoPerUSDInt128 y = BaseQuantoPerUSDInt128.wrap(3);
@@ -773,5 +809,38 @@ contract BaseQuantoPerUSDInt128Test is Test {
         bool z = x <= 0;
         bool result = BaseQuantoPerUSDInt128.wrap(x).lessThanOrEqualToZero();
         assertEq(result, z);
+    }
+
+    function testBaseQuantoPerUSDInt128IsSameSideReducing() public {
+        BaseQuantoPerUSDInt128 x = BaseQuantoPerUSDInt128.wrap(200);
+        BaseQuantoPerUSDInt128 y = BaseQuantoPerUSDInt128.wrap(100);
+        bool result = x.isSameSideReducing(y);
+        assertTrue(result);
+        result = x.sameSide(BaseQuantoPerUSDInt128.wrap(-100));
+        assertFalse(result);
+    }
+
+    function testBaseQuantoPerUSDInt128IsSameSideReducingFuzz(
+        int128 x,
+        int128 y
+    ) public {
+        if (
+            ((x == 0) || (y == 0) || (x > 0) == (y > 0))
+                && (x == type(int128).min || y == type(int128).min)
+        ) {
+            vm.expectRevert();
+            BaseQuantoPerUSDInt128.wrap(x).isSameSideReducing(
+                BaseQuantoPerUSDInt128.wrap(y)
+            );
+        } else {
+            bool z = (
+                ((x == 0) || (y == 0) || (x > 0) == (y > 0))
+                    && uint128(y < 0 ? -y : y) < uint128(x < 0 ? -x : x)
+            );
+            bool result = BaseQuantoPerUSDInt128.wrap(x).isSameSideReducing(
+                BaseQuantoPerUSDInt128.wrap(y)
+            );
+            assertEq(result, z);
+        }
     }
 }

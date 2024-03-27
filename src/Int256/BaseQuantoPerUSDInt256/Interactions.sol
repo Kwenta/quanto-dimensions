@@ -70,4 +70,12 @@ library InteractionsBaseQuantoPerUSDInt256 {
     function zero() internal pure returns (BaseQuantoPerUSDInt256) {
         return BaseQuantoPerUSDInt256.wrap(0);
     }
+
+    /// @notice Returns is same side reducing Boolean for the BaseQuantoPerUSDInt256 type.
+    function isSameSideReducing(
+        BaseQuantoPerUSDInt256 x,
+        BaseQuantoPerUSDInt256 y
+    ) internal pure returns (bool) {
+        return sameSide(x, y) && abs(y) < abs(x);
+    }
 }

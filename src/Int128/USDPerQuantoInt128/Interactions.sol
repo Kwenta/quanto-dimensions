@@ -113,4 +113,13 @@ library InteractionsUSDPerQuantoInt128 {
     function zero() internal pure returns (USDPerQuantoInt128) {
         return USDPerQuantoInt128.wrap(0);
     }
+
+    /// @notice Returns is same side reducing Boolean for the USDPerQuantoInt128 type.
+    function isSameSideReducing(USDPerQuantoInt128 x, USDPerQuantoInt128 y)
+        internal
+        pure
+        returns (bool)
+    {
+        return sameSide(x, y) && abs128(y) < abs128(x);
+    }
 }

@@ -91,4 +91,13 @@ library InteractionsQuantoInt128 {
     function zero() internal pure returns (QuantoInt128) {
         return QuantoInt128.wrap(0);
     }
+
+    /// @notice Returns is same side reducing Boolean for the QuantoInt128 type.
+    function isSameSideReducing(QuantoInt128 x, QuantoInt128 y)
+        internal
+        pure
+        returns (bool)
+    {
+        return sameSide(x, y) && abs128(y) < abs128(x);
+    }
 }

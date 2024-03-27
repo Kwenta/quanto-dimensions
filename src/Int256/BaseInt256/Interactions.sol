@@ -43,4 +43,13 @@ library InteractionsBaseInt256 {
     function zero() internal pure returns (BaseInt256) {
         return BaseInt256.wrap(0);
     }
+
+    /// @notice Returns is same side reducing Boolean for the BaseInt256 type.
+    function isSameSideReducing(BaseInt256 x, BaseInt256 y)
+        internal
+        pure
+        returns (bool)
+    {
+        return sameSide(x, y) && abs(y) < abs(x);
+    }
 }

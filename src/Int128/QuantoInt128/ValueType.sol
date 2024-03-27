@@ -177,6 +177,14 @@ function divToDimensionless(QuantoInt128 x, QuantoInt128 y)
     result = x.unwrap() / y.unwrap();
 }
 
+/// @notice Divides QuantoInt128 and QuantoInt128 to dimensionless
+function divDecimalToDimensionless(QuantoInt128 x, QuantoInt128 y)
+    pure
+    returns (int256 result)
+{
+    result = x.unwrap().divDecimal(y.unwrap());
+}
+
 /// @notice Implements the ceiling division of QuantoInt128 by QuantoInt128 to dimensionless.
 function ceilDivide(QuantoInt128 x, QuantoInt128 y) pure returns (int128) {
     return x.unwrap() / y.unwrap()
@@ -220,6 +228,7 @@ using {
     sameSide,
     isZero,
     divToDimensionless,
+    divDecimalToDimensionless,
     ceilDivide,
     greaterThanZero,
     lessThanZero,

@@ -172,6 +172,14 @@ function divToDimensionless(QuantoUint256 x, QuantoUint256 y)
     result = x.unwrap() / y.unwrap();
 }
 
+/// @notice Divides QuantoUint256 and QuantoUint256 to dimensionless
+function divDecimalToDimensionless(QuantoUint256 x, QuantoUint256 y)
+    pure
+    returns (uint256 result)
+{
+    result = x.unwrap().divDecimal(y.unwrap());
+}
+
 /// @notice Implements the ceiling division of QuantoUint256 by QuantoUint256 to dimensionless.
 function ceilDivide(QuantoUint256 x, QuantoUint256 y) pure returns (uint256) {
     return x.unwrap() / y.unwrap()
@@ -194,6 +202,7 @@ using {
     min,
     isZero,
     divToDimensionless,
+    divDecimalToDimensionless,
     ceilDivide,
     greaterThanZero
 } for QuantoUint256 global;
