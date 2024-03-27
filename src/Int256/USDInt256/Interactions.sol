@@ -30,4 +30,13 @@ library InteractionsUSDInt256 {
     function zero() internal pure returns (USDInt256) {
         return USDInt256.wrap(0);
     }
+
+    /// @notice Returns is same side reducing Boolean for the USDInt256 type.
+    function isSameSideReducing(USDInt256 x, USDInt256 y)
+        internal
+        pure
+        returns (bool)
+    {
+        return sameSide(x, y) && abs(x) < abs(y);
+    }
 }

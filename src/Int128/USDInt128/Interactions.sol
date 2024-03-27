@@ -61,4 +61,13 @@ library InteractionsUSDInt128 {
     function zero() internal pure returns (USDInt128) {
         return USDInt128.wrap(0);
     }
+
+    /// @notice Returns is same side reducing Boolean for the USDInt128 type.
+    function isSameSideReducing(USDInt128 x, USDInt128 y)
+        internal
+        pure
+        returns (bool)
+    {
+        return sameSide(x, y) && abs128(x) < abs128(y);
+    }
 }
