@@ -68,6 +68,6 @@ library InteractionsUSDInt128 {
         pure
         returns (bool)
     {
-        return sameSide(x, y) && abs128(x) < abs128(y);
+        return sameSide(x, y) && abs128(y) < abs128(x);
     }
 }

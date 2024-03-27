@@ -76,6 +76,6 @@ library InteractionsBaseQuantoPerUSDInt256 {
         BaseQuantoPerUSDInt256 x,
         BaseQuantoPerUSDInt256 y
     ) internal pure returns (bool) {
-        return sameSide(x, y) && abs(x) < abs(y);
+        return sameSide(x, y) && abs(y) < abs(x);
     }
 }

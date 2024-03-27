@@ -74,6 +74,6 @@ library InteractionsUSDPerBaseInt256 {
         pure
         returns (bool)
     {
-        return sameSide(x, y) && abs(x) < abs(y);
+        return sameSide(x, y) && abs(y) < abs(x);
     }
 }
