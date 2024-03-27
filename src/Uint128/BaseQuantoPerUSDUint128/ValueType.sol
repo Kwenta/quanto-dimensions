@@ -210,6 +210,14 @@ function divToDimensionless(
     result = x.unwrap() / y.unwrap();
 }
 
+/// @notice Divides BaseQuantoPerUSDUint128 and BaseQuantoPerUSDUint128 to dimensionless
+function divDecimalToDimensionless(
+    BaseQuantoPerUSDUint128 x,
+    BaseQuantoPerUSDUint128 y
+) pure returns (uint256 result) {
+    result = x.unwrap().divDecimal(y.unwrap());
+}
+
 /// @notice Implements the ceiling division of BaseQuantoPerUSDUint128 by BaseQuantoPerUSDUint128 to dimensionless.
 function ceilDivide(BaseQuantoPerUSDUint128 x, BaseQuantoPerUSDUint128 y)
     pure
@@ -235,6 +243,7 @@ using {
     min128,
     isZero,
     divToDimensionless,
+    divDecimalToDimensionless,
     ceilDivide,
     greaterThanZero
 } for BaseQuantoPerUSDUint128 global;
