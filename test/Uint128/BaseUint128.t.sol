@@ -549,6 +549,38 @@ contract BaseUint128Test is Test {
         }
     }
 
+    function testBaseUint128DivDecimalToDimensionless() public {
+        BaseUint128 x = BaseUint128.wrap(500 ether);
+        BaseUint128 y = BaseUint128.wrap(2 ether);
+        uint256 result = x.divDecimalToDimensionless(y);
+        assertEq(result, 250 ether);
+    }
+
+    function testBaseUint128DivDecimalToDimensionlessFuzz(uint128 x, uint128 y)
+        public
+    {
+        uint256 z;
+        uint256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
+        }
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseUint128.wrap(x).divDecimalToDimensionless(BaseUint128.wrap(y));
+        } else {
+            uint256 result = BaseUint128.wrap(x).divDecimalToDimensionless(
+                BaseUint128.wrap(y)
+            );
+            assertEq(result, z);
+        }
+    }
+
     function testBaseUint128CeilDivide() public {
         BaseUint128 x = BaseUint128.wrap(10);
         BaseUint128 y = BaseUint128.wrap(3);

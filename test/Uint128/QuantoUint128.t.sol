@@ -552,6 +552,41 @@ contract QuantoUint128Test is Test {
         }
     }
 
+    function testQuantoUint128DivDecimalToDimensionless() public {
+        QuantoUint128 x = QuantoUint128.wrap(500 ether);
+        QuantoUint128 y = QuantoUint128.wrap(2 ether);
+        uint256 result = x.divDecimalToDimensionless(y);
+        assertEq(result, 250 ether);
+    }
+
+    function testQuantoUint128DivDecimalToDimensionlessFuzz(
+        uint128 x,
+        uint128 y
+    ) public {
+        uint256 z;
+        uint256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
+        }
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (mulOverflow || y == 0) {
+            vm.expectRevert();
+            QuantoUint128.wrap(x).divDecimalToDimensionless(
+                QuantoUint128.wrap(y)
+            );
+        } else {
+            uint256 result = QuantoUint128.wrap(x).divDecimalToDimensionless(
+                QuantoUint128.wrap(y)
+            );
+            assertEq(result, z);
+        }
+    }
+
     function testQuantoUint128CeilDivide() public {
         QuantoUint128 x = QuantoUint128.wrap(10);
         QuantoUint128 y = QuantoUint128.wrap(3);

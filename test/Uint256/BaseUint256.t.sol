@@ -501,6 +501,38 @@ contract BaseUint256Test is Test {
         }
     }
 
+    function testBaseUint256DivDecimalToDimensionless() public {
+        BaseUint256 x = BaseUint256.wrap(500 ether);
+        BaseUint256 y = BaseUint256.wrap(2 ether);
+        uint256 result = x.divDecimalToDimensionless(y);
+        assertEq(result, 250 ether);
+    }
+
+    function testBaseUint256DivDecimalToDimensionlessFuzz(uint256 x, uint256 y)
+        public
+    {
+        uint256 z;
+        uint256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
+        }
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseUint256.wrap(x).divDecimalToDimensionless(BaseUint256.wrap(y));
+        } else {
+            uint256 result = BaseUint256.wrap(x).divDecimalToDimensionless(
+                BaseUint256.wrap(y)
+            );
+            assertEq(result, z);
+        }
+    }
+
     function testBaseUint256CeilDivide() public {
         BaseUint256 x = BaseUint256.wrap(10);
         BaseUint256 y = BaseUint256.wrap(3);

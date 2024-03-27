@@ -608,6 +608,42 @@ contract BaseQuantoPerUSDInt256Test is Test {
         }
     }
 
+    function testBaseQuantoPerUSDInt256DivDecimalToDimensionless() public {
+        BaseQuantoPerUSDInt256 x = BaseQuantoPerUSDInt256.wrap(500 ether);
+        BaseQuantoPerUSDInt256 y = BaseQuantoPerUSDInt256.wrap(2 ether);
+        int256 result = x.divDecimalToDimensionless(y);
+        assertEq(result, 250 ether);
+    }
+
+    function testBaseQuantoPerUSDInt256DivDecimalToDimensionlessFuzz(
+        int256 x,
+        int256 y
+    ) public {
+        int256 z;
+        int256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseQuantoPerUSDInt256.wrap(x).divDecimalToDimensionless(
+                BaseQuantoPerUSDInt256.wrap(y)
+            );
+        } else {
+            int256 result = BaseQuantoPerUSDInt256.wrap(x)
+                .divDecimalToDimensionless(BaseQuantoPerUSDInt256.wrap(y));
+            assertEq(result, z);
+        }
+    }
+
     function testBaseQuantoPerUSDInt256CeilDivide() public {
         BaseQuantoPerUSDInt256 x = BaseQuantoPerUSDInt256.wrap(10);
         BaseQuantoPerUSDInt256 y = BaseQuantoPerUSDInt256.wrap(3);

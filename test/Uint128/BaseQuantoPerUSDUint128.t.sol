@@ -624,6 +624,40 @@ contract BaseQuantoPerUSDUint128Test is Test {
         }
     }
 
+    function testBaseQuantoPerUSDUint128DivDecimalToDimensionless() public {
+        BaseQuantoPerUSDUint128 x = BaseQuantoPerUSDUint128.wrap(500 ether);
+        BaseQuantoPerUSDUint128 y = BaseQuantoPerUSDUint128.wrap(2 ether);
+        uint256 result = x.divDecimalToDimensionless(y);
+        assertEq(result, 250 ether);
+    }
+
+    function testBaseQuantoPerUSDUint128DivDecimalToDimensionlessFuzz(
+        uint128 x,
+        uint128 y
+    ) public {
+        uint256 z;
+        uint256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := div(j, y)
+        }
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (mulOverflow || y == 0) {
+            vm.expectRevert();
+            BaseQuantoPerUSDUint128.wrap(x).divDecimalToDimensionless(
+                BaseQuantoPerUSDUint128.wrap(y)
+            );
+        } else {
+            uint256 result = BaseQuantoPerUSDUint128.wrap(x)
+                .divDecimalToDimensionless(BaseQuantoPerUSDUint128.wrap(y));
+            assertEq(result, z);
+        }
+    }
+
     function testBaseQuantoPerUSDUint128CeilDivide() public {
         BaseQuantoPerUSDUint128 x = BaseQuantoPerUSDUint128.wrap(10);
         BaseQuantoPerUSDUint128 y = BaseQuantoPerUSDUint128.wrap(3);

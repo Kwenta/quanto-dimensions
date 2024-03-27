@@ -537,6 +537,40 @@ contract QuantoInt256Test is Test {
         }
     }
 
+    function testQuantoInt256DivDecimalToDimensionless() public {
+        QuantoInt256 x = QuantoInt256.wrap(500 ether);
+        QuantoInt256 y = QuantoInt256.wrap(2 ether);
+        int256 result = x.divDecimalToDimensionless(y);
+        assertEq(result, 250 ether);
+    }
+
+    function testQuantoInt256DivDecimalToDimensionlessFuzz(int256 x, int256 y)
+        public
+    {
+        int256 z;
+        int256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            QuantoInt256.wrap(x).divDecimalToDimensionless(QuantoInt256.wrap(y));
+        } else {
+            int256 result = QuantoInt256.wrap(x).divDecimalToDimensionless(
+                QuantoInt256.wrap(y)
+            );
+            assertEq(result, z);
+        }
+    }
+
     function testQuantoInt256CeilDivide() public {
         QuantoInt256 x = QuantoInt256.wrap(10);
         QuantoInt256 y = QuantoInt256.wrap(3);

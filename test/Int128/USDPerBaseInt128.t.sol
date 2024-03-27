@@ -650,6 +650,43 @@ contract USDPerBaseInt128Test is Test {
         }
     }
 
+    function testUSDPerBaseInt128DivDecimalToDimensionless() public {
+        USDPerBaseInt128 x = USDPerBaseInt128.wrap(500 ether);
+        USDPerBaseInt128 y = USDPerBaseInt128.wrap(2 ether);
+        int256 result = x.divDecimalToDimensionless(y);
+        assertEq(result, 250 ether);
+    }
+
+    function testUSDPerBaseInt128DivDecimalToDimensionlessFuzz(
+        int128 x,
+        int128 y
+    ) public {
+        int256 z;
+        int256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            USDPerBaseInt128.wrap(x).divDecimalToDimensionless(
+                USDPerBaseInt128.wrap(y)
+            );
+        } else {
+            int256 result = USDPerBaseInt128.wrap(x).divDecimalToDimensionless(
+                USDPerBaseInt128.wrap(y)
+            );
+            assertEq(result, z);
+        }
+    }
+
     function testUSDPerBaseInt128CeilDivide() public {
         USDPerBaseInt128 x = USDPerBaseInt128.wrap(10);
         USDPerBaseInt128 y = USDPerBaseInt128.wrap(3);

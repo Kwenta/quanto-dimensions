@@ -583,6 +583,43 @@ contract USDPerQuantoInt256Test is Test {
         }
     }
 
+    function testUSDPerQuantoInt256DivDecimalToDimensionless() public {
+        USDPerQuantoInt256 x = USDPerQuantoInt256.wrap(500 ether);
+        USDPerQuantoInt256 y = USDPerQuantoInt256.wrap(2 ether);
+        int256 result = x.divDecimalToDimensionless(y);
+        assertEq(result, 250 ether);
+    }
+
+    function testUSDPerQuantoInt256DivDecimalToDimensionlessFuzz(
+        int256 x,
+        int256 y
+    ) public {
+        int256 z;
+        int256 j;
+        assembly {
+            j :=
+                mul(
+                    x,
+                    0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+                )
+            z := sdiv(j, y)
+        }
+        bool wrongSign = (y < 0 && x < 0 && z < 0) || (y > 0 && x > 0 && z < 0)
+            || (y < 0 && x > 0 && z > 0) || (y > 0 && x < 0 && z > 0);
+        bool mulOverflow = (x != 0) && (j / 1 ether != x);
+        if (wrongSign || mulOverflow || y == 0) {
+            vm.expectRevert();
+            USDPerQuantoInt256.wrap(x).divDecimalToDimensionless(
+                USDPerQuantoInt256.wrap(y)
+            );
+        } else {
+            int256 result = USDPerQuantoInt256.wrap(x).divDecimalToDimensionless(
+                USDPerQuantoInt256.wrap(y)
+            );
+            assertEq(result, z);
+        }
+    }
+
     function testUSDPerQuantoInt256CeilDivide() public {
         USDPerQuantoInt256 x = USDPerQuantoInt256.wrap(10);
         USDPerQuantoInt256 y = USDPerQuantoInt256.wrap(3);
