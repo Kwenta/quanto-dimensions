@@ -12,7 +12,7 @@ import {
     USDPerQuantoUint256,
     USDUint256,
     InteractionsBaseUint256
-} from "../../src/UnitTypes.sol";
+} from "../../../src/UnitTypes.sol";
 
 contract BaseUint256Test is Test {
     using InteractionsBaseUint256 for BaseUint256;
