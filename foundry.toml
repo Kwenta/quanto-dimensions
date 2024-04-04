@@ -10,3 +10,11 @@ optimizer_runs = 1_000_000
 [fmt]
 line_length = 80
 number_underscore = "thousands"
+
+[invariant]
+runs = 256
+depth = 15
+fail_on_revert = false
+dictionary_weight = 50
+include_storage = true
+include_push_bytes = true
