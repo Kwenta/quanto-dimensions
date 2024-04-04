@@ -135,3 +135,9 @@ npm run test
 ```
 forge test --match-test TEST_NAME -vv
 ```
+
+5. Run specific contract test
+
+```
+forge test --match-contract CONTRACT_NAME -vv
+```
