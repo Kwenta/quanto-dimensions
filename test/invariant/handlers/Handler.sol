@@ -21,14 +21,6 @@ contract BaseInt128Handler is Test {
         ghostAddResult + x;
     }
 
-    function to256(BaseInt128 value) public view returns (BaseInt256) {
-        return value.to256();
-    }
-
-    function toUint(BaseInt128 value) public view returns (BaseUint128) {
-        return value.toUint();
-    }
-
     function mulDecimalToUSD(BaseInt128 value, USDPerBaseInt128 y)
         public
         view
@@ -43,14 +35,6 @@ contract BaseInt128Handler is Test {
         returns (BaseInt256)
     {
         return value.divDecimal(y);
-    }
-
-    function abs(BaseInt128 value) public view returns (BaseUint256) {
-        return value.abs();
-    }
-
-    function abs128(BaseInt128 value) public view returns (BaseUint128) {
-        return value.abs128();
     }
 }
 
@@ -70,7 +54,7 @@ contract Handler is Test {
         baseInt128Handler = _baseInt128Handler;
     }
 
-    function ghost_add(int128 x) public countCall("add") {
+    function ghost_add_BaseInt128(int128 x) public countCall("add") {
         baseInt128Handler.add(BaseInt128.wrap(x));
     }
 
