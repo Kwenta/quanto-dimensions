@@ -15,8 +15,10 @@ import {
 contract BaseInt128Handler is Test {
     using InteractionsBaseInt128 for BaseInt128;
 
-    function add(BaseInt128 x, BaseInt128 y) public view returns (BaseInt128) {
-        return x + y;
+    BaseInt128 public ghostAddResult;
+
+    function add(BaseInt128 x) public view {
+        ghostAddResult + x;
     }
 
     function to256(BaseInt128 value) public view returns (BaseInt256) {
@@ -68,11 +70,8 @@ contract Handler is Test {
         baseInt128Handler = _baseInt128Handler;
     }
 
-    function add(uint256 actorSeed, int128 x, int128 y)
-        public
-        countCall("add")
-    {
-        baseInt128Handler.add(BaseInt128.wrap(x), BaseInt128.wrap(y));
+    function ghost_add(int128 x) public countCall("add") {
+        baseInt128Handler.add(BaseInt128.wrap(x));
     }
 
     function callSummary() external view {

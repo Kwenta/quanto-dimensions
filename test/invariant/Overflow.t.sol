@@ -1,10 +1,9 @@
 pragma solidity >=0.8.19;
 
-import {DSTest} from "forge-std/Test.sol";
-import "forge-std/InvariantTest.sol";
-import {Handler, BaseInt128Handler} from "./handlers/Handler.sol";
+import {Test} from "forge-std/Test.sol";
+import {Handler, BaseInt128Handler, BaseInt128} from "./handlers/Handler.sol";
 
-contract OverflowInvariant is DSTest {
+contract OverflowInvariant is Test {
     BaseInt128Handler public baseInt128Handler;
     Handler public handler;
 
@@ -12,23 +11,19 @@ contract OverflowInvariant is DSTest {
         baseInt128Handler = new BaseInt128Handler();
         handler = new Handler({_baseInt128Handler: baseInt128Handler});
 
-        // bytes4[] memory selectors = new bytes4[](6);
-        // selectors[0] = Handler.deposit.selector;
-        // selectors[1] = Handler.withdraw.selector;
-        // selectors[2] = Handler.sendFallback.selector;
-        // selectors[3] = Handler.approve.selector;
-        // selectors[4] = Handler.transfer.selector;
-        // selectors[5] = Handler.transferFrom.selector;
-        // //selectors[6] = Handler.forcePush.selector;
+        bytes4[] memory selectors = new bytes4[](1);
+        selectors[0] = Handler.ghost_add.selector;
+        //selectors[n] = Handler.forcePush.selector;
 
-        // targetSelector(
-        //     FuzzSelector({addr: address(handler), selectors: selectors})
-        // );
+        targetSelector(
+            FuzzSelector({addr: address(handler), selectors: selectors})
+        );
 
         targetContract(address(handler));
     }
 
     function invariant_Int128_BaseInt128_Interactions() public {
-        assertEq(true, true);
+        BaseInt128 result = baseInt128Handler.ghostAddResult();
+        assertGe(result.unwrap(), 0);
     }
 }
