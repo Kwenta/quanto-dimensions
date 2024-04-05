@@ -1,4 +1,24 @@
-example of testing invariant(s) related to overflow and underflow
+## Invariant Testing Quanto Dimensions
+
+### What is Invariant Testing
+
+"Invariant testing allows for a set of invariant expressions to be tested against randomized sequences of pre-defined function calls from pre-defined contracts. After each function call is performed, all defined invariants are asserted.
+
+Invariant testing is a powerful tool to expose incorrect logic in protocols. Due to the fact that function call sequences are randomized and have fuzzed inputs, invariant testing can expose false assumptions and incorrect logic in edge cases and highly complex protocol states."
+
+- [Foundry Book](https://book.getfoundry.sh/forge/invariant-testing?highlight=target#invariant-targets)
+
+### What are the Quanto Dimensions
+
+todo
+
+### How We Use Invariant Testing
+
+todo
+
+### Example of Invariant Testing
+
+Testing invariant(s) related to overflow and underflow:
 
 ```solidity
 // SPDX-License-Identifier: GPL-3.0-or-later
