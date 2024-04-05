@@ -1,4 +1,4 @@
-example
+example of testing invariant(s) related to overflow and underflow
 
 ```solidity
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -34,27 +34,49 @@ contract ExampleHandler is Test {
 
 contract ExampleInvariantOverflow is Test {
     ExampleHandler public exampleHandler;
+    ExampleTypeHandler public exampleTypeHandler;
 
-    constructor(ExampleHandler _exampleHandler) {
-        exampleHandler = _exampleHandler;
+    function setUp() public {
+        exampleTypeHandler = new ExampleTypeHandler();
+        exampleHandler = new ExampleHandler(exampleTypeHandler);
+
+        // only add selectors that can result in overflow
+        bytes4[] memory selectors = new bytes4[](1);
+        selectors[0] = ExampleHandler.ghost_overflow.selector;
+
+        targetSelector(
+            FuzzSelector({addr: address(handler), selectors: selectors})
+        );
+
+        targetContract(address(exampleHandler));
     }
 
     function invariant_overflow() public view {
-        bytes memory x;
-        exampleHandler.ghost_overflow(x);
+        // invariant assertion happens here
     }
 }
 
 contract ExampleInvariantUnderflow is Test {
     ExampleHandler public exampleHandler;
+    ExampleTypeHandler public exampleTypeHandler;
 
-    constructor(ExampleHandler _exampleHandler) {
-        exampleHandler = _exampleHandler;
+    function setUp() public {
+        exampleTypeHandler = new ExampleTypeHandler();
+        exampleHandler = new ExampleHandler(exampleTypeHandler);
+
+        // only add selectors that can result in underflow
+        bytes4[] memory selectors = new bytes4[](1);
+        selectors[0] = ExampleHandler.ghost_underflow.selector;
+
+        targetSelector(
+            FuzzSelector({addr: address(handler), selectors: selectors})
+        );
+
+        targetContract(address(exampleHandler));
     }
 
     function invariant_underflow() public view {
-        bytes memory x;
-        exampleHandler.ghost_underflow(x);
+        // invariant assertion happens here
     }
 }
 ```
